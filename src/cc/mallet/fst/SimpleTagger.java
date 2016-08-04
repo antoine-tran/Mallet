@@ -14,12 +14,14 @@ import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import cc.mallet.pipe.Pipe;
+import cc.mallet.pipe.iterator.LineGroupIterator;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.AugmentableFeatureVector;
 import cc.mallet.types.FeatureVector;
@@ -29,10 +31,6 @@ import cc.mallet.types.InstanceList;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelSequence;
 import cc.mallet.types.Sequence;
-
-import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.iterator.LineGroupIterator;
-
 import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 
@@ -52,7 +50,7 @@ import cc.mallet.util.MalletLogger;
 public class SimpleTagger {
 
 	private static Logger logger =
-		MalletLogger.getLogger(SimpleTagger.class.getName());
+			MalletLogger.getLogger(SimpleTagger.class.getName());
 
 	/**
 	 * No <code>SimpleTagger</code> objects allowed.
@@ -119,16 +117,24 @@ public class SimpleTagger {
 		 *
 		 * @param sentence a <code>String</code>
 		 * @return the corresponding array of arrays of tokens.
+		 * 
 		 */
 		private String[][] parseSentence(String sentence) {
 			String[] lines = sentence.split("\n");
 			String[][] tokens = new String[lines.length][];
 			for (int i = 0; i < lines.length; i++) {
-				tokens[i] = lines[i].split(" ");
+				tokens[i] = lines[i].split("\\s+");
 			}
 			return tokens;
 		}
 
+		/**
+		 * @since 2016-08-04 - Hack this method so that it is able to accept numerical features in CRF
+		 * If the token contains the colon, then this is the numerical features, the left part is token
+		 * or feature name, and the right part is the value (in float precision)
+		 * @author tuan, andrew
+		 */
+		@Override
 		public Instance pipe (Instance carrier) {
 
 			Object inputData = carrier.getData();
@@ -163,22 +169,44 @@ public class SimpleTagger {
 					target.add(tokens[l][nFeatures]);
 				}
 				else nFeatures = tokens[l].length;
-				ArrayList<Integer> featureIndices = new ArrayList<Integer>();
+
+				// Added by Tuan: Depending on whether this sequence contains the numerical features,
+				// we will create an empty or non-empty values array
+				HashMap<Integer, Double> nonBinaryValues = new HashMap<>();
+
+				ArrayList<Integer> featureIndices = new ArrayList<Integer>(nFeatures);
 				for (int f = 0; f < nFeatures; f++) {
-					int featureIndex = features.lookupIndex(tokens[l][f]);
+					String t = tokens[l][f];
+					int tIdx = -1;
+					if ((tIdx = tokens[l][f].indexOf(':')) > 0) {
+						t = t.substring(0, tIdx);
+					}
+					int featureIndex = features.lookupIndex(t);
 					// gdruck
 					// If the data alphabet's growth is stopped, featureIndex
 					// will be -1.  Ignore these features.
 					if (featureIndex >= 0) {
 						featureIndices.add(featureIndex);
+						if (tIdx > 0) {
+							Double v = new Double(tokens[l][f].substring(tIdx + 1));
+							nonBinaryValues.put(featureIndex, v);
+						}
 					}
 				}
 				int[] featureIndicesArr = new int[featureIndices.size()];
+				double[] featureValArr = (nonBinaryValues.size() > 0) ? new double[featureIndices.size()] : null;
 				for (int index = 0; index < featureIndices.size(); index++) {
-					featureIndicesArr[index] = featureIndices.get(index);
+					int tmp = featureIndices.get(index);
+					featureIndicesArr[index] = tmp;
+					if (nonBinaryValues.containsKey(tmp)) {
+						featureValArr[index] = nonBinaryValues.get(tmp);
+					}
+					else {
+						featureValArr[index] = 1.0d;
+					}
 				}
-				fvs[l] = featureInductionOption.value ? new AugmentableFeatureVector(features, featureIndicesArr, null, featureIndicesArr.length) : 
-					new FeatureVector(features, featureIndicesArr);
+				fvs[l] = featureInductionOption.value ? new AugmentableFeatureVector(features, featureIndicesArr, featureValArr, featureIndicesArr.length) : 
+					new FeatureVector(features, featureIndicesArr, featureValArr);
 			}
 			carrier.setData(new FeatureVectorSequence(fvs));
 			if (isTargetProcessing()) {
@@ -192,111 +220,111 @@ public class SimpleTagger {
 	}
 
 	private static final CommandOption.Double gaussianVarianceOption = new CommandOption.Double
-		(SimpleTagger.class, "gaussian-variance", "DECIMAL", true, 10.0,
-		 "The gaussian prior variance used for training.", null);
+			(SimpleTagger.class, "gaussian-variance", "DECIMAL", true, 10.0,
+					"The gaussian prior variance used for training.", null);
 
 	private static final CommandOption.Boolean trainOption = new CommandOption.Boolean
-		(SimpleTagger.class, "train", "true|false", true, false,
-		 "Whether to train", null);
+			(SimpleTagger.class, "train", "true|false", true, false,
+					"Whether to train", null);
 
 	private static final CommandOption.String testOption = new CommandOption.String
-		(SimpleTagger.class, "test", "lab or seg=start-1.continue-1,...,start-n.continue-n",
-		 true, null,
-		 "Test measuring labeling or segmentation (start-i, continue-i) accuracy", null);
+			(SimpleTagger.class, "test", "lab or seg=start-1.continue-1,...,start-n.continue-n",
+					true, null,
+					"Test measuring labeling or segmentation (start-i, continue-i) accuracy", null);
 
 	private static final CommandOption.File modelOption = new CommandOption.File
-		(SimpleTagger.class, "model-file", "FILENAME", true, null,
-		 "The filename for reading (train/run) or saving (train) the model.", null);
+			(SimpleTagger.class, "model-file", "FILENAME", true, null,
+					"The filename for reading (train/run) or saving (train) the model.", null);
 
 	private static final CommandOption.Double trainingFractionOption = new CommandOption.Double
-		(SimpleTagger.class, "training-proportion", "DECIMAL", true, 0.5,
-		 "Fraction of data to use for training in a random split.", null);
+			(SimpleTagger.class, "training-proportion", "DECIMAL", true, 0.5,
+					"Fraction of data to use for training in a random split.", null);
 
 	private static final CommandOption.Integer randomSeedOption = new CommandOption.Integer
-		(SimpleTagger.class, "random-seed", "INTEGER", true, 0,
-		 "The random seed for randomly selecting a proportion of the instance list for training", null);
+			(SimpleTagger.class, "random-seed", "INTEGER", true, 0,
+					"The random seed for randomly selecting a proportion of the instance list for training", null);
 
 	private static final CommandOption.IntegerArray ordersOption = new CommandOption.IntegerArray
-		(SimpleTagger.class, "orders", "COMMA-SEP-DECIMALS", true, new int[]{1},
-		 "List of label Markov orders (main and backoff) ", null);
+			(SimpleTagger.class, "orders", "COMMA-SEP-DECIMALS", true, new int[]{1},
+					"List of label Markov orders (main and backoff) ", null);
 
 	private static final CommandOption.String forbiddenOption = new CommandOption.String
-		(SimpleTagger.class, "forbidden", "REGEXP", true,
-		 "\\s", "label1,label2 transition forbidden if it matches this", null);
-	
+			(SimpleTagger.class, "forbidden", "REGEXP", true,
+					"\\s", "label1,label2 transition forbidden if it matches this", null);
+
 	private static final CommandOption.String allowedOption = new CommandOption.String
-		(SimpleTagger.class, "allowed", "REGEXP", true,
-		 ".*", "label1,label2 transition allowed only if it matches this", null);
+			(SimpleTagger.class, "allowed", "REGEXP", true,
+					".*", "label1,label2 transition allowed only if it matches this", null);
 
 	private static final CommandOption.String defaultOption = new CommandOption.String
-		(SimpleTagger.class, "default-label", "STRING", true, "O",
-		 "Label for initial context and uninteresting tokens", null);
-	
+			(SimpleTagger.class, "default-label", "STRING", true, "O",
+					"Label for initial context and uninteresting tokens", null);
+
 	private static final CommandOption.Integer iterationsOption = new CommandOption.Integer
-		(SimpleTagger.class, "iterations", "INTEGER", true, 500,
-		 "Number of training iterations", null);
+			(SimpleTagger.class, "iterations", "INTEGER", true, 500,
+					"Number of training iterations", null);
 
 	private static final CommandOption.Boolean viterbiOutputOption = new CommandOption.Boolean
-		(SimpleTagger.class, "viterbi-output", "true|false", true, false,
-		 "Print Viterbi periodically during training", null);
+			(SimpleTagger.class, "viterbi-output", "true|false", true, false,
+					"Print Viterbi periodically during training", null);
 
 	private static final CommandOption.Boolean connectedOption = new CommandOption.Boolean
-		(SimpleTagger.class, "fully-connected", "true|false", true, true,
-		 "Include all allowed transitions, even those not in training data", null);
-	
+			(SimpleTagger.class, "fully-connected", "true|false", true, true,
+					"Include all allowed transitions, even those not in training data", null);
+
 	private static final CommandOption.String weightsOption = new CommandOption.String
-		(SimpleTagger.class, "weights", "sparse|some-dense|dense", true, "some-dense",
-		 "Use sparse, some dense (using a heuristic), or dense features on transitions.", null);
-	
+			(SimpleTagger.class, "weights", "sparse|some-dense|dense", true, "some-dense",
+					"Use sparse, some dense (using a heuristic), or dense features on transitions.", null);
+
 	private static final CommandOption.Boolean continueTrainingOption = new CommandOption.Boolean
-		(SimpleTagger.class, "continue-training", "true|false", false, false,
-		 "Continue training from model specified by --model-file", null);
-	
+			(SimpleTagger.class, "continue-training", "true|false", false, false,
+					"Continue training from model specified by --model-file", null);
+
 	private static final CommandOption.Integer nBestOption = new CommandOption.Integer
-		(SimpleTagger.class, "n-best", "INTEGER", true, 1,
-		 "How many answers to output", null);
-	
+			(SimpleTagger.class, "n-best", "INTEGER", true, 1,
+					"How many answers to output", null);
+
 	private static final CommandOption.Integer cacheSizeOption = new CommandOption.Integer
-		(SimpleTagger.class, "cache-size", "INTEGER", true, 100000,
-		 "How much state information to memoize in n-best decoding", null);
-	
+			(SimpleTagger.class, "cache-size", "INTEGER", true, 100000,
+					"How much state information to memoize in n-best decoding", null);
+
 	private static final CommandOption.Boolean includeInputOption = new CommandOption.Boolean
-		(SimpleTagger.class, "include-input", "true|false", true, false,
-		 "Whether to include the input features when printing decoding output", null);
+			(SimpleTagger.class, "include-input", "true|false", true, false,
+					"Whether to include the input features when printing decoding output", null);
 
 	private static final CommandOption.Boolean featureInductionOption = new CommandOption.Boolean
-		(SimpleTagger.class, "feature-induction", "true|false", true, false,
-		 "Whether to perform feature induction during training", null);
-  
+			(SimpleTagger.class, "feature-induction", "true|false", true, false,
+					"Whether to perform feature induction during training", null);
+
 	private static final CommandOption.Integer numThreads = new CommandOption.Integer
-		(SimpleTagger.class, "threads", "INTEGER", true, 1,
-		 "Number of threads to use for CRF training.", null);
-	
+			(SimpleTagger.class, "threads", "INTEGER", true, 1,
+					"Number of threads to use for CRF training.", null);
+
 	private static final CommandOption.List commandOptions =
-		new CommandOption.List (
-								"Training, testing and running a generic tagger.",
-								new CommandOption[] {
-									gaussianVarianceOption,
-									trainOption,
-									iterationsOption,
-									testOption,
-									trainingFractionOption,
-									modelOption,
-									randomSeedOption,
-									ordersOption,
-									forbiddenOption,
-									allowedOption,
-									defaultOption,
-									viterbiOutputOption,
-									connectedOption,
-									weightsOption,
-									continueTrainingOption,
-									nBestOption,
-									cacheSizeOption,
-									includeInputOption,
-									featureInductionOption,
-									numThreads
-								});
+			new CommandOption.List (
+					"Training, testing and running a generic tagger.",
+					new CommandOption[] {
+							gaussianVarianceOption,
+							trainOption,
+							iterationsOption,
+							testOption,
+							trainingFractionOption,
+							modelOption,
+							randomSeedOption,
+							ordersOption,
+							forbiddenOption,
+							allowedOption,
+							defaultOption,
+							viterbiOutputOption,
+							connectedOption,
+							weightsOption,
+							continueTrainingOption,
+							nBestOption,
+							cacheSizeOption,
+							includeInputOption,
+							featureInductionOption,
+							numThreads
+					});
 
 	/**
 	 * Create and train a CRF model from the given training data,
@@ -319,19 +347,19 @@ public class SimpleTagger {
 	 * @return the trained model
 	 */
 	public static CRF train(InstanceList training, InstanceList testing,
-							TransducerEvaluator eval, int[] orders,
-							String defaultLabel,
-							String forbidden, String allowed,
-							boolean connected, int iterations, double var, CRF crf) {
+			TransducerEvaluator eval, int[] orders,
+			String defaultLabel,
+			String forbidden, String allowed,
+			boolean connected, int iterations, double var, CRF crf) {
 
 		Pattern forbiddenPat = Pattern.compile(forbidden);
 		Pattern allowedPat = Pattern.compile(allowed);
 		if (crf == null) {
 			crf = new CRF(training.getPipe(), (Pipe)null);
 			String startName =
-				crf.addOrderNStates(training, orders, null,
-									defaultLabel, forbiddenPat, allowedPat,
-									connected);
+					crf.addOrderNStates(training, orders, null,
+							defaultLabel, forbiddenPat, allowedPat,
+							connected);
 			for (int i = 0; i < crf.numStates(); i++)
 				crf.getState(i).setInitialWeight (Transducer.IMPOSSIBLE_WEIGHT);
 			crf.getState(startName).setInitialWeight(0.0);
@@ -340,12 +368,12 @@ public class SimpleTagger {
 		if (testing != null) {
 			logger.info("Testing on " + testing.size() + " instances");
 		}
-    
+
 		assert(numThreads.value > 0);
 		if (numThreads.value > 1) {
 			CRFTrainerByThreadedLabelLikelihood crft = new CRFTrainerByThreadedLabelLikelihood (crf,numThreads.value);
 			crft.setGaussianPriorVariance(var);
-      
+
 			if (weightsOption.value.equals("dense")) {
 				crft.setUseSparseWeights(false);
 				crft.setUseSomeUnsupportedTrick(false);
@@ -361,7 +389,7 @@ public class SimpleTagger {
 			else {
 				throw new RuntimeException("Unknown weights option: " + weightsOption.value);
 			}
-      
+
 			if (featureInductionOption.value) {
 				throw new IllegalArgumentException("Multi-threaded feature induction is not yet supported.");
 			}
@@ -385,7 +413,7 @@ public class SimpleTagger {
 		else {
 			CRFTrainerByLabelLikelihood crft = new CRFTrainerByLabelLikelihood (crf);
 			crft.setGaussianPriorVariance(var);
-      
+
 			if (weightsOption.value.equals("dense")) {
 				crft.setUseSparseWeights(false);
 				crft.setUseSomeUnsupportedTrick(false);
@@ -401,7 +429,7 @@ public class SimpleTagger {
 			else {
 				throw new RuntimeException("Unknown weights option: " + weightsOption.value);
 			}
-      
+
 			if (featureInductionOption.value) {
 				crft.trainWithFeatureInduction(training, null, testing, eval, iterations, 10, 20, 500, 0.5, false, null);
 			} else {
@@ -421,7 +449,7 @@ public class SimpleTagger {
 				}
 			}
 		}
-    
+
 		return crf;
 	}
 
@@ -434,7 +462,7 @@ public class SimpleTagger {
 	 * @param testing test data
 	 */
 	public static void test(TransducerTrainer tt, TransducerEvaluator eval,
-							InstanceList testing) {
+			InstanceList testing) {
 		eval.evaluateInstanceList(tt, testing, "Testing");
 	}
 
@@ -456,7 +484,7 @@ public class SimpleTagger {
 		}
 		else {
 			MaxLatticeDefault lattice =
-				new MaxLatticeDefault (model, input, null, cacheSizeOption.value());
+					new MaxLatticeDefault (model, input, null, cacheSizeOption.value());
 
 			answers = lattice.bestOutputSequences(k).toArray(new Sequence[0]);
 		}
@@ -551,7 +579,7 @@ public class SimpleTagger {
 				throw new IllegalArgumentException("Missing model file option");
 			}
 			ObjectInputStream s =
-				new ObjectInputStream(new FileInputStream(modelOption.value));
+					new ObjectInputStream(new FileInputStream(modelOption.value));
 			crf = (CRF) s.readObject();
 			s.close();
 			p = crf.getInputPipe();
@@ -566,7 +594,7 @@ public class SimpleTagger {
 			p.setTargetProcessing(true);
 			trainingData = new InstanceList(p);
 			trainingData.addThruPipe(new LineGroupIterator(trainingFile,
-														   Pattern.compile("^\\s*$"), true));
+					Pattern.compile("^\\s*$"), true));
 
 			logger.info("Number of features in training data: "+p.getDataAlphabet().size());
 
@@ -574,13 +602,13 @@ public class SimpleTagger {
 				if (testFile != null) {
 					testData = new InstanceList(p);
 					testData.addThruPipe(new LineGroupIterator(testFile,
-															   Pattern.compile("^\\s*$"), true));
+							Pattern.compile("^\\s*$"), true));
 				}
 				else {
 					Random r = new Random (randomSeedOption.value);
 					InstanceList[] trainingLists =
-						trainingData.split(r, new double[] {trainingFractionOption.value,
-															1 - trainingFractionOption.value});
+							trainingData.split(r, new double[] {trainingFractionOption.value,
+									1 - trainingFractionOption.value});
 					trainingData = trainingLists[0];
 					testData = trainingLists[1];
 				}
@@ -590,28 +618,28 @@ public class SimpleTagger {
 			p.setTargetProcessing(true);
 			testData = new InstanceList(p);
 			testData.addThruPipe(new LineGroupIterator(testFile,
-													   Pattern.compile("^\\s*$"), true));
+					Pattern.compile("^\\s*$"), true));
 		}
 		else {
-				p.setTargetProcessing(false);
-				testData = new InstanceList(p);
-				testData.addThruPipe(
-									 new LineGroupIterator(testFile,
-														   Pattern.compile("^\\s*$"), true));
+			p.setTargetProcessing(false);
+			testData = new InstanceList(p);
+			testData.addThruPipe(
+					new LineGroupIterator(testFile,
+							Pattern.compile("^\\s*$"), true));
 		}
 		logger.info ("Number of predicates: "+p.getDataAlphabet().size());
-    
-    
+
+
 		if (testOption.value != null) {
 			if (testOption.value.startsWith("lab")) {
-					eval = new TokenAccuracyEvaluator(new InstanceList[] {trainingData, testData}, new String[] {"Training", "Testing"});
+				eval = new TokenAccuracyEvaluator(new InstanceList[] {trainingData, testData}, new String[] {"Training", "Testing"});
 			}
 			else if (testOption.value.startsWith("seg=")) {
 				String[] pairs = testOption.value.substring(4).split(",");
 				if (pairs.length < 1) {
 					commandOptions.printUsage(true);
 					throw new IllegalArgumentException
-						("Missing segment start/continue labels: " + testOption.value);
+					("Missing segment start/continue labels: " + testOption.value);
 				}
 				String startTags[] = new String[pairs.length];
 				String continueTags[] = new String[pairs.length];
@@ -621,24 +649,24 @@ public class SimpleTagger {
 					if (pair.length != 2) {
 						commandOptions.printUsage(true);
 						throw new
-							IllegalArgumentException
-							("Incorrectly-specified segment start and end labels: " + pairs[i]);
+						IllegalArgumentException
+						("Incorrectly-specified segment start and end labels: " + pairs[i]);
 					}
 					startTags[i] = pair[0];
 					continueTags[i] = pair[1];
 				}
 				eval = new MultiSegmentationEvaluator(new InstanceList[] {trainingData, testData}, new String[] {"Training", "Testing"}, 
-													  startTags, continueTags);
+						startTags, continueTags);
 			}
 			else {
-					commandOptions.printUsage(true);
-					throw new IllegalArgumentException("Invalid test option: " +
-													   testOption.value);
+				commandOptions.printUsage(true);
+				throw new IllegalArgumentException("Invalid test option: " +
+						testOption.value);
 			}
 		}
 
 
-    
+
 		if (p.isTargetProcessing()) {
 			Alphabet targets = p.getTargetAlphabet();
 			StringBuffer buf = new StringBuffer("Labels:");
@@ -649,13 +677,13 @@ public class SimpleTagger {
 
 		if (trainOption.value) {
 			crf = train(trainingData, testData, eval,
-						ordersOption.value, defaultOption.value,
-						forbiddenOption.value, allowedOption.value,
-						connectedOption.value, iterationsOption.value,
-						gaussianVarianceOption.value, crf);
+					ordersOption.value, defaultOption.value,
+					forbiddenOption.value, allowedOption.value,
+					connectedOption.value, iterationsOption.value,
+					gaussianVarianceOption.value, crf);
 			if (modelOption.value != null) {
 				ObjectOutputStream s =
-					new ObjectOutputStream(new FileOutputStream(modelOption.value));
+						new ObjectOutputStream(new FileOutputStream(modelOption.value));
 				s.writeObject(crf);
 				s.close();
 			} 
@@ -667,7 +695,7 @@ public class SimpleTagger {
 					throw new IllegalArgumentException("Missing model file option");
 				}
 				ObjectInputStream s =
-					new ObjectInputStream(new FileInputStream(modelOption.value));
+						new ObjectInputStream(new FileInputStream(modelOption.value));
 				crf = (CRF) s.readObject();
 				s.close();
 			}
@@ -707,5 +735,5 @@ public class SimpleTagger {
 
 		if (trainingFile != null) { trainingFile.close(); }
 		if (testFile != null) { testFile.close(); }
-	}
+	} 
 }
