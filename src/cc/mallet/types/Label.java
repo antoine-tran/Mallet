@@ -14,8 +14,6 @@
 
 package cc.mallet.types;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.*;
 
 import cc.mallet.types.Alphabet;
@@ -42,19 +40,23 @@ public class Label implements Labeling, Serializable, AlphabetCarrying
 		this.index = index;
 	}
 
+	@Override
 	public LabelAlphabet getLabelAlphabet ()
 	{
-		return (LabelAlphabet) dictionary;
+		return dictionary;
 	}
 
 	public int getIndex () { return index; }
 
+	@Override
 	public Alphabet getAlphabet () { return dictionary; }
 	
+	@Override
 	public Alphabet[] getAlphabets () { return new Alphabet[] { dictionary }; }
 	
 	public Object getEntry () { return entry; }
 
+	@Override
 	public String toString () { return entry.toString(); }
 
 
@@ -74,11 +76,13 @@ public class Label implements Labeling, Serializable, AlphabetCarrying
 
 	// Labeling interface
 
+	@Override
 	public Label getBestLabel ()
 	{
 		return this;
 	}
 
+	@Override
 	public int getBestIndex ()
 	{
 		return index;
@@ -86,50 +90,59 @@ public class Label implements Labeling, Serializable, AlphabetCarrying
 
 	static final double weightOfLabel = 1.0;
 
+	@Override
 	public double getBestValue ()
 	{
 		return weightOfLabel;
 	}
 
+	@Override
 	public double value (Label label)
 	{
 		assert (label.dictionary.equals(this.dictionary));
 		return weightOfLabel;
 	}
 
+	@Override
 	public double value (int labelIndex)
 	{
 		return labelIndex == this.index ? weightOfLabel : 0;
 	}
 
+	@Override
 	public int getRank (Label label)
 	{
 		assert (label.dictionary.equals(this.dictionary));
 		return label == this ? 0 : -1;
 	}
 
+	@Override
 	public int getRank (int labelIndex)
 	{
 		return labelIndex == this.index ? 0 : -1;
 	}
 
+	@Override
 	public Label getLabelAtRank (int rank)
 	{
 		assert (rank == 0);
 		return this;
 	}
 
+	@Override
 	public double getValueAtRank (int rank)
 	{
 		assert (rank == 0);
 		return weightOfLabel;
 	}
 
+	@Override
 	public void addTo (double[] weights)
 	{
 		weights[this.index] += weightOfLabel;
 	}
 	
+	@Override
 	public void addTo (double[] weights, double scale)
 	{
 		weights[this.index] += weightOfLabel * scale;
@@ -138,34 +151,40 @@ public class Label implements Labeling, Serializable, AlphabetCarrying
 
 	// The number of non-zero-weight Labels in this Labeling, not total
 	// number in the Alphabet
+	@Override
 	public int numLocations ()
 	{
 		return 1;
 	}
 
+	@Override
 	public Label labelAtLocation (int loc)
 	{
 		assert (loc == 0);
 		return this;
 	}
 
+	@Override
 	public double valueAtLocation (int loc)
 	{
 		assert (loc == 0);
 		return weightOfLabel;
 	}
 
+	@Override
 	public int indexAtLocation (int loc)
 	{
 		assert (loc == 0);
 		return index;
 	}
 
+	@Override
 	public LabelVector toLabelVector ()
 	{
-		return new LabelVector ((LabelAlphabet)dictionary, new int[] {index}, new double[] {weightOfLabel});
+		return new LabelVector (dictionary, new int[] {index}, new double[] {weightOfLabel});
 	}
 
+	@Override
 	public boolean equals (Object l) {
 		if (l instanceof Label) {
 			return ((Label)l).compareTo(this) == 0;

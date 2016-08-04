@@ -1,10 +1,7 @@
 package cc.mallet.pipe.iterator;
 
 import java.sql.*;
-import java.io.*;
 import java.util.*;
-import java.util.regex.*;
-
 import cc.mallet.types.*;
 import cc.mallet.pipe.*;
 
@@ -98,10 +95,12 @@ public class DBInstanceIterator implements Iterator<Instance> {
 		return new Noop(dataAlphabet, targetAlphabet);
 	}
 
+	@Override
 	public boolean hasNext() {
 		return atLeastOneMore;
 	}
 
+	@Override
 	public Instance next() {
 		Object name = null;
 		Object data = null;
@@ -173,6 +172,7 @@ public class DBInstanceIterator implements Iterator<Instance> {
 		}
 	}
 
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

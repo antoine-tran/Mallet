@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import cc.mallet.fst.Transducer.State;
@@ -280,18 +279,22 @@ public class SumLatticeScaling implements SumLattice {
 		}
 	}
 
+	@Override
 	public double[][][] getXis() {
 		return xis;
 	}
 
+	@Override
 	public double[][] getGammas() {
 		return gammas;
 	}
 
+	@Override
 	public double getTotalWeight() {
 		return totalWeight;
 	}
 
+	@Override
 	public double getGammaWeight(int inputPosition, State s) {
 		return gammas[inputPosition][s.getIndex()];
 	}
@@ -300,6 +303,7 @@ public class SumLatticeScaling implements SumLattice {
 		return gammas[inputPosition][stateIndex];
 	}
 
+	@Override
 	public double getGammaProbability(int inputPosition, State s) {
 		return Math.exp(gammas[inputPosition][s.getIndex()]);
 	}
@@ -308,10 +312,12 @@ public class SumLatticeScaling implements SumLattice {
 		return getGammaProbability(inputPosition, t.getState(stateIndex));
 	}
 
+	@Override
 	public double getXiProbability(int ip, State s1, State s2) {
 		return Math.exp(getXiWeight(ip, s1, s2));
 	}
 
+	@Override
 	public double getXiWeight(int ip, State s1, State s2) {
 		if (xis == null)
 			throw new IllegalStateException("xis were not saved.");
@@ -320,28 +326,34 @@ public class SumLatticeScaling implements SumLattice {
 		return xis[ip][i][j];
 	}
 
+	@Override
 	public int length() {
 		return latticeLength;
 	}
 
+	@Override
 	public double getAlpha(int ip, State s) {
 		LatticeNode node = getLatticeNode(ip, s.getIndex());
 		return node.alpha * Math.exp(alphaLogScaling[ip]);
 	}
 
+	@Override
 	public double getBeta(int ip, State s) {
 		LatticeNode node = getLatticeNode(ip, s.getIndex());
 		return node.beta * Math.exp(betaLogScaling[ip]);
 	}
 
+	@Override
 	public LabelVector getLabelingAtPosition(int outputPosition) {
 		throw new RuntimeException("Not implemented for SumLatticeScaling!");
 	}
 	
+	@Override
 	public Sequence getInput() { 
 	  return input;
 	}
 
+	@Override
 	public Transducer getTransducer() {
 		return t;
 	}
@@ -361,6 +373,7 @@ public class SumLatticeScaling implements SumLattice {
 
 	public static class Factory extends SumLatticeFactory implements
 			Serializable {
+		@Override
 		@SuppressWarnings("unchecked")
 		public SumLattice newSumLattice(Transducer trans, Sequence input,
 				Sequence output, Transducer.Incrementor incrementor,

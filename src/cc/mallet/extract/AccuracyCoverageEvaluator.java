@@ -9,15 +9,10 @@ package cc.mallet.extract;
 
 import java.io.PrintStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.Vector;
 
 import cc.mallet.fst.confidence.ConfidenceEvaluator;
-import cc.mallet.types.Label;
-import cc.mallet.types.LabelAlphabet;
-import cc.mallet.types.MatrixOps;
 
 /**
  * Constructs Accuracy-coverage graph using confidence values to sort Fields.
@@ -56,7 +51,8 @@ public class AccuracyCoverageEvaluator implements ExtractionEvaluator {
     this.errorOutputStream = new PrintStream (errorOutputStream);
   }
 
-  public void evaluate (Extraction extraction)
+  @Override
+public void evaluate (Extraction extraction)
   {
     evaluate ("", extraction, System.out);
   }

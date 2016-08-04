@@ -6,8 +6,6 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.grmm.types;
 
-import cc.mallet.util.Randoms;
-
 /**
  * A factor over a continuous variable theta and binary variables <tt>var</tt>.
  *  such that <tt>phi(x|theta)<tt> is Potts.  That is, for fixed theta, <tt>phi(x)</tt> = 1
@@ -38,22 +36,26 @@ public class BoltzmannPairFactor extends TableFactor {
 	return new double[] { 1, Math.exp(sigma), Math.exp(sigma), 1 };
     }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new BoltzmannPairFactor (x1, x2, sigma);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
       return Double.isNaN (sigma);
   }
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     if (this == o) return true;
     if (o == null || getClass () != o.getClass ()) return false;
@@ -67,7 +69,8 @@ public class BoltzmannPairFactor extends TableFactor {
     return true;
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     int result;
     result = new Double(sigma).hashCode();
@@ -76,12 +79,14 @@ public class BoltzmannPairFactor extends TableFactor {
     return result;
   }
 
-    public String prettyOutputString ()
+    @Override
+	public String prettyOutputString ()
     {
 	return x1.getLabel() + " " + x2.getLabel() + " ~ BinaryPair " + Double.toString(sigma);
     }
 
-    public Factor multiply (Factor other) {
+    @Override
+	public Factor multiply (Factor other) {
 	Factor result = new TableFactor (this);
 	result.multiplyBy (other);
 	return result;

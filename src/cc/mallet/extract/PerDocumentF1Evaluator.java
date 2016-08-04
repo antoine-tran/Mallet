@@ -55,7 +55,8 @@ public class PerDocumentF1Evaluator implements ExtractionEvaluator {
   }
 
 
-  public void evaluate (Extraction extraction)
+  @Override
+public void evaluate (Extraction extraction)
   {
     evaluate (extraction, System.out);
   }

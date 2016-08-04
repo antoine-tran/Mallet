@@ -10,15 +10,11 @@
 
 package cc.mallet.pipe;
 
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.util.logging.*;
 import java.io.*;
 
 import cc.mallet.types.Instance;
 import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
-import cc.mallet.util.MalletLogger;
 
 /**
 
@@ -86,6 +82,7 @@ public class TokenSequenceParseFeatureString extends Pipe implements Serializabl
 	}
 
 	
+	@Override
 	public Instance pipe (Instance carrier) {
 		TokenSequence ts = (TokenSequence) carrier.getData ();
 		for (int i=0; i < ts.size(); i++) {

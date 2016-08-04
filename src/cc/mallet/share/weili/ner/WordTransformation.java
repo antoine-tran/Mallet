@@ -13,9 +13,6 @@
 package cc.mallet.share.weili.ner;
 
 import java.util.regex.*;
-import java.io.*;
-
-import cc.mallet.pipe.*;
 import cc.mallet.types.*;
 
 public class WordTransformation

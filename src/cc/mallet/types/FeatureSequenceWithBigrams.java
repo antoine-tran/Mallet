@@ -12,8 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import cc.mallet.pipe.TokenSequenceRemoveStopwords;
-
 /** A FeatureSequence with a parallel record of bigrams, kept in a separate dictionary
  *  @author <a href="mailto:mccallum@cs.umass.edu">Andrew McCallum</a>
  */
@@ -49,6 +47,7 @@ public class FeatureSequenceWithBigrams extends FeatureSequence
 		return biFeatures[pos];
 	}
 
+	@Override
 	public Object getObjectAtPosition (int pos)
 	{
 		return biFeatures[pos] == -1 ? null : (biDictionary == null ? null : biDictionary.lookupObject (biFeatures[pos]));

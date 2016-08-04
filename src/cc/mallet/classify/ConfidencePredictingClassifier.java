@@ -14,14 +14,8 @@
 
 package cc.mallet.classify;
 
-import java.util.ArrayList;
-
 import cc.mallet.classify.Classifier;
-import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelVector;
 
 public class ConfidencePredictingClassifier extends Classifier
@@ -56,6 +50,7 @@ public class ConfidencePredictingClassifier extends Classifier
 
 	}
 
+	@Override
 	public Classification classify (Instance instance)
 	{
 		Classification c = underlyingClassifier.classify (instance);
@@ -120,14 +115,14 @@ public class ConfidencePredictingClassifier extends Classifier
 	{
 		if(this.numCorrectInstances==0)
 			return 0.0;
-		return (this.totalCorrect/(double)this.numCorrectInstances);
+		return (this.totalCorrect/this.numCorrectInstances);
 	}
 
 	public double meanIncorrect()
 	{
 		if(this.numIncorrectInstances==0)
 			return 0.0;
-		return (this.totalIncorrect/(double)this.numIncorrectInstances);
+		return (this.totalIncorrect/this.numIncorrectInstances);
 	}
 
 }

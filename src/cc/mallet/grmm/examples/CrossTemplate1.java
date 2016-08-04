@@ -26,7 +26,8 @@ public class CrossTemplate1 extends ACRF.SequenceTemplate {
     this.lvl2 = lvl2;
   }
 
-  protected void addInstantiatedCliques (ACRF.UnrolledGraph graph, FeatureVectorSequence fvs, LabelsAssignment lblseq)
+  @Override
+protected void addInstantiatedCliques (ACRF.UnrolledGraph graph, FeatureVectorSequence fvs, LabelsAssignment lblseq)
   {
     for (int t = 0; t < lblseq.size() - 1; t++) {
       Variable var1 = lblseq.varOfIndex (t, lvl1);

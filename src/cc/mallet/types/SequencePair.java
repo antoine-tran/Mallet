@@ -13,7 +13,6 @@
  */
 
 package cc.mallet.types;
-import cc.mallet.fst.Segment;
 
 public class SequencePair<I,O>
 {

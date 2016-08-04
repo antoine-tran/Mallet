@@ -1,6 +1,5 @@
 package cc.mallet.classify;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.logging.Logger;
@@ -131,26 +130,31 @@ public class MaxEntOptimizableByLabelLikelihood implements Optimizable.ByGradien
 
 	public MaxEnt getClassifier () { return theClassifier; }
 
+	@Override
 	public double getParameter (int index) {
 		return parameters[index];
 	}
 
+	@Override
 	public void setParameter (int index, double v) {
 		cachedValueStale = true;
 		cachedGradientStale = true;
 		parameters[index] = v;
 	}
 
+	@Override
 	public int getNumParameters() {
 		return parameters.length;
 	}
 
+	@Override
 	public void getParameters (double[] buff) {
 		if (buff == null || buff.length != parameters.length)
 			buff = new double [parameters.length];
 		System.arraycopy (parameters, 0, buff, 0, parameters.length);
 	}
 
+	@Override
 	public void setParameters (double [] buff) {
 		assert (buff != null);
 		cachedValueStale = true;
@@ -162,6 +166,7 @@ public class MaxEntOptimizableByLabelLikelihood implements Optimizable.ByGradien
 
 
 	// log probability of the training labels
+	@Override
 	public double getValue ()
 	{
 		if (cachedValueStale) {
@@ -238,6 +243,7 @@ public class MaxEntOptimizableByLabelLikelihood implements Optimizable.ByGradien
 		return cachedValue;
 	}
 
+	@Override
 	public void getValueGradient (double [] buffer) {
 
 		// Gradient is (constraint - expectation - parameters/gaussianPriorVariance)

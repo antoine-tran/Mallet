@@ -70,6 +70,7 @@ public class TestMultinomial extends TestCase
 		return new TestSuite (TestMultinomial.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

@@ -220,7 +220,8 @@ class RegionGraph {
     return (RegionEdge) edges.get (idx);
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     StringBuffer buf = new StringBuffer ();
     buf.append ("REGION GRAPH\nRegions:\n");

@@ -15,18 +15,14 @@ import java.io.Serializable;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.Iterator;
-
 import cc.mallet.classify.Classifier;
 import cc.mallet.pipe.Noop;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.AlphabetCarrying;
-import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labeling;
 import cc.mallet.types.Multinomial;
 
@@ -99,6 +95,7 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
   }
   
   
+	@Override
 	public NaiveBayes getClassifier () { return classifier; }
 
   public NaiveBayesTrainer setDocLengthNormalization (double d) {
@@ -185,7 +182,8 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
    * @param initialClassifier   Currently unused
    * @return The NaiveBayes classifier as trained on the trainingList
    */
-  public NaiveBayes train (InstanceList trainingList)
+  @Override
+public NaiveBayes train (InstanceList trainingList)
   {
   	// Forget all the previous sufficient statistics counts;
   	me = null; pe = null;
@@ -194,7 +192,8 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
   	return classifier;
   }
   
-  public NaiveBayes trainIncremental (InstanceList trainingInstancesToAdd) 
+  @Override
+public NaiveBayes trainIncremental (InstanceList trainingInstancesToAdd) 
   {
   	// Initialize and check instance variables as necessary...
   	setup(trainingInstancesToAdd, null);
@@ -209,7 +208,8 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
     return classifier;
   }
   
-  public NaiveBayes trainIncremental (Instance instance) {
+  @Override
+public NaiveBayes trainIncremental (Instance instance) {
   	setup (null, instance);
   	
   	// Incrementally add the counts of this new training instance
@@ -319,7 +319,8 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
    * trainingLists passed to incrementalTrain()
    */
 
-  public String toString()
+  @Override
+public String toString()
   {
     return "NaiveBayesTrainer";
   }
@@ -330,10 +331,12 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
 		return Alphabet.alphabetsMatch (this, object);
 	}
 
+	@Override
 	public Alphabet getAlphabet() {
 		return dataAlphabet;
 	}
 
+	@Override
 	public Alphabet[] getAlphabets() {
 		return new Alphabet[] { dataAlphabet, targetAlphabet };
 	}
@@ -392,6 +395,7 @@ implements ClassifierTrainer.ByInstanceIncrements<NaiveBayes>, Boostable, Alphab
     Multinomial.Estimator priorEstimator = new Multinomial.LaplaceEstimator();
     double docLengthNormalization = -1;
     
+		@Override
 		public NaiveBayesTrainer newClassifierTrainer(Classifier initialClassifier) {
 			return new NaiveBayesTrainer ((NaiveBayes)initialClassifier);
 		}

@@ -30,6 +30,7 @@ public class TestFeatureVector extends TestCase
 	FeatureSequence fs;
 	FeatureVector fv;
 	
+	@Override
 	protected void setUp ()
 	{
 		dict = new Alphabet ();

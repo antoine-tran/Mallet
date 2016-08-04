@@ -40,11 +40,13 @@ public class MaxEntL2FLPRConstraints extends MaxEntFLPRConstraints {
     }
   }
 
-  public int numDimensions() {
+  @Override
+public int numDimensions() {
     return constraints.size() * numLabels;
   }
 
-  public double getAuxiliaryValueContribution(double[] parameters) {
+  @Override
+public double getAuxiliaryValueContribution(double[] parameters) {
     double value = 0;
     for (int fi : constraints.keys()) {
       int ci = constraintIndices.get(fi);
@@ -59,7 +61,8 @@ public class MaxEntL2FLPRConstraints extends MaxEntFLPRConstraints {
     return value;
   }
 
-  public void getGradient(double[] parameters, double[] gradient) {
+  @Override
+public void getGradient(double[] parameters, double[] gradient) {
     for (int fi : constraints.keys()) {
       int ci = constraintIndices.get(fi);
       double norm;
@@ -78,7 +81,8 @@ public class MaxEntL2FLPRConstraints extends MaxEntFLPRConstraints {
     }
   }
 
-  public double getCompleteValueContribution() {
+  @Override
+public double getCompleteValueContribution() {
     double value = 0;
     for (int fi : constraints.keys()) {
       double norm;
@@ -95,7 +99,8 @@ public class MaxEntL2FLPRConstraints extends MaxEntFLPRConstraints {
     return value;
   }
 
-  public double getScore(FeatureVector input, int label, double[] parameters) {
+  @Override
+public double getScore(FeatureVector input, int label, double[] parameters) {
     double score = 0;
     for (int i = 0; i < indexCache.size(); i++) {
       int ci = constraintIndices.get(indexCache.getQuick(i));

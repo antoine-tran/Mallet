@@ -89,10 +89,12 @@ public class OrthantWiseLimitedMemoryBFGS implements Optimizer {
 		oldGrad = new double[numParameters];
 	}
 
+	@Override
 	public Optimizable getOptimizable() {
 		return optimizable;
 	}
 
+	@Override
 	public boolean isConverged() {
 		return converged;
 	}
@@ -101,10 +103,12 @@ public class OrthantWiseLimitedMemoryBFGS implements Optimizer {
 		return iterations;
 	}
 
+	@Override
 	public boolean optimize() {
 		return optimize(Integer.MAX_VALUE);
 	}
 
+	@Override
 	public boolean optimize(int numIterations) {
 		logger.fine("Entering OWL-BFGS.optimize(). L1 weight=" + l1Weight
 				+ " Initial Value=" + value);

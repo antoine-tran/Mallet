@@ -145,12 +145,14 @@ public class ROCData implements AlphabetCarrying, Serializable {
     }
 
     //@Override
-    public Alphabet getAlphabet() {
+    @Override
+	public Alphabet getAlphabet() {
         return this.labelAlphabet;
     }
 
     //@Override
-    public Alphabet[] getAlphabets() {
+    @Override
+	public Alphabet[] getAlphabets() {
         return new Alphabet[] { this.labelAlphabet };
     }
     
@@ -245,7 +247,7 @@ public class ROCData implements AlphabetCarrying, Serializable {
             fp = buckets[index][FALSE_POSITIVE] - buckets[index + 1][FALSE_POSITIVE];
         }
 
-        return (double) tp / (double) (tp + fp);
+        return tp / (tp + fp);
     }
     
     /**
@@ -318,7 +320,8 @@ public class ROCData implements AlphabetCarrying, Serializable {
     }
     
     //@Override
-    public String toString() {
+    @Override
+	public String toString() {
         final StringBuilder buf = new StringBuilder();
         final NumberFormat format = new DecimalFormat("0.####");
         

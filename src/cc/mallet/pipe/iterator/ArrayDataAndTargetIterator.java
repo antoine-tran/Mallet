@@ -15,16 +15,9 @@
 package cc.mallet.pipe.iterator;
 
 import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 import java.net.URI;
-import java.net.URISyntaxException;
-
-import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Label;
 
 public class ArrayDataAndTargetIterator implements Iterator<Instance>
 {
@@ -46,6 +39,7 @@ public class ArrayDataAndTargetIterator implements Iterator<Instance>
 
 	// The PipeInputIterator interface
 
+	@Override
 	public Instance next ()
 	{
 		URI uri = null;
@@ -54,8 +48,10 @@ public class ArrayDataAndTargetIterator implements Iterator<Instance>
 		return new Instance (subIterator.next(), targetIterator.next(), uri, null);
 	}
 
+	@Override
 	public boolean hasNext ()	{	return subIterator.hasNext();	}
 
+	@Override
 	public void remove () { throw new IllegalStateException ("This iterator does not support remove().");	}
 	
 }

@@ -40,6 +40,7 @@ public class CharSubsequence extends Pipe implements Serializable
 		this (regex, 1);
 	}
 		
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		CharSequence string = (CharSequence) carrier.getData();

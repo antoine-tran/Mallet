@@ -38,7 +38,7 @@ import cc.mallet.util.PropertyList;
 
 
    @author Andrew McCallum <a href="mailto:mccallum@cs.umass.edu">mccallum@cs.umass.edu</a>
-*/
+ */
 public class SparseVector implements ConstantMatrix, Vector, Serializable
 {
 	/** 
@@ -47,19 +47,19 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			the below. The indices[] array maps locations to indices of the
 			(virtual) dense array that's being represented.  value[] maps
 			locations to values.
-	*/
+	 */
 	protected int[] indices;												// if this is null, then the vector is dense
 	protected double[] values;											// if this is null, then the vector is binary
 	protected boolean hasInfinite;                  // if true, at least one value =  -Inf or +Inf
-	
+
 	/** If "indices" is null, the vector will be dense.  If "values" is
 			null, the vector will be binary.  The capacity and size arguments are
 			used by AugmentableFeatureVector. */
 	public SparseVector (int[] indices, double[] values, 
-													int capacity, int size,
-													boolean copy,
-													boolean checkIndicesSorted,
-													boolean removeDuplicates)
+			int capacity, int size,
+			boolean copy,
+			boolean checkIndicesSorted,
+			boolean removeDuplicates)
 	{
 		// "size" was pretty much ignored??? Why?
 		int length;
@@ -68,9 +68,9 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			capacity = length;
 		assert (size <= length);
 		if (!(values == null || indices == null || indices.length == values.length))
-      throw new IllegalArgumentException
-            ("Attempt to create sparse non-binary SparseVector with mismatching values & indices\n"
-            +"  indices.length = "+indices.length+"   values.length = "+values.length);
+			throw new IllegalArgumentException
+			("Attempt to create sparse non-binary SparseVector with mismatching values & indices\n"
+					+"  indices.length = "+indices.length+"   values.length = "+values.length);
 		if (copy || capacity > length) {
 			if (indices == null)
 				this.indices = null;
@@ -106,50 +106,50 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	public SparseVector (int size, double fillValue) {
 		this (newArrayOfValue (size, fillValue), false); }
 
-	
+
 	public SparseVector (int[] indices, double[] values, 
-											 boolean copy, boolean checkIndicesSorted,
-											 boolean removeDuplicates)
+			boolean copy, boolean checkIndicesSorted,
+			boolean removeDuplicates)
 	{
 		this (indices, values,
-					(indices != null) ? indices.length : values.length,
-					(indices != null) ? indices.length : values.length,
-					copy, checkIndicesSorted, removeDuplicates);
+				(indices != null) ? indices.length : values.length,
+						(indices != null) ? indices.length : values.length,
+								copy, checkIndicesSorted, removeDuplicates);
 	}
 
 	public SparseVector (int[] indices, double[] values)
 	{
 		this (indices, values, true, true, true);
 	}
-	
+
 	public SparseVector (int[] indices, double[] values, boolean copy)
 	{
 		this (indices, values, copy, true, true);
 	}
-	
+
 	public SparseVector (int[] indices, double[] values, boolean copy,
-											 boolean checkIndicesSorted)
+			boolean checkIndicesSorted)
 	{
 		this (indices, values, copy, checkIndicesSorted, true);
 	}
 
 	// Create a vector that is possibly binary or non-binary
 	public SparseVector (int[] indices,
-											 boolean copy,
-											 boolean checkIndicesSorted,
-											 boolean removeDuplicates,
-											 boolean binary)
+			boolean copy,
+			boolean checkIndicesSorted,
+			boolean removeDuplicates,
+			boolean binary)
 	{
 		this (indices, binary ? null : newArrayOfValue(indices.length,1.0), indices.length, indices.length,
-					copy, checkIndicesSorted, removeDuplicates);
+				copy, checkIndicesSorted, removeDuplicates);
 	}
 
 	// Create a binary vector
 	public SparseVector (int[] indices,
-											 int capacity, int size,
-											 boolean copy,
-											 boolean checkIndicesSorted,
-											 boolean removeDuplicates)
+			int capacity, int size,
+			boolean copy,
+			boolean checkIndicesSorted,
+			boolean removeDuplicates)
 	{
 		this (indices, null, capacity, size, copy, checkIndicesSorted, removeDuplicates);
 	}
@@ -165,7 +165,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		this (new int[0], new double[0], false, false); }
 
 	public SparseVector (Alphabet dict, PropertyList pl, boolean binary,
-											 boolean growAlphabet)
+			boolean growAlphabet)
 	{
 		if (pl == null) {
 			// xxx Fix SparseVector so that it can properly represent a vector that has all zeros.
@@ -189,7 +189,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 				}
 			}
 		}
-		
+
 		AugmentableFeatureVector afv = new AugmentableFeatureVector (dict, binary);
 		//afv.print();
 		//System.out.println ("SparseVector binary="+binary);
@@ -227,14 +227,16 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	public void makeBinary () { throw new UnsupportedOperationException ("Not yet implemented"); }
 	public void makeNonBinary () { throw new UnsupportedOperationException ("Not yet implemented"); }
 
-	
+
 	/***********************************************************************
 	 *  ACCESSORS
 	 ***********************************************************************/
-	
+
+	@Override
 	public int getNumDimensions () { return 1; }
-	
+
 	// xxx What do we return for the length?  It could be higher than this index.
+	@Override
 	public int getDimensions (int[] sizes)
 	{
 		if (indices == null)
@@ -251,7 +253,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	public int [] getIndices() {
 		return indices;
 	}
-	
+
 	// necessary for the SVM implementation! -dmetzler
 	// ...but be careful, this is allowed to be null! -cas
 	public double [] getValues()
@@ -261,15 +263,17 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 
 	// xxx This is just the number of non-zero entries...
 	// This is different behavior than Matrix2!!
+	@Override
 	public int numLocations ()
 	{
 		return (values == null
-						? (indices == null
-							 ? 0
-							 : indices.length)
+				? (indices == null
+				? 0
+						: indices.length)
 						: values.length);
 	}
 
+	@Override
 	public int location (int index) {
 		if (indices == null)
 			return index;
@@ -277,9 +281,12 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			return Arrays.binarySearch (indices, index);
 	}
 
+	@Override
 	public double valueAtLocation (int location) { return values == null ? 1.0 : values[location]; }
+	@Override
 	public int indexAtLocation (int location) { return indices == null ? location : indices[location]; }
-	
+
+	@Override
 	public double value (int[] indices)
 	{
 		assert (indices.length == 1);
@@ -288,7 +295,8 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		else
 			return values[location(indices[0])];
 	}
-		
+
+	@Override
 	public double value (int index)
 	{
 		if (indices == null)
@@ -326,13 +334,17 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	{
 		addTo (accumulator, 1.0);
 	}
-	
+
+	@Override
 	public int singleIndex (int[] indices) { assert (indices.length == 1); return indices[0]; }
-	
+
+	@Override
 	public void singleToIndices (int i, int[] indices) { indices[0] = i; }
-	
+
+	@Override
 	public double singleValue (int i) { return value(i); }
-	
+
+	@Override
 	public int singleSize ()
 	{
 		if (indices == null)
@@ -347,32 +359,34 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 
 
 
-    public String toString() {
-	return this.toString(false);
-    }
-
-    public String toString(boolean onOneLine) {
-
-	StringBuffer sb = new StringBuffer ();
-	
-	for (int i = 0; i < values.length; i++)
-	{
-	    sb.append((indices == null ? i : indices[i]));
-	    sb.append ("=");
-	    sb.append (values[i]);
-	    if (!onOneLine)
-		sb.append ("\n");
-	    else
-		sb.append (' ');
+	@Override
+	public String toString() {
+		return this.toString(false);
 	}
 
-	return sb.toString();
-    }
-	
-  /***********************************************************************
+	public String toString(boolean onOneLine) {
+
+		StringBuffer sb = new StringBuffer ();
+
+		for (int i = 0; i < values.length; i++)
+		{
+			sb.append((indices == null ? i : indices[i]));
+			sb.append ("=");
+			sb.append (values[i]);
+			if (!onOneLine)
+				sb.append ("\n");
+			else
+				sb.append (' ');
+		}
+
+		return sb.toString();
+	}
+
+	/***********************************************************************
 	 *  CLONING
 	 ***********************************************************************/
 
+	@Override
 	public ConstantMatrix cloneMatrix () {
 		if (indices == null)
 			return new SparseVector (values);
@@ -389,8 +403,8 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			return new SparseVector (newIndices, new double[values.length], true, false, false);
 		}
 	}
-	
-	
+
+
 	/***********************************************************************
 	 *  MUTATORS
 	 ***********************************************************************/
@@ -413,14 +427,14 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	 */
 	public void plusEqualsSparse (SparseVector v, double factor)
 	{
-    // Special case for dense sparse vector
-    if (indices == null) { densePlusEqualsSparse (v, factor); return; }
+		// Special case for dense sparse vector
+		if (indices == null) { densePlusEqualsSparse (v, factor); return; }
 
 		int loc1 = 0;
 		int loc2 = 0;
 		int numLocations1 = numLocations();
 		int numLocations2 = v.numLocations();
-		
+
 		while ((loc1 < numLocations1) && (loc2 < numLocations2)) {
 			int idx1 = indexAtLocation (loc1);
 			int idx2 = v.indexAtLocation (loc2);
@@ -430,7 +444,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			} else if (idx1 < idx2) {
 				++loc1;
 			} else {
-        // idx2 not present in this. Ignore.
+				// idx2 not present in this. Ignore.
 				++loc2;
 			}
 		}
@@ -455,12 +469,12 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	 */
 	public void timesEqualsSparse (SparseVector v, double factor)
 	{
-    // Special case for dense sparse vector
-    if (indices == null) { denseTimesEqualsSparse (v, factor); return; }
+		// Special case for dense sparse vector
+		if (indices == null) { denseTimesEqualsSparse (v, factor); return; }
 
 		int loc1 = 0;
 		int loc2 = 0;
-		
+
 		while ((loc1 < numLocations()) && (loc2 < v.numLocations())) {
 			int idx1 = indexAtLocation (loc1);
 			int idx2 = v.indexAtLocation (loc2);
@@ -470,7 +484,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			} else if (idx1 < idx2) {
 				++loc1;
 			} else {
-        // idx2 not present in this. Ignore.
+				// idx2 not present in this. Ignore.
 				++loc2;
 			}
 		}
@@ -484,12 +498,12 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	 */
 	public void timesEqualsSparseZero (SparseVector v, double factor)
 	{
-    // Special case for dense sparse vector
-    if (indices == null) { denseTimesEqualsSparse (v, factor); return; }
+		// Special case for dense sparse vector
+		if (indices == null) { denseTimesEqualsSparse (v, factor); return; }
 
 		int loc1 = 0;
 		int loc2 = 0;
-		
+
 		while ((loc1 < numLocations()) && (loc2 < v.numLocations())) {
 			int idx1 = indexAtLocation (loc1);
 			int idx2 = v.indexAtLocation (loc2);
@@ -501,50 +515,50 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 				values[loc1] = 0;
 				++loc1;
 			} else {
-        // idx2 not present in this. Ignore
+				// idx2 not present in this. Ignore
 				++loc2;
 			}
 		}
 	}
-    
 
-        /**
+
+	/**
 	 * Scale all elements by the same factor.
 	 */
-        public void timesEquals( double factor )
-        {
-	    for (int i = 0; i < values.length; i++)
-		values[i] *= factor;
+	public void timesEquals( double factor )
+	{
+		for (int i = 0; i < values.length; i++)
+			values[i] *= factor;
 	}
 
 
-  private void densePlusEqualsSparse (SparseVector v, double factor)
-  {
-    int maxloc = v.numLocations();
-    for (int loc = 0; loc < maxloc; loc++) {
-      int idx = v.indexAtLocation (loc);
-      if (idx >= values.length) break;
-      values [idx] += v.valueAtLocation (loc) * factor;
-    }
-  }
+	private void densePlusEqualsSparse (SparseVector v, double factor)
+	{
+		int maxloc = v.numLocations();
+		for (int loc = 0; loc < maxloc; loc++) {
+			int idx = v.indexAtLocation (loc);
+			if (idx >= values.length) break;
+			values [idx] += v.valueAtLocation (loc) * factor;
+		}
+	}
 
 
-  private void denseTimesEqualsSparse (SparseVector v, double factor)
-  {
-    int maxloc = v.numLocations();
-    for (int loc = 0; loc < maxloc; loc++) {
-      int idx = v.indexAtLocation (loc);
-      if (idx >= values.length) break;
-      values [idx] *= v.valueAtLocation (loc) * factor;
-    }
-  }
+	private void denseTimesEqualsSparse (SparseVector v, double factor)
+	{
+		int maxloc = v.numLocations();
+		for (int loc = 0; loc < maxloc; loc++) {
+			int idx = v.indexAtLocation (loc);
+			if (idx >= values.length) break;
+			values [idx] *= v.valueAtLocation (loc) * factor;
+		}
+	}
 
-    /**
+	/**
 	 * Increments this[index] by value.
 	 * @throws IllegalArgumentException If index is not present.
 	 */
 	public void incrementValue (int index, double value)
-		throws IllegalArgumentException
+			throws IllegalArgumentException
 	{
 		int loc = location (index);
 		if (loc >= 0)
@@ -565,7 +579,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	 *  @throws IllegalArgumentException If index is not present.
 	 */
 	public void setValue (int index, double value)
-		throws IllegalArgumentException
+			throws IllegalArgumentException
 	{
 		if (indices == null)
 			values[index] = value;
@@ -584,72 +598,72 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		values[location] = value;
 	}
 
-        /** Copy values from an array into this vector. The array should have the
+	/** Copy values from an array into this vector. The array should have the
 	 * same size as the vector */
-    // yanked from DenseVector
-        public final void arrayCopyFrom( double[] a ) 
-        {
-	    arrayCopyFrom(a,0);
+	// yanked from DenseVector
+	public final void arrayCopyFrom( double[] a ) 
+	{
+		arrayCopyFrom(a,0);
 	}
 
-        /** Copy values from an array starting at a particular location into this
+	/** Copy values from an array starting at a particular location into this
 	 * vector. The array must have at least as many values beyond the 
 	 * starting location as there are in the vector.
 	 *
 	 * @return Next uncopied location in the array.
 	 */
-        public final int arrayCopyFrom( double [] a , int startingArrayLocation )
-        {
-	    System.arraycopy( a, startingArrayLocation, 
-			      values, 0, values.length );
-	    
-	    return startingArrayLocation + values.length;
+	public final int arrayCopyFrom( double [] a , int startingArrayLocation )
+	{
+		System.arraycopy( a, startingArrayLocation, 
+				values, 0, values.length );
+
+		return startingArrayLocation + values.length;
 	}
-	
 
-    /** 
-     * Applies the method argument to each value in a non-binary vector. 
-     * The method should both accept a Double as an argument and return a Double.
-     *
-     * @throws IllegalArgumentException If the method argument has an 
-     *                                  inappropriate signature.
-     * @throws UnsupportedOperationException If vector is binary 
-     * @throws IllegalAccessException If the method is inaccessible
-     * @throws Throwable If the method throws an exception it is relayed
-     */
-    public final void map (Method f) throws IllegalAccessException, Throwable
-    {
-	if (values == null)
-	    throw new UnsupportedOperationException
-		("Binary values may not be altered via map");
 
-	if (f.getParameterTypes().length!=1 ||
-	    f.getParameterTypes()[0] != Double.class ||
-	    f.getReturnType() != Double.class )
-	    throw new IllegalArgumentException
-		("Method signature must be \"Double f (Double x)\"");
+	/** 
+	 * Applies the method argument to each value in a non-binary vector. 
+	 * The method should both accept a Double as an argument and return a Double.
+	 *
+	 * @throws IllegalArgumentException If the method argument has an 
+	 *                                  inappropriate signature.
+	 * @throws UnsupportedOperationException If vector is binary 
+	 * @throws IllegalAccessException If the method is inaccessible
+	 * @throws Throwable If the method throws an exception it is relayed
+	 */
+	public final void map (Method f) throws IllegalAccessException, Throwable
+	{
+		if (values == null)
+			throw new UnsupportedOperationException
+			("Binary values may not be altered via map");
 
-	try {
-	    for (int i=0 ; i<values.length ; i++)
-		values[i] = ((Double)f.invoke 
-			     (null, 
-			      new Object[]
-				 {new Double(values[i])})).doubleValue ();
-	} catch (InvocationTargetException e) {
-	    throw e.getTargetException();
+		if (f.getParameterTypes().length!=1 ||
+				f.getParameterTypes()[0] != Double.class ||
+				f.getReturnType() != Double.class )
+			throw new IllegalArgumentException
+			("Method signature must be \"Double f (Double x)\"");
+
+		try {
+			for (int i=0 ; i<values.length ; i++)
+				values[i] = ((Double)f.invoke 
+						(null, 
+								new Object[]
+										{new Double(values[i])})).doubleValue ();
+		} catch (InvocationTargetException e) {
+			throw e.getTargetException();
+		}
 	}
-    }
 
 
-        /** Copy the contents of this vector into an array starting at a 
+	/** Copy the contents of this vector into an array starting at a 
 	 * particular location. 
 	 *
 	 * @return Next available location in the array 
 	 */
-        public final int arrayCopyInto (double[] array, int startingArrayLocation)
+	public final int arrayCopyInto (double[] array, int startingArrayLocation)
 	{
 		System.arraycopy (values, 0, array, startingArrayLocation, 
-				  values.length);
+				values.length);
 		return startingArrayLocation + values.length;
 	}
 
@@ -670,6 +684,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		return ret;
 	}
 
+	@Override
 	public double dotProduct (ConstantMatrix m) {
 		if (m instanceof SparseVector) return dotProduct ((SparseVector)m);
 		else if (m instanceof DenseVector) return dotProduct ((DenseVector)m);
@@ -711,52 +726,52 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			}
 		return ret;
 	}
-	
+
 	public double dotProduct (SparseVector v)
 	{
 		if (v.hasInfinite || hasInfinite)
 			return extendedDotProduct(v);
 
-    double ret;
+		double ret;
 
-    // Decide in which direction to do the dot product.
-    //  This is a heuristic choice based on efficiency, and it could certainly
-    //   be more complicated.
-    if (v instanceof IndexedSparseVector) {
-      ret = v.dotProduct (this);
-    } else if(numLocations() > v.numLocations ()) {
-      ret = dotProductInternal (v, this);
+		// Decide in which direction to do the dot product.
+		//  This is a heuristic choice based on efficiency, and it could certainly
+		//   be more complicated.
+		if (v instanceof IndexedSparseVector) {
+			ret = v.dotProduct (this);
+		} else if(numLocations() > v.numLocations ()) {
+			ret = dotProductInternal (v, this);
 		} else {
 			ret = dotProductInternal (this, v);
 		}
 
-    if (Double.isNaN (ret))
+		if (Double.isNaN (ret))
 			return extendedDotProduct (v);
 
 		return ret;
 	}
 
 
-  private double dotProductInternal (SparseVector vShort, SparseVector vLong)
-  {
-    double ret = 0;
-    int numShortLocs = vShort.numLocations();
-    if (vShort.isBinary ()) {
-      for(int i = 0; i < numShortLocs; i++) {
-	  		ret += vLong.value (vShort.indexAtLocation(i));
-		  }
-    } else {
-      for(int i = 0; i < numShortLocs; i++) {
-	  		double v1 = vShort.valueAtLocation(i);
-		  	double v2 = vLong.value (vShort.indexAtLocation(i));
-			  ret += v1*v2;
-		  }
-    }
-    return ret;
-  }
+	private double dotProductInternal (SparseVector vShort, SparseVector vLong)
+	{
+		double ret = 0;
+		int numShortLocs = vShort.numLocations();
+		if (vShort.isBinary ()) {
+			for(int i = 0; i < numShortLocs; i++) {
+				ret += vLong.value (vShort.indexAtLocation(i));
+			}
+		} else {
+			for(int i = 0; i < numShortLocs; i++) {
+				double v1 = vShort.valueAtLocation(i);
+				double v2 = vLong.value (vShort.indexAtLocation(i));
+				ret += v1*v2;
+			}
+		}
+		return ret;
+	}
 
 
-  // sets -Inf * 0 = 0, Inf * 0 = 0
+	// sets -Inf * 0 = 0, Inf * 0 = 0
 	public double extendedDotProduct (SparseVector v)
 	{
 		double ret = 0.0;
@@ -775,7 +790,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			double v1 = vShort.valueAtLocation(i);
 			double v2 = vLong.value (vShort.indexAtLocation(i));
 			if (Double.isInfinite(v1) && v2==0.0) {
-			 vShort.hasInfinite = true;
+				vShort.hasInfinite = true;
 				continue;
 			}
 			else if (Double.isInfinite(v2) && v1==0.0) {
@@ -784,10 +799,10 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			}
 			ret += v1*v2;
 		}
-	
+
 		return ret;
 	}
-	
+
 	public SparseVector vectorAdd(SparseVector v, double scale) {
 		if(indices != null) { // sparse SparseVector
 			int [] ind = v.getIndices();
@@ -795,12 +810,12 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			int [] newIndices = new int[ind.length+indices.length];
 			double [] newVals = new double[ind.length+indices.length];
 			for(int i = 0; i < indices.length; i++) {
-		    newIndices[i] = indices[i];
-		    newVals[i] = values[i];
+				newIndices[i] = indices[i];
+				newVals[i] = values[i];
 			}
 			for(int i = 0; i < ind.length; i++) {
-		    newIndices[i+indices.length] = ind[i];
-		    newVals[i+indices.length] = scale*val[i];
+				newIndices[i+indices.length] = ind[i];
+				newVals[i+indices.length] = scale*val[i];
 			}
 			return new SparseVector(newIndices, newVals, true, true, false);
 		}
@@ -810,13 +825,14 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		for(int i = 0; i < values.length; i++) {
 			double val = values[i]+scale*v.value(i);
 			if(val != 0.0) {
-		    newIndices[curPos] = i;
-		    newVals[curPos++] = val;
+				newIndices[curPos] = i;
+				newVals[curPos++] = val;
 			}
 		}
 		return new SparseVector(newIndices, newVals, true, true, false);
 	}
 
+	@Override
 	public double oneNorm () {
 		double ret = 0;
 		if (values == null)
@@ -826,6 +842,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		return ret;
 	}
 
+	@Override
 	public double absNorm () {
 		double ret = 0;
 		if (values == null)
@@ -834,7 +851,8 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			ret += Math.abs(values[i]);
 		return ret;
 	}
-	
+
+	@Override
 	public double twoNorm () {
 		double ret = 0;
 		if (values == null)
@@ -843,7 +861,8 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			ret += values[i] * values[i];
 		return Math.sqrt (ret);
 	}
-	
+
+	@Override
 	public double infinityNorm () {
 		if (values == null)
 			return 1.0;
@@ -854,6 +873,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 		return max;
 	}		
 
+	@Override
 	public void print() 
 	{
 		if (values == null) {
@@ -867,15 +887,16 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			}
 		}
 	}
-		
+
+	@Override
 	public boolean isNaN() {
 		if (values == null)
 			return false;
 		return MatrixOps.isNaN(values);
-//		for (int i = 0; i < values.length; i++)
-//			if (Double.isNaN(values[i]))
-//				return true;
-//		return false;
+		//		for (int i = 0; i < values.length; i++)
+		//			if (Double.isNaN(values[i]))
+		//				return true;
+		//		return false;
 	}
 
 	// gsc: similar to isNaN but checks for infinite values
@@ -884,15 +905,15 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			return false;
 		return MatrixOps.isInfinite(values);
 	}
-	
+
 	// gsc: returns true if any value is either NaN or infinite
 	public boolean isNaNOrInfinite() {
 		if (values == null)
 			return false;
 		return MatrixOps.isNaNOrInfinite(values);
 	}
-	
-	
+
+
 	protected void sortIndices ()
 	//public void sortIndices () //modified by Limin Yao
 	{
@@ -971,14 +992,14 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 
 	private static final long serialVersionUID = 2;  
 	private static final int CURRENT_SERIAL_VERSION = 1;
-	
-	
+
+
 	private void writeObject (ObjectOutputStream out) throws IOException
 	{
-    if (this instanceof AugmentableFeatureVector)
-      // Be sure to sort/compress our data before we write it
-      ((AugmentableFeatureVector)this).sortIndices();
-    out.writeInt (CURRENT_SERIAL_VERSION);
+		if (this instanceof AugmentableFeatureVector)
+			// Be sure to sort/compress our data before we write it
+			((AugmentableFeatureVector)this).sortIndices();
+		out.writeInt (CURRENT_SERIAL_VERSION);
 		out.writeInt (indices == null ? -1 : indices.length);
 		out.writeInt (values == null ? -1 : values.length);
 		if (indices != null)
@@ -990,7 +1011,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 	}
 
 	private void readObject (ObjectInputStream in)
-		throws IOException, ClassNotFoundException
+			throws IOException, ClassNotFoundException
 	{
 		int version = in.readInt ();
 		int indicesSize = in.readInt();
@@ -1003,7 +1024,7 @@ public class SparseVector implements ConstantMatrix, Vector, Serializable
 			}
 		}
 		if (valuesSize >= 0) {
-				values = new double[valuesSize];
+			values = new double[valuesSize];
 			for (int i = 0; i < valuesSize; i++) {
 				values[i] = in.readDouble();
 				if (Double.isInfinite (values[i]))

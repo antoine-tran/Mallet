@@ -21,11 +21,13 @@ public class PairF1Evaluator extends ClusteringEvaluator {
 		tpTotal = fnTotal = fpTotal = 0;
 	}
 
+	@Override
 	public String evaluate (Clustering truth, Clustering predicted) {
 		double[] vals = getEvaluationScores(truth, predicted);
 		return "pr=" + vals[0] + " re=" + vals[1] + " f1=" + vals[2];
 	}
 
+	@Override
 	public String evaluateTotals () {
 		double prTotal = (double)tpTotal / (tpTotal+fpTotal);
 		double recTotal = (double)tpTotal / (tpTotal+fnTotal);

@@ -34,7 +34,8 @@ public class TwoLabelKLGEConstraints extends TwoLabelGEConstraints {
     super(constraintsList,constraintsMap,map);
   }
   
-  public GEConstraint copy() {
+  @Override
+public GEConstraint copy() {
     return new TwoLabelKLGEConstraints(this.constraintsList, this.constraintsMap, this.map); 
   }
   

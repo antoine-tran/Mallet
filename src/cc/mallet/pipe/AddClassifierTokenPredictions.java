@@ -123,12 +123,14 @@ public class AddClassifierTokenPredictions extends Pipe implements Serializable
 		}
 	}
 	
+	@Override
 	public Alphabet getDataAlphabet() { return m_dataAlphabet; }
 	
 	/**
 	 * Add the token classifier's predictions as features to the instance.
 	 * This method assumes the input instance contains FeatureVectorSequence as data  
 	 */
+	@Override
 	public Instance pipe(Instance carrier) 
 	{
 		FeatureVectorSequence fvs = (FeatureVectorSequence) carrier.getData();
@@ -324,6 +326,7 @@ public class AddClassifierTokenPredictions extends Pipe implements Serializable
 		}
 
 
+		@Override
 		public Classification classify(Instance instance)
 		{
 			return classify(instance, false);

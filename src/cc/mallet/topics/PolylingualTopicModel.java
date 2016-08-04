@@ -1163,7 +1163,7 @@ public class PolylingualTopicModel implements Serializable {
 
 			for (int language = 0; language < numLanguages; language++) {
 			
-				LabelSequence topicSequence = (LabelSequence) data.get(di).topicSequences[language];
+				LabelSequence topicSequence = data.get(di).topicSequences[language];
 				int[] currentDocTopics = topicSequence.getFeatures();
 				
 				docLength = topicSequence.getLength();
@@ -1210,7 +1210,7 @@ public class PolylingualTopicModel implements Serializable {
 		for (int doc = 0; doc < data.size(); doc++) {
 			for (int language =0; language < numLanguages; language++) {
 				FeatureSequence tokenSequence =	(FeatureSequence) data.get(doc).instances[language].getData();
-				LabelSequence topicSequence =	(LabelSequence) data.get(doc).topicSequences[language];
+				LabelSequence topicSequence =	data.get(doc).topicSequences[language];
 				
 				for (int pi = 0; pi < topicSequence.getLength(); pi++) {
 					int type = tokenSequence.getIndexAtPosition(pi);
@@ -1259,7 +1259,7 @@ public class PolylingualTopicModel implements Serializable {
 
             for (int language = 0; language < numLanguages; language++) {
 
-                LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequences[language];
+                LabelSequence topicSequence = data.get(doc).topicSequences[language];
                 int[] currentDocTopics = topicSequence.getFeatures();
 
 				totalLength += topicSequence.getLength();

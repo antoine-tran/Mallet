@@ -53,6 +53,7 @@ public class CountMatches extends Pipe
 		this (featureName, regex, INTEGER_COUNT);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

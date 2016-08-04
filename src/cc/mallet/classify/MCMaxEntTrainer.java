@@ -16,28 +16,17 @@ import java.util.logging.*;
 import java.util.*;
 import java.io.*;
 
-import cc.mallet.classify.Classifier;
 import cc.mallet.optimize.LimitedMemoryBFGS;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.optimize.Optimizer;
-import cc.mallet.optimize.tests.*;
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.ExpGain;
-import cc.mallet.types.FeatureInducer;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
-import cc.mallet.types.GradientGain;
-import cc.mallet.types.InfoGain;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
-import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labeling;
 import cc.mallet.types.MatrixOps;
-import cc.mallet.types.RankedFeatureVector;
-import cc.mallet.types.Vector;
 import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
@@ -224,15 +213,17 @@ public class MCMaxEntTrainer extends ClassifierTrainer<MCMaxEnt> implements Boos
 		return this;
 	}
 	
+	@Override
 	public MCMaxEnt getClassifier () {
 		return mt.getClassifier();
 	}
 
 
+	@Override
 	public MCMaxEnt train (InstanceList trainingSet)
 	{
 		logger.fine ("trainingSet.size() = "+trainingSet.size());
-		mt = new MaximizableTrainer (trainingSet, (MCMaxEnt)initialClassifier);
+		mt = new MaximizableTrainer (trainingSet, initialClassifier);
 		Optimizer maximizer = new LimitedMemoryBFGS(mt);
 		// CPAL - change the tolerance for large vocab experiments
 		((LimitedMemoryBFGS)maximizer).setTolerance(.00001);    // std is .0001;
@@ -426,6 +417,7 @@ public class MCMaxEntTrainer extends ClassifierTrainer<MCMaxEnt> implements Boos
 	public int getValueCalls() {return numGetValueCalls;}
 //	public int getIterations() {return maximizerByGradient.getIterations();}
 
+	@Override
 	public String toString()
 	{
 		return "MCMaxEntTrainer"
@@ -532,26 +524,31 @@ public class MCMaxEntTrainer extends ClassifierTrainer<MCMaxEnt> implements Boos
 
 		public MCMaxEnt getClassifier () { return theClassifier; }
 
+		@Override
 		public double getParameter (int index) {
 			return parameters[index];
 		}
 
+		@Override
 		public void setParameter (int index, double v) {
 			cachedValueStale = true;
 			cachedGradientStale = true;
 			parameters[index] = v;
 		}
 
+		@Override
 		public int getNumParameters() {
 			return parameters.length;
 		}
 
+		@Override
 		public void getParameters (double[] buff) {
 			if (buff == null || buff.length != parameters.length)
 				buff = new double [parameters.length];
 			System.arraycopy (parameters, 0, buff, 0, parameters.length);
 		}
 
+		@Override
 		public void setParameters (double [] buff) {
 			assert (buff != null);
 			cachedValueStale = true;
@@ -563,6 +560,7 @@ public class MCMaxEntTrainer extends ClassifierTrainer<MCMaxEnt> implements Boos
 
 
 		// log probability of the training labels
+		@Override
 		public double getValue ()
 		{
 			if (cachedValueStale) {
@@ -686,6 +684,7 @@ public class MCMaxEntTrainer extends ClassifierTrainer<MCMaxEnt> implements Boos
 
 		// CPAL first get value, then gradient
 
+		@Override
 		public void getValueGradient (double [] buffer)
 		{
 			// Gradient is (constraint - expectation - parameters/gaussianPriorVariance)

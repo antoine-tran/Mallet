@@ -23,7 +23,6 @@ import cc.mallet.pipe.tsf.RegexMatches;
 import cc.mallet.pipe.tsf.TokenText;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.types.tests.TestSerializable;
 
@@ -126,7 +125,7 @@ public class TestOffsetFeatureConjunctions extends TestCase {
         theSuite.addTest (new TestOffsetFeatureConjunctions (args[i]));
       }
     } else {
-      theSuite = (TestSuite) suite ();
+      theSuite = suite ();
     }
 
     junit.textui.TestRunner.run (theSuite);

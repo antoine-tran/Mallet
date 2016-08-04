@@ -51,7 +51,8 @@ public class ListMember extends Pipe implements java.io.Serializable {
         }
     }
 
-    public Instance pipe (Instance carrier) {
+    @Override
+	public Instance pipe (Instance carrier) {
         TokenSequence seq = (TokenSequence)carrier.getData();
         boolean[] marked = new boolean[seq.size()];
         for (int i=0; i<seq.size(); i++) {

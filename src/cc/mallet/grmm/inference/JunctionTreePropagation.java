@@ -174,7 +174,8 @@ class JunctionTreePropagation implements Serializable {
      * This sends a sum-product message, normalized to avoid
      * underflow.
      */
-    public void sendMessage (JunctionTree jt, VarSet from, VarSet to)
+    @Override
+	public void sendMessage (JunctionTree jt, VarSet from, VarSet to)
     {
       Collection sepset = jt.getSepset (from, to);
       Factor fromCpf = jt.getCPF (from);
@@ -191,7 +192,8 @@ class JunctionTreePropagation implements Serializable {
       jt.setCPF (to, toCpf);
     }
 
-    public Factor extractBelief (Factor cpf, VarSet varSet)
+    @Override
+	public Factor extractBelief (Factor cpf, VarSet varSet)
     {
       return cpf.marginalize (varSet);
     }
@@ -219,7 +221,8 @@ class JunctionTreePropagation implements Serializable {
     /**
      * This sends a max-product message.
      */
-    public void sendMessage (JunctionTree jt, VarSet from, VarSet to)
+    @Override
+	public void sendMessage (JunctionTree jt, VarSet from, VarSet to)
     {
 //      System.err.println ("Send message "+from+" --> "+to);
       Collection sepset = jt.getSepset (from, to);
@@ -237,7 +240,8 @@ class JunctionTreePropagation implements Serializable {
       jt.setCPF (to, toCpf);
     }
 
-    public Factor extractBelief (Factor cpf, VarSet varSet)
+    @Override
+	public Factor extractBelief (Factor cpf, VarSet varSet)
     {
       return cpf.extractMax (varSet);
     }

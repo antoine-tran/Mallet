@@ -7,14 +7,7 @@
 
 package cc.mallet.topics;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-
-import java.util.zip.*;
-
 import java.io.*;
-import java.text.NumberFormat;
-
 import cc.mallet.types.*;
 import cc.mallet.util.Randoms;
 

@@ -75,7 +75,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 	public AugmentableFeatureVector (Alphabet dict) {
 		this (dict, false); }
 	public AugmentableFeatureVector (FeatureVector fv) {
-		this ((Alphabet)fv.dictionary, fv.indices, fv.values,
+		this (fv.dictionary, fv.indices, fv.values,
 				fv.indices == null ? fv.values.length : fv.indices.length,
 						fv.indices == null ? fv.values.length : fv.indices.length,
 								true, false, false);
@@ -232,6 +232,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 	}
 
 
+	@Override
 	public final int numLocations () {
 		if (indices == null)
 			//return values.length;
@@ -241,6 +242,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return size;
 	}
 
+	@Override
 	public final int location (int index) {
 		if (indices == null)
 			return index;
@@ -256,6 +258,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return -1;
 	}
 
+	@Override
 	public final double valueAtLocation (int location) {
 		if (indices == null)
 			return values[location];
@@ -264,6 +267,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return super.valueAtLocation (location);
 	}
 
+	@Override
 	public final int indexAtLocation (int location) {
 		if (indices == null)
 			return location;
@@ -273,6 +277,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return super.indexAtLocation (location);
 	}
 
+	@Override
 	public final double value (int index) {
 		if (indices == null)
 			return values[index];
@@ -288,6 +293,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 			return 0;
 	}
 
+	@Override
 	public final void addTo (double[] accumulator, double scale)
 	{
 		if (indices != null && size-1 != maxSortedIndex)
@@ -304,10 +310,12 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		}
 	}
 
+	@Override
 	public final void addTo (double[] accumulator) {
 		addTo (accumulator, 1.0);
 	}
 
+	@Override
 	public final void setValue (int index, double value) {
 		if (indices != null && size-1 != maxSortedIndex)
 			sortIndices();
@@ -320,17 +328,20 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		}
 	}
 
+	@Override
 	public final void setValueAtLocation (int location, double value) {
 		assert (location < size);
 		values[location] = value;
 	}
 
+	@Override
 	public ConstantMatrix cloneMatrix () {
-		return new AugmentableFeatureVector ((Alphabet)dictionary,
+		return new AugmentableFeatureVector (dictionary,
 				indices, values, indices.length, size,
 				true, false, false);
 	}
 
+	@Override
 	public ConstantMatrix cloneMatrixZeroed () {
 		if (indices == null)
 			return new AugmentableFeatureVector (dictionary, new double[values.length]);
@@ -343,6 +354,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		}
 	}
 
+	@Override
 	public int singleSize () {
 		return (indices == null
 				? values.length
@@ -361,10 +373,11 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 	public FeatureVector toFeatureVector () {
 		if (indices != null && size-1 != maxSortedIndex)
 			sortIndices();
-		return new FeatureVector ((Alphabet)dictionary,
+		return new FeatureVector (dictionary,
 				indices, values, size, size, true, false, false);
 	}
 
+	@Override
 	public double dotProduct (DenseVector v) {
 		if (indices != null && size-1 != maxSortedIndex)
 			sortIndices();
@@ -381,6 +394,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return ret;
 	}
 
+	@Override
 	public final double dotProduct (SparseVector v) {
 		if (v instanceof AugmentableFeatureVector)
 			return dotProduct((AugmentableFeatureVector)v);
@@ -601,6 +615,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		plusEquals (v, 1.0);
 	}
 
+	@Override
 	public void setAll (double v)
 	{
 		assert (values != null);
@@ -608,6 +623,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 			values[i] = v;
 	}
 
+	@Override
 	public double oneNorm () {
 		if (size-1 != maxSortedIndex)
 			sortIndices();
@@ -619,6 +635,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return ret;
 	}
 
+	@Override
 	public double twoNorm () {
 		if (size-1 != maxSortedIndex)
 			sortIndices();
@@ -630,6 +647,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return Math.sqrt (ret);
 	}
 
+	@Override
 	public double infinityNorm () {
 		if (size-1 != maxSortedIndex)
 			sortIndices();
@@ -642,6 +660,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 		return max;
 	}		
 
+	@Override
 	public void print() {
 		//System.out.println ("ASV size="+size+" dict.size="+dictionary.size()+" values.length="+values.length+" indices.length="+indices.length);
 		if (size-1 != maxSortedIndex)
@@ -650,6 +669,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 	}
 
 
+	@Override
 	protected void sortIndices ()
 	{		
 		if (indices == null) // vector is dense, so indices are already sorted 
@@ -690,6 +710,7 @@ public class AugmentableFeatureVector extends FeatureVector implements Serializa
 	// otherwise it assumes they have been counted elsewhere, and that numDuplicates
 	// is how many that count yeilded.
 	// Note that this method relies on the indices being sorted first
+	@Override
 	protected void removeDuplicates (int numDuplicates)
 	{
 		if (indices == null)

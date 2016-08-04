@@ -48,7 +48,7 @@ public class MaxEntSequenceConfidenceEstimator extends TransducerSequenceConfide
 		 @param incorrect "incorrect" label
 	 */
 	public MaxEnt trainClassifier (InstanceList ilist, String correct, String incorrect) {
-		this.meClassifier = (MaxEnt) meTrainer.train (ilist);
+		this.meClassifier = meTrainer.train (ilist);
 		this.pipe = ilist.getPipe ();
 		this.correct = correct;
 		this.incorrect = incorrect;
@@ -63,6 +63,7 @@ public class MaxEntSequenceConfidenceEstimator extends TransducerSequenceConfide
 	/**
 		 Calculates the confidence in the tagging of an {@link Instance}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Instance instance,
 																			 Object[] startTags, Object[] inTags) {		
 		

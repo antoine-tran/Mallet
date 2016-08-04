@@ -80,6 +80,7 @@ public class MultiSegmentationEvaluator extends TransducerEvaluator
 				segmentStartTags, segmentContinueTags);
 	}
 
+	@Override
 	public void evaluateInstanceList (TransducerTrainer tt, InstanceList data, String description)
   {
   	Transducer model = tt.getTransducer();
@@ -278,7 +279,7 @@ public class MultiSegmentationEvaluator extends TransducerEvaluator
       //tokens = (String) instance.getSource().toString();
       Sequence trueOutput = (Sequence) instance.getTarget();
       assert (input.size() == trueOutput.size());
-      Sequence predOutput = (Sequence) predictedSequences.get (i);
+      Sequence predOutput = predictedSequences.get (i);
 			if (predOutput == null) // skip this instance
 				continue;
       assert (predOutput.size() == trueOutput.size());

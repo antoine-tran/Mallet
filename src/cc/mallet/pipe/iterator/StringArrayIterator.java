@@ -27,6 +27,7 @@ public class StringArrayIterator implements Iterator<Instance>
 		this.index = 0;
 	}
 
+	@Override
 	public Instance next ()
 	{
 		URI uri = null;
@@ -35,8 +36,10 @@ public class StringArrayIterator implements Iterator<Instance>
 		return new Instance (data[index++], null, uri, null);
 	}
 
+	@Override
 	public boolean hasNext ()	{	return index < data.length;	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

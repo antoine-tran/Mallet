@@ -112,7 +112,7 @@ public class TestBetaFactor extends TestCase {
         theSuite.addTest (new TestBetaFactor (args[i]));
       }
     } else {
-      theSuite = (TestSuite) TestBetaFactor.suite ();
+      theSuite = TestBetaFactor.suite ();
     }
 
     junit.textui.TestRunner.run (theSuite);

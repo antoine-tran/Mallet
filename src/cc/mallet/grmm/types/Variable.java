@@ -118,7 +118,8 @@ public class Variable implements Comparable, Serializable {
     return outcomes;
   }
 
-  public int compareTo(Object o)
+  @Override
+public int compareTo(Object o)
   {
     /*
     Variable var = (Variable) o;
@@ -149,7 +150,8 @@ public class Variable implements Comparable, Serializable {
     return properties.lookupNumber (key);
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return label;
   }

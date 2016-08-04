@@ -54,6 +54,7 @@ public abstract class Calo2Classify
 	 true, new String[] {"test:accuracy", "test:confusion",  "train:accuracy"},
 	 "", null)
         {
+		@Override
 		public void postParsing (CommandOption.List list)
 		{
 			java.lang.String defaultRawFormatting = "siw";
@@ -126,6 +127,7 @@ public abstract class Calo2Classify
 	 "If no '(' appears, then \"new \" will be prepended and \"Trainer()\" will be appended."+
 	 "You may use this option mutiple times to compare multiple classifiers.", null)
 		{
+			@Override
 			public void parseArg (java.lang.String arg) {
 				// parse something like Maxent,gaussianPriorVariance=10,numIterations=20
 				//System.out.println("Arg = " + arg);
@@ -208,6 +210,7 @@ public abstract class Calo2Classify
 				}
 
 			}
+			@Override
 			public void postParsing (CommandOption.List list) {
 				assert (this.value instanceof ClassifierTrainer);
 				//System.out.println("v2c PostParsing " + this.value);

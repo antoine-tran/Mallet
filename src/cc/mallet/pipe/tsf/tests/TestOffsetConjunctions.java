@@ -59,6 +59,7 @@ public class TestOffsetConjunctions extends TestCase
 		return new TestSuite (TestOffsetConjunctions.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

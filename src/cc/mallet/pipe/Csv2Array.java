@@ -13,13 +13,8 @@ package cc.mallet.pipe;
 
 
 import java.util.logging.*;
-import java.lang.reflect.Array;
-
 import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Labeling;
 import cc.mallet.util.CharSequenceLexer;
 import cc.mallet.util.MalletLogger;
 
@@ -57,6 +52,7 @@ public class Csv2Array extends Pipe {
 	 * of comma-separated-values to an array, where each index is the
 	 * feature name.
 	 */
+	@Override
 	public Instance pipe(  Instance carrier ) {
 		
 		CharSequence c = (CharSequence)carrier.getData();

@@ -27,6 +27,7 @@ public class SliceLabelsSequence extends Pipe {
 		slice = k;
 	} // SliceLabelsSequence constructor
 
+	@Override
 	public Instance pipe (Instance carrier) {
 		LabelsSequence lbls = (LabelsSequence) carrier.getTarget ();
     LabelAlphabet dict = (LabelAlphabet) getTargetAlphabet ();

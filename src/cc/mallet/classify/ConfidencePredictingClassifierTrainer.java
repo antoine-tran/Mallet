@@ -14,7 +14,6 @@
 
 package cc.mallet.classify;
 
-import java.util.ArrayList;
 import java.util.logging.*;
 
 import cc.mallet.classify.evaluate.*;
@@ -22,7 +21,6 @@ import cc.mallet.pipe.Classification2ConfidencePredictingFeatureVector;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 import cc.mallet.util.MalletLogger;
-import cc.mallet.util.PropertyList;
 
 public class ConfidencePredictingClassifierTrainer extends ClassifierTrainer<ConfidencePredictingClassifier> implements Boostable
 {
@@ -36,6 +34,7 @@ public class ConfidencePredictingClassifierTrainer extends ClassifierTrainer<Con
 	Pipe confidencePredictingPipe;
 	static ConfusionMatrix confusionMatrix = null;
 	ConfidencePredictingClassifier classifier;
+	@Override
 	public ConfidencePredictingClassifier getClassifier () { return classifier; }
 
 	public ConfidencePredictingClassifierTrainer (ClassifierTrainer underlyingClassifierTrainer,
@@ -56,6 +55,7 @@ public class ConfidencePredictingClassifierTrainer extends ClassifierTrainer<Con
 		this (underlyingClassifierTrainer, validationSet, new Classification2ConfidencePredictingFeatureVector());
 	}
 
+	@Override
 	public ConfidencePredictingClassifier train (InstanceList trainList)
 	{
 		FeatureSelection selectedFeatures = trainList.getFeatureSelection();

@@ -21,12 +21,8 @@ import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
 
 import java.util.logging.*;
-import java.util.*;
-
 import java.text.NumberFormat;
 import java.text.DecimalFormat;
-
-import gnu.trove.TIntIntHashMap;
 
 public class DMROptimizable implements Optimizable.ByGradientValue {
 
@@ -149,20 +145,24 @@ public class DMROptimizable implements Optimizable.ByGradientValue {
 
 	public MaxEnt getClassifier () { return classifier; }
                 
+	@Override
 	public double getParameter (int index) {
 		return parameters[index];
 	}
                 
+	@Override
 	public void setParameter (int index, double v) {
 		cachedValueStale = true;
 		cachedGradientStale = true;
 		parameters[index] = v;
 	}
                 
+	@Override
 	public int getNumParameters() {
 		return parameters.length;
 	}
                 
+	@Override
 	public void getParameters (double[] buff) {
 		if (buff == null || buff.length != parameters.length) {
 			buff = new double [parameters.length];
@@ -170,6 +170,7 @@ public class DMROptimizable implements Optimizable.ByGradientValue {
 		System.arraycopy (parameters, 0, buff, 0, parameters.length);
 	}
         
+	@Override
 	public void setParameters (double [] buff) {
 		assert (buff != null);
 		cachedValueStale = true;
@@ -180,6 +181,7 @@ public class DMROptimizable implements Optimizable.ByGradientValue {
 	}
 
 	/** The log probability of the observed count vectors given the features. */
+	@Override
 	public double getValue () {
 
 		if (! cachedValueStale) { return cachedValue; }
@@ -283,6 +285,7 @@ public class DMROptimizable implements Optimizable.ByGradientValue {
 		return cachedValue;
 	}
 
+	@Override
 	public void getValueGradient (double [] buffer) {
 
 		MatrixOps.setAll (cachedGradient, 0.0);

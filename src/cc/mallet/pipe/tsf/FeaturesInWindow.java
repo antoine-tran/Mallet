@@ -95,6 +95,7 @@ public class FeaturesInWindow extends Pipe implements Serializable
 		this (namePrefix, leftBoundaryOffset, rightBoundaryOffset, null, true);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

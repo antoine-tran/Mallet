@@ -64,6 +64,7 @@ public class FeatureCounts extends RankedFeatureVector
 		{
 		}
 		
+		@Override
 		public RankedFeatureVector newRankedFeatureVector (InstanceList ilist)
 		{
 			return new FeatureCounts (ilist);

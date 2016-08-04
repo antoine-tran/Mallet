@@ -12,7 +12,6 @@
 package cc.mallet.types;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.*;
 
 import cc.mallet.types.Alphabet;
@@ -32,6 +31,7 @@ public class LabelAlphabet extends Alphabet implements Serializable
 		this.labels = new ArrayList ();
 	}
 
+	@Override
 	public int lookupIndex (Object entry, boolean addIfNotPresent)
 	{
 		int index = super.lookupIndex (entry, addIfNotPresent);

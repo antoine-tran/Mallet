@@ -15,8 +15,6 @@
 package cc.mallet.types;
 import java.io.*;
 
-import cc.mallet.types.FeatureVectorSequence.Iterator;
-
 
 public class LabelSequence extends FeatureSequence implements AlphabetCarrying, Serializable
 {
@@ -60,15 +58,18 @@ public class LabelSequence extends FeatureSequence implements AlphabetCarrying, 
 		public Iterator () {
 			pos = 0;
 		}
+		@Override
 		public Object next() {
 			return getLabelAtPosition(pos++);
 		}
 		public int getIndex () {
 			return pos;
 		}
+		@Override
 		public boolean hasNext() {
 			return pos < features.length;
 		}
+		@Override
 		public void remove () {
 			throw new UnsupportedOperationException ();
 		}

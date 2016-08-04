@@ -35,14 +35,16 @@ public class TreeBP extends AbstractBeliefPropagation {
     return (TreeBP) new TreeBP ().setMessager (new MaxProductMessageStrategy ());
   }
 
-  public void computeMarginals (FactorGraph fg)
+  @Override
+public void computeMarginals (FactorGraph fg)
   {
     initForGraph (fg);
     marked = new THashSet (); lambdaPropagation (fg, null, root);
     marked = new THashSet (); piPropagation (fg, root);
   }
 
-  protected void initForGraph (FactorGraph fg)
+  @Override
+protected void initForGraph (FactorGraph fg)
   {
     super.initForGraph (fg);
     // Pick a root arbitrarily

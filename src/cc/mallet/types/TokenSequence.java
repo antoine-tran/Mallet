@@ -58,6 +58,7 @@ public class TokenSequence extends ArrayList<Token> implements Sequence, Seriali
 	
 	//public Token get (int i) {return this.get(i);	}
 
+	@Override
 	public String toString () {
 		StringBuffer sb = new StringBuffer();
 		sb.append( "TokenSequence " + super.toString() + "\n" );

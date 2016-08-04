@@ -31,6 +31,7 @@ public class FeatureCountPipe extends Pipe {
 		counter = new FeatureCounter(dataAlphabet);
 	}
 
+	@Override
 	public Instance pipe(Instance instance) {
 			
 		if (instance.getData() instanceof FeatureSequence) {

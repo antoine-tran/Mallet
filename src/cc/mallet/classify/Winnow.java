@@ -57,6 +57,7 @@ public class Winnow extends Classifier{
 	 * @param instance an instance to be classified
 	 * @return an object containing the classifier's guess
      */
+	@Override
 	public Classification classify (Instance instance){
 		int numClasses = getLabelAlphabet().size();
 		double[] scores = new double[numClasses];

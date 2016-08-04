@@ -232,9 +232,10 @@ public class Clusterings2Clusterer {
 			ArrayList<Record> records = new ArrayList<Record>();
 			for (int i = 0; i < a.length; i++)
 				records.add((Record) list.get(a[i]).getData());
-			return (Record[]) records.toArray(new Record[] {});
+			return records.toArray(new Record[] {});
 		}
 
+		@Override
 		public Instance pipe(Instance carrier) {
 			AgglomerativeNeighbor neighbor = (AgglomerativeNeighbor) carrier
 					.getData();

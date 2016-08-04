@@ -5,12 +5,10 @@ import java.util.*;
 import java.util.regex.*;
 import java.util.zip.*;
 
-import cc.mallet.fst.*;
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.pipe.tsf.*;
 import cc.mallet.types.*;
-import cc.mallet.util.*;
 
 public class TestCRFPipe {
 	

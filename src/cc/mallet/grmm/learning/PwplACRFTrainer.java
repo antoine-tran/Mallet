@@ -50,7 +50,8 @@ public class PwplACRFTrainer extends DefaultAcrfTrainer {
   private double wrongWrongThreshold = 0.1;
   private File outputPrefix = new File (".");
 
-  public Optimizable.ByGradientValue createOptimizable (ACRF acrf, InstanceList training)
+  @Override
+public Optimizable.ByGradientValue createOptimizable (ACRF acrf, InstanceList training)
   {
     return new PwplACRFTrainer.Maxable (acrf, training);
   }
@@ -75,7 +76,8 @@ public class PwplACRFTrainer extends DefaultAcrfTrainer {
     this.wrongWrongIter = wrongWrongIter;
   }
 
-  public boolean train (ACRF acrf, InstanceList trainingList, InstanceList validationList, InstanceList testSet,
+  @Override
+public boolean train (ACRF acrf, InstanceList trainingList, InstanceList validationList, InstanceList testSet,
                         ACRFEvaluator eval, int numIter, Optimizable.ByGradientValue macrf)
   {
     if (wrongWrongType == NO_WRONG_WRONG) {
@@ -257,12 +259,14 @@ public class PwplACRFTrainer extends DefaultAcrfTrainer {
       PwplACRFTrainer.logger.info ("Using gaussian prior with variance " + gaussianPriorVariance);
     }
 
-    public int getNumParameters () { return numParameters; }
+    @Override
+	public int getNumParameters () { return numParameters; }
 
     /* Negate initialValue and finalValue because the parameters are in
      * terms of "weights", not "values".
      */
-    public void getParameters (double[] buf)
+    @Override
+	public void getParameters (double[] buf)
     {
 
       if (buf.length != numParameters) {
@@ -291,7 +295,8 @@ public class PwplACRFTrainer extends DefaultAcrfTrainer {
     }
 
 
-    protected void setParametersInternal (double[] params)
+    @Override
+	protected void setParametersInternal (double[] params)
     {
       cachedValueStale = cachedGradientStale = true;
 
@@ -338,7 +343,8 @@ public class PwplACRFTrainer extends DefaultAcrfTrainer {
     }
 
 
-    protected double computeValue ()
+    @Override
+	protected double computeValue ()
     {
       double retval = 0.0;
       int numInstances = trainData.size ();
@@ -456,7 +462,8 @@ public class PwplACRFTrainer extends DefaultAcrfTrainer {
      * Gradient is
      * constraint - expectation - parameters/gaussianPriorVariance
      */
-    protected void computeValueGradient (double[] grad)
+    @Override
+	protected void computeValueGradient (double[] grad)
     {
       /* Index into current element of cachedGradient[] array. */
       int gidx = 0;

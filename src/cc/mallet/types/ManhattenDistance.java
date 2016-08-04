@@ -15,6 +15,7 @@ import cc.mallet.types.SparseVector;
 
 public class ManhattenDistance implements Metric {
 
+	@Override
 	public double distance(SparseVector a, SparseVector b)    {
 		double dist = 0.0;
 		double diff = 0.0;

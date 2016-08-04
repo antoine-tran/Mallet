@@ -58,6 +58,7 @@ public class DecisionTree extends Classifier implements Serializable //implement
 			return getLeaf (node.child0, fv);
 	}
 
+	@Override
 	public Classification classify (Instance instance)
 	{
 		FeatureVector fv = (FeatureVector) instance.getData ();

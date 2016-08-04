@@ -16,7 +16,8 @@ public class AStarNode extends SearchNode {
     protected NextNodeIterator() {
       super();
     }
-    public SearchNode nextNode() {
+    @Override
+	public SearchNode nextNode() {
       AStarNode p = AStarNode.this;
       AStarState s = (AStarState)getStateIter().nextState();
       return new AStarNode(s, p, p.getCost() + cost());
@@ -37,7 +38,8 @@ public class AStarNode extends SearchNode {
   public double completionCost() {
     return ((AStarState)getState()).completionCost();
   }
-  public SearchNode.NextNodeIterator getNextNodes() {
+  @Override
+public SearchNode.NextNodeIterator getNextNodes() {
     return new NextNodeIterator();
   }
 

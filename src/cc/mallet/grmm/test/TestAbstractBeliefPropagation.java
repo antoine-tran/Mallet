@@ -93,7 +93,7 @@ public class TestAbstractBeliefPropagation extends TestCase {
         theSuite.addTest (new TestAbstractBeliefPropagation (args[i]));
       }
     } else {
-      theSuite = (TestSuite) suite ();
+      theSuite = suite ();
     }
 
     junit.textui.TestRunner.run (theSuite);

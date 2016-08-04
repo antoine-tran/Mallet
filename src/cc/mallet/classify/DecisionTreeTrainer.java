@@ -14,15 +14,8 @@ package cc.mallet.classify;
 import java.util.logging.*;
 
 import cc.mallet.classify.Classifier;
-import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
 import cc.mallet.types.FeatureSelection;
-import cc.mallet.types.FeatureVector;
-import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.LabelVector;
-import cc.mallet.types.Labeling;
-import cc.mallet.types.Multinomial;
 import cc.mallet.util.MalletLogger;
 /**
 	 A decision tree learner, roughly ID3, but only to a fixed given depth in all branches.
@@ -55,9 +48,12 @@ public class DecisionTreeTrainer extends ClassifierTrainer<DecisionTree> impleme
 	public DecisionTreeTrainer setMaxDepth (int maxDepth) { this.maxDepth = maxDepth; return this; }
 	public DecisionTreeTrainer setMinInfoGainSplit (double m) { this.minInfoGainSplit = m; return this; }
 	
+	@Override
 	public boolean isFinishedTraining() { return finished; } 
+	@Override
 	public DecisionTree getClassifier() { return classifier; }
 	
+	@Override
 	public DecisionTree train (InstanceList trainingList) {
 		FeatureSelection selectedFeatures = trainingList.getFeatureSelection();
 		DecisionTree.Node root = new DecisionTree.Node (trainingList, null, selectedFeatures);
@@ -93,10 +89,11 @@ public class DecisionTreeTrainer extends ClassifierTrainer<DecisionTree> impleme
 		// public static Classifier train (InstanceList trainingSet, InstanceList validationSet, Classifier initialClassifier)
 		// which call 
 		
+		@Override
 		public DecisionTreeTrainer newClassifierTrainer (Classifier initialClassifier) {
 			DecisionTreeTrainer t = new DecisionTreeTrainer ();
-			t.maxDepth = this.maxDepth;
-			t.minInfoGainSplit = this.minInfoGainSplit;
+			t.maxDepth = Factory.maxDepth;
+			t.minInfoGainSplit = Factory.minInfoGainSplit;
 			
 			return t;
 		}

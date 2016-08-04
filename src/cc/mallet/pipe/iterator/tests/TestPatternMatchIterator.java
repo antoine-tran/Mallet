@@ -47,7 +47,8 @@ public class TestPatternMatchIterator extends TestCase
     return new TestSuite (TestPatternMatchIterator.class);
   }
   
-  protected void setUp ()
+  @Override
+protected void setUp ()
   {
   }
   

@@ -16,10 +16,6 @@ package cc.mallet.util;
 
 import java.io.*;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.Label;
 
 public class RegexFileFilter implements FileFilter
 {
@@ -50,6 +46,7 @@ public class RegexFileFilter implements FileFilter
 		this (filenameRegex != null ? Pattern.compile (filenameRegex) : null);
 	}
 
+	@Override
 	public boolean accept (File f)
 	{
 		boolean ret = ((absolutePathRegex == null

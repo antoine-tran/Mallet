@@ -81,24 +81,28 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
     DefaultAcrfTrainer.rethrowExceptions = rethrowExceptions;
   }
 
-  public boolean train (ACRF acrf, InstanceList training)
+  @Override
+public boolean train (ACRF acrf, InstanceList training)
   {
     return train (acrf, training, null, null,
             new LogEvaluator (), 1);
   }
 
-  public boolean train (ACRF acrf, InstanceList training, int numIter)
+  @Override
+public boolean train (ACRF acrf, InstanceList training, int numIter)
   {
     return train (acrf, training, null, null,
             new LogEvaluator (), numIter);
   }
 
-  public boolean train (ACRF acrf, InstanceList training, ACRFEvaluator eval, int numIter)
+  @Override
+public boolean train (ACRF acrf, InstanceList training, ACRFEvaluator eval, int numIter)
   {
     return train (acrf, training, null, null, eval, numIter);
   }
 
-  public boolean train (ACRF acrf,
+  @Override
+public boolean train (ACRF acrf,
                         InstanceList training,
                         InstanceList validation,
                         InstanceList testing,
@@ -108,7 +112,8 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
             new LogEvaluator (), numIter);
   }
 
-  public boolean train (ACRF acrf,
+  @Override
+public boolean train (ACRF acrf,
                         InstanceList trainingList,
                         InstanceList validationList,
                         InstanceList testSet,
@@ -174,7 +179,8 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
     return train (acrf, training, validation, testing, eval, numIter);
   }
 
-  public boolean train (ACRF acrf,
+  @Override
+public boolean train (ACRF acrf,
                         InstanceList trainingList,
                         InstanceList validationList,
                         InstanceList testSet,
@@ -367,7 +373,8 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
 
     ;
 
-    public boolean evaluate (ACRF acrf, int iter,
+    @Override
+	public boolean evaluate (ACRF acrf, int iter,
                              InstanceList training,
                              InstanceList validation,
                              InstanceList testing)
@@ -379,7 +386,8 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
       return true;
     }
 
-    public void test (InstanceList testList, List returnedList,
+    @Override
+	public void test (InstanceList testList, List returnedList,
                       String description)
     {
       logger.info (description+": Number of instances = " + testList.size ());
@@ -439,7 +447,8 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
 
     ;
 
-    public boolean evaluate (ACRF acrf, int iter,
+    @Override
+	public boolean evaluate (ACRF acrf, int iter,
                              InstanceList training,
                              InstanceList validation,
                              InstanceList testing)
@@ -450,7 +459,8 @@ public class DefaultAcrfTrainer implements ACRFTrainer {
       return true;
     }
 
-    public void test (InstanceList testList, List returnedList,
+    @Override
+	public void test (InstanceList testList, List returnedList,
                       String description)
     {
       logger.info ("Number of testing instances = " + testList.size ());

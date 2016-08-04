@@ -18,7 +18,6 @@ import java.util.logging.*;
 
 import cc.mallet.optimize.LineOptimizer;
 import cc.mallet.optimize.Optimizable;
-import cc.mallet.optimize.tests.TestOptimizable;
 import cc.mallet.types.MatrixOps;
 import cc.mallet.util.MalletLogger;
 
@@ -57,7 +56,9 @@ public class ConjugateGradient implements Optimizer
 		this (function, 0.01);
 	}
 
+	@Override
 	public Optimizable getOptimizable () { return this.optimizable; }
+	@Override
 	public boolean isConverged () { return converged; }
 
   public void setEvaluator (OptimizerEvaluator.ByGradient eval)
@@ -79,6 +80,7 @@ public class ConjugateGradient implements Optimizer
 	double[] xi, g, h;
 	int j, iterations;
 
+	@Override
 	public boolean optimize ()
 	{
 		return optimize (maxIterations);
@@ -88,6 +90,7 @@ public class ConjugateGradient implements Optimizer
 		tolerance = t;
 	}
 
+	@Override
 	public boolean optimize (int numIterations)
 	{
 		if (converged)

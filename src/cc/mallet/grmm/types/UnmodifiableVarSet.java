@@ -27,7 +27,8 @@ public class UnmodifiableVarSet implements VarSet, Serializable {
     this.subVarSet = subVarSet;
   }
 
-  public Variable get (int idx)
+  @Override
+public Variable get (int idx)
   {
     return subVarSet.get (idx);
   }
@@ -37,103 +38,123 @@ public class UnmodifiableVarSet implements VarSet, Serializable {
     return Collections.unmodifiableSet (subVarSet);
   }
 
-  public Variable[] toVariableArray ()
+  @Override
+public Variable[] toVariableArray ()
   {
     return subVarSet.toVariableArray ();
   }
 
-  public int weight ()
+  @Override
+public int weight ()
   {
     return subVarSet.weight ();
   }
 
-  public AssignmentIterator assignmentIterator ()
+  @Override
+public AssignmentIterator assignmentIterator ()
   {
     return subVarSet.assignmentIterator ();
   }
 
-  public VarSet intersection (VarSet c)
+  @Override
+public VarSet intersection (VarSet c)
   {
     return subVarSet.intersection (c);
   }
 
-  public int size ()
+  @Override
+public int size ()
   {
     return subVarSet.size ();
   }
 
-  public boolean isEmpty ()
+  @Override
+public boolean isEmpty ()
   {
     return subVarSet.isEmpty ();
   }
 
-  public boolean contains (Object o)
+  @Override
+public boolean contains (Object o)
   {
     return subVarSet.contains (o);
   }
 
-  public Iterator iterator ()
+  @Override
+public Iterator iterator ()
   {
     return subVarSet.iterator ();
   }
 
-  public Object[] toArray ()
+  @Override
+public Object[] toArray ()
   {
     return subVarSet.toArray ();
   }
 
-  public Object[] toArray (Object[] objects)
+  @Override
+public Object[] toArray (Object[] objects)
   {
     return subVarSet.toArray (objects);
   }
 
-  public boolean add (Object o)
+  @Override
+public boolean add (Object o)
   {
     throw new UnsupportedOperationException ("Attempt to modify unmodifiable clique: "+this);
   }
 
-  public boolean remove (Object o)
+  @Override
+public boolean remove (Object o)
   {
     throw new UnsupportedOperationException ("Attempt to modify unmodifiable clique: "+this);
   }
 
-  public boolean containsAll (Collection collection)
+  @Override
+public boolean containsAll (Collection collection)
   {
     return subVarSet.containsAll (collection);
   }
 
-  public boolean addAll (Collection collection)
+  @Override
+public boolean addAll (Collection collection)
   {
     throw new UnsupportedOperationException ("Attempt to modify unmodifiable clique: "+this);
   }
 
-  public boolean retainAll (Collection collection)
+  @Override
+public boolean retainAll (Collection collection)
   {
     throw new UnsupportedOperationException ("Attempt to modify unmodifiable clique: "+this);
   }
 
-  public boolean removeAll (Collection collection)
+  @Override
+public boolean removeAll (Collection collection)
   {
     throw new UnsupportedOperationException ("Attempt to modify unmodifiable clique: "+this);
   }
 
-  public void clear ()
+  @Override
+public void clear ()
   {
 
     throw new UnsupportedOperationException ("Attempt to modify unmodifiable clique: "+this);
   }
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     return subVarSet.equals (o);
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     return subVarSet.hashCode ();
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return subVarSet.toString ();
   }

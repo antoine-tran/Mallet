@@ -98,19 +98,23 @@ public class SumLatticeKL implements SumLattice {
 				+ totalWeight;
 	}
 
+	@Override
 	public double[][][] getXis() {
 		return xis;
 	}
 
+	@Override
 	public double[][] getGammas() {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public double getTotalWeight() {
 		assert (!Double.isNaN(totalWeight));
 		return totalWeight;
 	}
 
+	@Override
 	public double getGammaWeight(int inputPosition, State s) {
 		throw new UnsupportedOperationException("Not handled!");
 	}
@@ -119,6 +123,7 @@ public class SumLatticeKL implements SumLattice {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public double getGammaProbability(int inputPosition, State s) {
 		throw new UnsupportedOperationException("Not handled!");
 	}
@@ -127,35 +132,43 @@ public class SumLatticeKL implements SumLattice {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public double getXiProbability(int ip, State s1, State s2) {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public double getXiWeight(int ip, State s1, State s2) {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public int length() {
 		return latticeLength;
 	}
 
+	@Override
 	public double getAlpha(int ip, State s) {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public double getBeta(int ip, State s) {
 		throw new UnsupportedOperationException("Not handled!");
 	}
 
+	@Override
 	public LabelVector getLabelingAtPosition(int outputPosition) {
 		return null;
 	}
 
+	@Override
 	public Transducer getTransducer() {
 		return t;
 	}
 
-  public Sequence getInput() {
+  @Override
+public Sequence getInput() {
     return input;
   }
 }

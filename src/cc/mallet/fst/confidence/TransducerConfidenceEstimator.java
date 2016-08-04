@@ -16,7 +16,6 @@ import java.util.logging.*;
 import java.util.*;
 import java.io.Serializable;
 
-import cc.mallet.extract.LabeledSpan;
 import cc.mallet.fst.*;
 import cc.mallet.pipe.Noop;
 import cc.mallet.pipe.iterator.*;
@@ -69,7 +68,7 @@ abstract public class TransducerConfidenceEstimator implements Serializable
 		if (this.segmentConfidences == null)
 			segmentConfidences = new java.util.Vector ();
 		while (iter.hasNext ()) {
-			Segment segment = (Segment) iter.nextSegment ();
+			Segment segment = iter.nextSegment ();
 			double confidence = estimateConfidenceFor (segment);
 			segment.setConfidence (confidence);
 			logger.fine ("confidence=" + segment.getConfidence() + " for segment\n"

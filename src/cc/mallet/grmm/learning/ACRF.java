@@ -582,7 +582,8 @@ public class ACRF implements Serializable {
      */
     protected abstract void addInstantiatedCliques (UnrolledGraph graph, FeatureVectorSequence fvs, LabelsAssignment lblseq);
 
-    public void addInstantiatedCliques (UnrolledGraph graph, Instance instance)
+    @Override
+	public void addInstantiatedCliques (UnrolledGraph graph, Instance instance)
     {
       FeatureVectorSequence fvs = (FeatureVectorSequence) instance.getData ();
       LabelsAssignment lblseq = (LabelsAssignment) instance.getTarget ();
@@ -594,20 +595,26 @@ public class ACRF implements Serializable {
   //  how te construct a potential
   public abstract static class FixedFactorTemplate extends Template {
 
-    public int initWeights (InstanceList training) { return 0; }
-    public SparseVector[] getWeights () { return new SparseVector [0]; }
-    public SparseVector getDefaultWeights () { return new SparseVector (); }
+    @Override
+	public int initWeights (InstanceList training) { return 0; }
+    @Override
+	public SparseVector[] getWeights () { return new SparseVector [0]; }
+    @Override
+	public SparseVector getDefaultWeights () { return new SparseVector (); }
 
 
-    public boolean isTrainable () { return false; }
+    @Override
+	public boolean isTrainable () { return false; }
 
-    public void setTrainable (boolean tr)
+    @Override
+	public void setTrainable (boolean tr)
     {
       if (tr)
        throw new IllegalArgumentException ("This template is never trainable.");
     }
 
-    public abstract AbstractTableFactor computeFactor (UnrolledVarSet clique);
+    @Override
+	public abstract AbstractTableFactor computeFactor (UnrolledVarSet clique);
   }
 
   /**
@@ -892,7 +899,8 @@ public class ACRF implements Serializable {
       return cliques.indexOf (vs);
     }
 
-    public Variable get (int idx)
+    @Override
+	public Variable get (int idx)
     {
       if (isFactorsAdded) {
         return super.get (idx);
@@ -901,7 +909,8 @@ public class ACRF implements Serializable {
       }
     }
 
-    public int getIndex (Variable var)
+    @Override
+	public int getIndex (Variable var)
     {
       if (isFactorsAdded) {
         return super.getIndex (var);
@@ -1177,13 +1186,15 @@ public class ACRF implements Serializable {
 	 }
 */
 
-    public int getNumParameters() { return numParameters; }
+    @Override
+	public int getNumParameters() { return numParameters; }
 
 
     /* Negate initialValue and finalValue because the parameters are in
        * terms of "weights", not "values".
        */
-    public void getParameters (double[] buf) {
+    @Override
+	public void getParameters (double[] buf) {
 
       if ( buf.length != numParameters )
         throw new IllegalArgumentException("Argument is not of the " +
@@ -1210,7 +1221,8 @@ public class ACRF implements Serializable {
     }
 
 
-    public void setParameters (double[] params)
+    @Override
+	public void setParameters (double[] params)
     {
       if ( params.length != numParameters )
         throw new IllegalArgumentException("Argument is not of the " +
@@ -1258,12 +1270,15 @@ public class ACRF implements Serializable {
     }
 
 
-    public double getParameter (int index) { return(0.0); }
-    public void setParameter (int index, double value) {}
+    @Override
+	public double getParameter (int index) { return(0.0); }
+    @Override
+	public void setParameter (int index, double value) {}
 
 
     /** Returns the log probability of the training sequence labels */
-    public double getValue ()
+    @Override
+	public double getValue ()
     {
       if (cachedValueStale)
       {
@@ -1418,7 +1433,8 @@ public class ACRF implements Serializable {
      *  Computes the graident of the penalized log likelihood
      *   of the ACRF, and returns it in buf[].
      */
-    public void getValueGradient(double[] buf)
+    @Override
+	public void getValueGradient(double[] buf)
     {
       if (cachedGradientStale)
       {
@@ -1700,7 +1716,7 @@ public class ACRF implements Serializable {
     {
       int nmsg = -1;
       if (inferencer instanceof AbstractBeliefPropagation) {
-        nmsg = ((AbstractBeliefPropagation)inferencer).getTotalMessagesSent();
+        nmsg = AbstractBeliefPropagation.getTotalMessagesSent();
       } else if (inferencer instanceof JunctionTreeInferencer) {
         nmsg = ((JunctionTreeInferencer)inferencer).getTotalMessagesSent();
       }
@@ -1819,7 +1835,8 @@ public class ACRF implements Serializable {
       this.factor = factor;
     }
 
-    public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
+    @Override
+	public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
                                         FeatureVectorSequence fvs,
                                         LabelsAssignment lblseq)
     {
@@ -1837,7 +1854,8 @@ public class ACRF implements Serializable {
       }
     }
 
-    public String toString ()
+    @Override
+	public String toString ()
     {
       return "[BigramTemplate ("+factor+")]";
     }
@@ -1864,7 +1882,8 @@ public class ACRF implements Serializable {
       this.factor = factor;
     }
 
-    public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
+    @Override
+	public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
                                         FeatureVectorSequence fvs,
                                         LabelsAssignment lblseq)
     {
@@ -1880,7 +1899,8 @@ public class ACRF implements Serializable {
       }
     }
 
-    public String toString ()
+    @Override
+	public String toString ()
      {
        return "[UnigramTemplate ("+factor+")]";
      }
@@ -1903,7 +1923,8 @@ public class ACRF implements Serializable {
       this.factor1 = factor1;
     }
 
-    public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
+    @Override
+	public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
                                         FeatureVectorSequence fvs,
                                         LabelsAssignment lblseq)
     {
@@ -1922,7 +1943,8 @@ public class ACRF implements Serializable {
     }
 
 
-    public String toString ()
+    @Override
+	public String toString ()
      {
        return "[PairwiseFactorTemplate ("+factor0+", "+factor1+")]";
      }

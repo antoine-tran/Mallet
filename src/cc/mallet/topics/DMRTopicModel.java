@@ -8,8 +8,6 @@ import cc.mallet.classify.MaxEnt;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.Noop;
 
-import gnu.trove.TIntIntHashMap;
-
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.File;
@@ -29,6 +27,7 @@ public class DMRTopicModel extends LDAHyper {
 		super(numberOfTopics);
 	}
 
+	@Override
 	public void estimate (int iterationsThisRound) throws IOException {
 
         numFeatures = data.get(0).instance.getTargetAlphabet().size() + 1;
@@ -65,7 +64,7 @@ public class DMRTopicModel extends LDAHyper {
 
             for (int doc = 0; doc < numDocs; doc++) {
                 FeatureSequence tokenSequence = (FeatureSequence) data.get(doc).instance.getData();
-                LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+                LabelSequence topicSequence = data.get(doc).topicSequence;
 
 				if (dmrParameters != null) {
 					// set appropriate Alpha parameters
@@ -250,6 +249,7 @@ public class DMRTopicModel extends LDAHyper {
         }
     }
 
+	@Override
 	public void printTopWords (PrintStream out, int numWords, boolean usingNewLines) {
 		if (dmrParameters != null) { setAlphas(); }
 		super.printTopWords(out, numWords, usingNewLines);

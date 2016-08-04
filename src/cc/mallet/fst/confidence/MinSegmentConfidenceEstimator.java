@@ -12,8 +12,6 @@
 package cc.mallet.fst.confidence;
 
 import java.util.logging.*;
-import java.util.*;
-
 import cc.mallet.fst.*;
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
@@ -41,13 +39,14 @@ public class MinSegmentConfidenceEstimator extends TransducerSequenceConfidenceE
 	/**
 		 Calculates the confidence in the tagging of a {@link Instance}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Instance instance,
 																			 Object[] startTags,
 																			 Object[] inTags) {
 		SegmentIterator iter = new SegmentIterator (model, instance, startTags, inTags);
 		double lowestConfidence = 9999;
 		while (iter.hasNext()) {
-			Segment s = (Segment) iter.nextSegment();
+			Segment s = iter.nextSegment();
 			double currConf = segmentEstimator.estimateConfidenceFor (s);			
 			if (currConf < lowestConfidence)
 				lowestConfidence = currConf;

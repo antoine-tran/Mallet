@@ -14,7 +14,6 @@ package cc.mallet.pipe;
 import java.io.*;
 
 import cc.mallet.types.Instance;
-import cc.mallet.util.CharSequenceLexer;
 /**
  * Given a filename contained in a string, read in contents of file into a CharSequence.
    @author Andrew McCallum <a href="mailto:mccallum@cs.umass.edu">mccallum@cs.umass.edu</a>
@@ -26,6 +25,7 @@ public class Filename2CharSequence extends Pipe implements Serializable
 	{
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		String filename = (String)carrier.getData();

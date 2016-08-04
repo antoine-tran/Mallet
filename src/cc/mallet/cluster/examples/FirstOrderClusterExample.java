@@ -147,6 +147,7 @@ public class FirstOrderClusterExample {
 			super (new Alphabet(), new LabelAlphabet());			
 		}
 		
+		@Override
 		public Instance pipe (Instance carrier) {
 			boolean mergeFirst = false;
 			
@@ -175,7 +176,7 @@ public class FirstOrderClusterExample {
 			else
 				pl = PropertyList.add("NoMatch", 1.0, pl);
 			
-			FeatureVector fv = new FeatureVector ((Alphabet)getDataAlphabet(),
+			FeatureVector fv = new FeatureVector (getDataAlphabet(),
 																						pl, true);
 			carrier.setData(fv);
 

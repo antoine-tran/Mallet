@@ -97,23 +97,28 @@ public class ConstraintsOptimizableByPR implements Serializable, ByGradientValue
 	  }
 	}
 	
+	@Override
 	public int getNumParameters() {
 		return numParameters;
 	}
 
+	@Override
 	public void getParameters(double[] params) {
 		model.getParameters(params);
 	}
 
+	@Override
 	public double getParameter(int index) {
 		return model.getParameter(index);
 	}
 
+	@Override
 	public void setParameters(double[] params) {
 	  cacheStale = true;
 		model.setParameters(params);
 	}
 
+	@Override
 	public void setParameter(int index, double value) {
 	  cacheStale = true;
 		model.setParameter(index, value);
@@ -166,6 +171,7 @@ public class ConstraintsOptimizableByPR implements Serializable, ByGradientValue
 	 * Returns the log probability of the training sequence labels and the prior
 	 * over parameters.
 	 */
+	@Override
 	public double getValue() {
 		if (cacheStale) {
 		  cachedValue = getExpectationValue();
@@ -184,6 +190,7 @@ public class ConstraintsOptimizableByPR implements Serializable, ByGradientValue
 		return value;
 	}
 	
+	@Override
 	public void getValueGradient(double[] buffer) {
 		if (cacheStale) {
 			getValue();
@@ -229,6 +236,7 @@ public class ConstraintsOptimizableByPR implements Serializable, ByGradientValue
     	this.modelCopy = modelCopy;
     }
 		
+		@Override
 		public Double call() throws Exception {
 			double value = 0;
 	    for (int ii = start; ii < end; ii++) {

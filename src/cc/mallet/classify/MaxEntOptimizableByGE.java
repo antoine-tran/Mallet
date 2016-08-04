@@ -123,7 +123,8 @@ public class MaxEntOptimizableByGE implements Optimizable.ByGradientValue {
     return classifier;
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     if (!cacheStale) {
       return cachedValue;
     }
@@ -221,7 +222,8 @@ public class MaxEntOptimizableByGE implements Optimizable.ByGradientValue {
     return regularization;
   }
   
-  public void getValueGradient(double[] buffer) {
+  @Override
+public void getValueGradient(double[] buffer) {
     if (cacheStale) {
       getValue();  
     }
@@ -229,25 +231,30 @@ public class MaxEntOptimizableByGE implements Optimizable.ByGradientValue {
     System.arraycopy (cachedGradient, 0, buffer, 0, buffer.length);
   }
 
-  public int getNumParameters() {
+  @Override
+public int getNumParameters() {
     return parameters.length;
   }
 
-  public double getParameter(int index) {
+  @Override
+public double getParameter(int index) {
     return parameters[index];
   }
 
-  public void getParameters(double[] buffer) {
+  @Override
+public void getParameters(double[] buffer) {
     assert(buffer.length == parameters.length);
     System.arraycopy (parameters, 0, buffer, 0, buffer.length);
   }
 
-  public void setParameter(int index, double value) {
+  @Override
+public void setParameter(int index, double value) {
     cacheStale = true;
     parameters[index] = value;
   }
 
-  public void setParameters(double[] params) {
+  @Override
+public void setParameters(double[] params) {
     assert(params.length == parameters.length);
     cacheStale = true;
     System.arraycopy (params, 0, parameters, 0, parameters.length);

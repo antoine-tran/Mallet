@@ -14,7 +14,6 @@
 
 package cc.mallet.util;
 
-import java.util.Iterator;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.io.*;
@@ -260,7 +259,7 @@ public class PropertyList implements Serializable
 		
 		private void readObject (ObjectInputStream in) throws IOException, ClassNotFoundException {
 		  int version = in.readInt();
-			value = (Object) in.readObject();
+			value = in.readObject();
 		}
 
 	}
@@ -305,6 +304,7 @@ public class PropertyList implements Serializable
 			return property;
 		}
 		
+		@Override
 		public boolean hasNext ()
 		{
 			return ((nextCalled && nextProperty != null) || (!nextCalled && property != null));
@@ -340,11 +340,13 @@ public class PropertyList implements Serializable
 			return property;
 		}
 
+		@Override
 		public Object next ()
 		{
 			return nextProperty ();
 		}
 		
+		@Override
 		public void remove ()
 		{
 			throw new UnsupportedOperationException ();

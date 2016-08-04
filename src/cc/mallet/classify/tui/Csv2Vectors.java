@@ -13,7 +13,6 @@ import java.util.regex.*;
 import java.io.*;
 import java.nio.charset.Charset;
 
-import cc.mallet.classify.*;
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;

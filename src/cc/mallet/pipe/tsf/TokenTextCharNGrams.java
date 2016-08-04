@@ -17,8 +17,6 @@
 package cc.mallet.pipe.tsf;
 
 import java.io.*;
-import java.util.regex.Pattern;
-
 import cc.mallet.pipe.*;
 import cc.mallet.types.*;
 
@@ -49,6 +47,7 @@ public class TokenTextCharNGrams extends Pipe implements Serializable
 		this ("CHARBIGRAM=", new int[] {2});
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

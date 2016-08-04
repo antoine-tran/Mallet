@@ -47,7 +47,8 @@ public class Randoms extends java.util.Random {
   }
 
   /** Return a random boolean, equally likely to be true or false. */
-  public synchronized boolean nextBoolean() {
+  @Override
+public synchronized boolean nextBoolean() {
     return (next(32) & 1 << 15) != 0;
   }
 
@@ -110,7 +111,8 @@ public class Randoms extends java.util.Random {
   private boolean haveNextGaussian = false;
 
   /** Return a random double drawn from a Gaussian distribution with mean 0 and variance 1. */
-  public synchronized double nextGaussian() {
+  @Override
+public synchronized double nextGaussian() {
     if (!haveNextGaussian) {
       double v1=nextUniform(),v2=nextUniform();
       double x1,x2;
@@ -298,12 +300,12 @@ public class Randoms extends java.util.Random {
 
   /** Return a random double drawn from an Chi-squared distribution with mean df and variance 2*df.  */
   public synchronized double nextChiSq(int df) {
-    return nextGamma(0.5*(double)df,2,0);
+    return nextGamma(0.5*df,2,0);
   }
 
   /** Return a random double drawn from an Chi-squared distribution with mean df+lambda and variance 2*df.  */
   public synchronized double nextChiSq(int df,double lambda) {
-    return nextGamma(0.5*(double)df,2,lambda);
+    return nextGamma(0.5*df,2,lambda);
   }
 
   /** Return a random double drawn from a Beta distribution with mean a/(a+b) and variance ab/((a+b+1)(a+b)^2).  */
@@ -354,7 +356,8 @@ public class Randoms extends java.util.Random {
   public java.util.Random asJavaRandom ()
   {
     return new java.util.Random () {
-      protected int next (int bits)
+      @Override
+	protected int next (int bits)
       {
         return cc.mallet.util.Randoms.this.next (bits);
       }

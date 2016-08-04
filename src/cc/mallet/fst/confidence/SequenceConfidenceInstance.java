@@ -12,9 +12,6 @@
 package cc.mallet.fst.confidence;
 
 
-import java.util.*;
-
-import cc.mallet.fst.*;
 import cc.mallet.types.*;
 import cc.mallet.util.PropertyList;
 

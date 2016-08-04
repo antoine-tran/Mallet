@@ -94,7 +94,8 @@ public class CollectionUtils {
     class Accumulator implements TObjectDoubleProcedure {
       double bestVal = Double.NEGATIVE_INFINITY;
       Object bestObj = null;
-      public boolean execute (Object a, double b)
+      @Override
+	public boolean execute (Object a, double b)
       {
         if (b > bestVal) {
           bestVal = b;

@@ -12,9 +12,6 @@ import junit.framework.TestSuite;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-
 import cc.mallet.grmm.types.*;
 import cc.mallet.types.MatrixOps;
 import cc.mallet.types.SparseMatrixn;
@@ -136,7 +133,7 @@ public class TestTableFactor extends TestCase {
 
     MatrixOps.print (counts);
     for (int i = 0; i < vals.length; i++) {
-      double prp = counts[i] / ((double) sampled.length);
+      double prp = counts[i] / (sampled.length);
       assertEquals (vals[i] / sum, prp, 0.1);
     }
   }
@@ -212,7 +209,7 @@ public class TestTableFactor extends TestCase {
     System.out.println (ptl);
     Assignment assn = new Assignment (v4, 0);
     TableFactor sliced = (TableFactor) ptl.slice (assn);
-    System.out.println (new TableFactor ((AbstractTableFactor) sliced));
+    System.out.println (new TableFactor (sliced));
 
     TableFactor expected = new TableFactor (new Variable[] { v1,v2,v3 }, new double[] { 0, 2, 4, 6, 8, 10, 12, 14 });
     comparePotentialValues (sliced, expected);

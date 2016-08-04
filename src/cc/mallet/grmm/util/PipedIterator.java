@@ -7,7 +7,6 @@
 package cc.mallet.grmm.util;
 
 import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.Instance;
 import java.util.Iterator;
 
@@ -30,17 +29,20 @@ public class PipedIterator implements Iterator<Instance> {
   }
 
   // The PipeInputIterator interface
-  public Instance next ()
+  @Override
+public Instance next ()
   {
     Instance inst = subIt.next ();
     inst = pipe.pipe (inst);
     return new Instance (inst.getData (), inst.getTarget (), inst.getName (), inst.getSource ());
   }
 
-  public boolean hasNext ()
+  @Override
+public boolean hasNext ()
   {
     return subIt.hasNext ();
   }
   
-  public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not implement remove()."); }
+  @Override
+public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not implement remove()."); }
 }

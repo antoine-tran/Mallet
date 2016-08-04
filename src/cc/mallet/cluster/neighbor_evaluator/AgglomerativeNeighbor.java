@@ -59,6 +59,7 @@ public class AgglomerativeNeighbor extends Neighbor {
 
 	public int[][] getOldClusters () { return oldClusters; }
 	
+	@Override
 	public String toString () {
 		String ret = super.toString() + "\nnewcluster=";
 		for (int i = 0; i < newCluster.length; i++) 

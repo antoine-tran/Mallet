@@ -99,7 +99,8 @@ public class ParentChildGBP extends AbstractInferencer {
   }
   // inferencer interface
 
-  public Factor lookupMarginal (Variable variable)
+  @Override
+public Factor lookupMarginal (Variable variable)
   {
     Region region = rg.findContainingRegion (variable);
     if (region == null)
@@ -111,7 +112,8 @@ public class ParentChildGBP extends AbstractInferencer {
   }
 
 
-  public Factor lookupMarginal (VarSet varSet)
+  @Override
+public Factor lookupMarginal (VarSet varSet)
   {
     Region region = rg.findContainingRegion (varSet);
     if (region == null)
@@ -158,7 +160,8 @@ public class ParentChildGBP extends AbstractInferencer {
     return result;
   }
 
-  public double lookupLogJoint (Assignment assn)
+  @Override
+public double lookupLogJoint (Assignment assn)
   {
     double factorProduct = mdl.logValue (assn);
 //    value += computeFreeEnergy (rg);
@@ -223,7 +226,8 @@ public class ParentChildGBP extends AbstractInferencer {
     return avgEnergy - entropy;
   }
 
-  public void computeMarginals (FactorGraph mdl)
+  @Override
+public void computeMarginals (FactorGraph mdl)
   {
     Timing timing = new Timing ();
 
@@ -273,7 +277,8 @@ public class ParentChildGBP extends AbstractInferencer {
     }
 
     Collections.sort (l, new Comparator () {
-      public int compare (Object o1, Object o2)
+      @Override
+	public int compare (Object o1, Object o2)
       {
         RegionEdge e1 = (RegionEdge) o1;
         RegionEdge e2 = (RegionEdge) o2;
@@ -309,7 +314,8 @@ public class ParentChildGBP extends AbstractInferencer {
     return true;
   }
 
-  public void dump ()
+  @Override
+public void dump ()
   {
     for (Iterator it = rg.edgeIterator (); it.hasNext();) {
       RegionEdge edge = (RegionEdge) it.next ();

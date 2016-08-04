@@ -24,6 +24,7 @@ public class PlainLogFormatter extends SimpleFormatter {
 		super();
 	}
 
+	@Override
 	public String format (LogRecord record) {
 		return record.getMessage()+ "\n";
 	}

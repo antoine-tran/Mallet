@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import cc.mallet.fst.Transducer.State;
 import cc.mallet.fst.Transducer.TransitionIterator;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.MatrixOps;
@@ -306,30 +305,36 @@ public class SumLatticeDefault implements SumLattice
 
 
 
+	@Override
 	public double[][][] getXis(){
 		return xis;
 	}
 
+	@Override
 	public double[][] getGammas(){
 		return gammas;
 	}
 
+	@Override
 	public double getTotalWeight () {
 		assert (!Double.isNaN(totalWeight));
 		return totalWeight; }
 
+	@Override
 	public double getGammaWeight(int inputPosition, State s) {
 		return gammas[inputPosition][s.getIndex()]; }
 
 	public double getGammaWeight(int inputPosition, int stateIndex) {
 		return gammas[inputPosition][stateIndex]; }
 
+	@Override
 	public double getGammaProbability (int inputPosition, State s) {
 		return Math.exp (gammas[inputPosition][s.getIndex()]); }
 
 	public double getGammaProbability (int inputPosition, int stateIndex) {
 		return Math.exp (gammas[inputPosition][stateIndex]); }
 
+	@Override
 	public double getXiProbability (int ip, State s1, State s2) {
 		if (xis == null)
 			throw new IllegalStateException ("xis were not saved.");
@@ -338,6 +343,7 @@ public class SumLatticeDefault implements SumLattice
 		return Math.exp (xis[ip][i][j]);
 	}
 
+	@Override
 	public double getXiWeight(int ip, State s1, State s2)
 	{
 		if (xis == null)
@@ -348,28 +354,34 @@ public class SumLatticeDefault implements SumLattice
 		return xis[ip][i][j];
 	}
 
+	@Override
 	public int length () { return latticeLength; }
 
+	@Override
 	public Sequence getInput() { 
 	  return input;
 	}
 	
+	@Override
 	public double getAlpha (int ip, State s) {
 		LatticeNode node = getLatticeNode (ip, s.getIndex ());
 		return node.alpha;
 	}
 
+	@Override
 	public double getBeta (int ip, State s) {
 		LatticeNode node = getLatticeNode (ip, s.getIndex ());
 		return node.beta;
 	}
 
+	@Override
 	public LabelVector getLabelingAtPosition (int outputPosition)	{
 		if (labelings != null)
 			return labelings[outputPosition];
 		return null;
 	}
 
+	@Override
 	public Transducer getTransducer ()
 	{
 		return t;
@@ -394,6 +406,7 @@ public class SumLatticeDefault implements SumLattice
 	
 	public static class Factory extends SumLatticeFactory implements Serializable
 	{
+		@Override
 		public SumLattice newSumLattice (Transducer trans, Sequence input, Sequence output, 
 				Transducer.Incrementor incrementor, boolean saveXis, LabelAlphabet outputAlphabet)
 		{

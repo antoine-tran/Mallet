@@ -44,11 +44,13 @@ public class CachedDotTransitionIterator extends Transducer.TransitionIterator {
       nextIndex++;
   }
 
-  public boolean hasNext() {
+  @Override
+public boolean hasNext() {
     return nextIndex < source.numDestinations();
   }
 
-  public Transducer.State nextState() {
+  @Override
+public Transducer.State nextState() {
     assert (nextIndex < source.numDestinations());
     index = nextIndex;
     nextIndex++;
@@ -60,27 +62,33 @@ public class CachedDotTransitionIterator extends Transducer.TransitionIterator {
 
   // These "final"s are just to try to make this more efficient. Perhaps some of
   // them will have to go away
-  public final int getIndex() {
+  @Override
+public final int getIndex() {
     return index;
   }
 
-  public final Object getInput() {
+  @Override
+public final Object getInput() {
     return input;
   }
 
-  public final Object getOutput() {
+  @Override
+public final Object getOutput() {
     return source.getLabelName(index);
   }
 
-  public final double getWeight() {
+  @Override
+public final double getWeight() {
     return weights[index];
   }
 
-  public final Transducer.State getSourceState() {
+  @Override
+public final Transducer.State getSourceState() {
     return source;
   }
 
-  public final Transducer.State getDestinationState() {
+  @Override
+public final Transducer.State getDestinationState() {
     return source.getDestinationState(index);
   }
   

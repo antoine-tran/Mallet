@@ -37,6 +37,7 @@ public class TokenTextCharSuffix extends Pipe implements Serializable
 		this ("SUFFIX=", 2);
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

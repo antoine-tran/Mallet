@@ -23,35 +23,53 @@ public abstract class DenseMatrix implements Matrix, Serializable
 	double[] values;
 	protected boolean hasInfinite;             // if true, at least one value =  -Inf or +Inf
 	
+	@Override
 	public abstract int getNumDimensions ();
+	@Override
 	public abstract int getDimensions (int[] sizes);
 	
+	@Override
 	public abstract double value (int[] indices);
+	@Override
 	public abstract void setValue (int[] indices, double value);
+	@Override
 	public abstract ConstantMatrix cloneMatrix ();
 
+	@Override
 	public abstract int singleIndex (int[] indices);
+	@Override
 	public abstract void singleToIndices (int i, int[] indices);
+	@Override
 	public double singleValue (int i) { return values[i]; }
+	@Override
 	public void setSingleValue (int i, double value) { values[i] = value; }
+	@Override
 	public void incrementSingleValue (int i, double delta) { values[i] += delta; }
 
-  public void setValueAtLocation (int loc, double value)
+  @Override
+public void setValueAtLocation (int loc, double value)
   {
     // indices == locations
     setSingleValue (loc, value);
   }
 
-  public int singleSize () { return values.length; }
+  @Override
+public int singleSize () { return values.length; }
 
+	@Override
 	public int numLocations () { return values.length; }
+	@Override
 	public int location (int index) { return index; }
+	@Override
 	public double valueAtLocation (int location) { return values[location]; }
 	// Returns a "singleIndex"
+	@Override
 	public int indexAtLocation (int location) { return location; }
 
 	
+	@Override
 	public void setAll (double v) { for (int i = 0; i < values.length; i++) values[i] = v; }
+	@Override
 	public void set (ConstantMatrix m) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -61,6 +79,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 				values[m.indexAtLocation(i)] = m.valueAtLocation(i);
 	}
 	
+	@Override
 	public void setWithAddend (ConstantMatrix m, double addend) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -71,6 +90,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 				values[m.indexAtLocation(i)] = m.valueAtLocation(i) + addend;
 	}
 		
+	@Override
 	public void setWithFactor (ConstantMatrix m, double factor) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -86,6 +106,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 			values[i] += v;
 	}
 	
+	@Override
 	public void plusEquals (ConstantMatrix m) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -123,6 +144,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 			}
 	}
 
+	@Override
 	public void plusEquals (ConstantMatrix m, double factor) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -162,6 +184,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 
 
 
+	@Override
 	public void equalsPlus (double factor, ConstantMatrix m) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -201,11 +224,13 @@ public abstract class DenseMatrix implements Matrix, Serializable
 			}
 	}
 	
+	@Override
 	public void timesEquals (double factor) {
 		for (int i = 0; i < values.length; i++)
 			values[i] *= factor;
 	}
 
+	@Override
 	public void elementwiseTimesEquals (ConstantMatrix m) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -216,6 +241,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 				values[m.indexAtLocation(i)] *= m.valueAtLocation(i);
 	}
 	
+	@Override
 	public void elementwiseTimesEquals (ConstantMatrix m, double factor) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -226,11 +252,13 @@ public abstract class DenseMatrix implements Matrix, Serializable
 				values[m.indexAtLocation(i)] *= m.valueAtLocation(i) * factor;
 	}
 	
+	@Override
 	public void divideEquals (double factor) {
 		for (int i = 0; i < values.length; i++)
 			values[i] /= factor;
 	}
 
+	@Override
 	public void elementwiseDivideEquals (ConstantMatrix m) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -241,6 +269,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 				values[m.indexAtLocation(i)] /= m.valueAtLocation(i);
 	}
 
+	@Override
 	public void elementwiseDivideEquals (ConstantMatrix m, double factor) {
 		if (m instanceof DenseMatrix) {
 			assert (m.singleSize() == values.length);
@@ -252,6 +281,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 	}
 
 	// xxx Perhaps make a special efficient case for binary vectors
+	@Override
 	public double dotProduct (ConstantMatrix m) {
 		double ret = 0;
 		if (m instanceof DenseMatrix) {
@@ -271,6 +301,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return ret;
 	}
 	
+	@Override
 	public double absNorm() {
 		double ret = 0;
 		for (int i = 0; i < values.length; i++)
@@ -278,6 +309,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return ret;
 	}
 
+	@Override
 	public double oneNorm () {
 		double ret = 0;
 		for (int i = 0; i < values.length; i++)
@@ -285,6 +317,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return ret;
 	}
 	
+	@Override
 	public double twoNorm () {
 		double ret = 0;
 		for (int i = 0; i < values.length; i++)
@@ -292,6 +325,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return Math.sqrt (ret);
 	}
 	
+	@Override
 	public double infinityNorm () {
 		double max = Double.NEGATIVE_INFINITY;
 		for (int i = 0; i < values.length; i++)
@@ -300,6 +334,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return max;
 	}		
 
+	@Override
 	public double oneNormalize ()	{
 		double norm = oneNorm();
 		for (int i = 0; i < values.length; i++)
@@ -307,6 +342,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return norm;
 	}
 
+	@Override
 	public double twoNormalize ()	{
 		double norm = twoNorm();
 		for (int i = 0; i < values.length; i++)
@@ -314,6 +350,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return norm;
 	}
 
+	@Override
 	public double absNormalize ()	{
 		double norm = absNorm();
 		if (norm > 0)
@@ -322,6 +359,7 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return norm;
 	}
 
+	@Override
 	public double infinityNormalize () {
 		double norm = infinityNorm();
 		for (int i = 0; i < values.length; i++)
@@ -329,11 +367,13 @@ public abstract class DenseMatrix implements Matrix, Serializable
 		return norm;
 	}
 	
+	@Override
 	public void print() {
 		for (int i = 0; i < values.length; i++)
 			System.out.println ("DenseMatrix["+i+"] = "+values[i]);
 	}
 		
+	@Override
 	public boolean isNaN() {
 		for (int i = 0; i < values.length; i++)
 			if (Double.isNaN(values[i]))

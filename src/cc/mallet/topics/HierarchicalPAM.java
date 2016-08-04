@@ -345,9 +345,9 @@ public class HierarchicalPAM {
 
 		for (superTopic = 0; superTopic < numSuperTopics; superTopic++) {
 			superWeights[superTopic] =
-				((double) superCounts[superTopic] + 
+				(superCounts[superTopic] + 
 				 (superTopicBalance * superTopicPriorWeights[superTopic])) /
-				((double) superCounts[superTopic] + subTopicBalance);
+				(superCounts[superTopic] + subTopicBalance);
 			assert(superWeights[superTopic] != 0.0);
 		}
 
@@ -397,9 +397,9 @@ public class HierarchicalPAM {
 
 			// Update the super-topic weight for the old topic.
 			superWeights[superTopic] =
-                ((double) superCounts[superTopic] +
+                (superCounts[superTopic] +
                  (superTopicBalance * superTopicPriorWeights[superTopic])) /
-                ((double) superCounts[superTopic] + subTopicBalance);
+                (superCounts[superTopic] + subTopicBalance);
 
 			// Build a distribution over super-sub topic pairs 
 			//   for this token
@@ -433,7 +433,7 @@ public class HierarchicalPAM {
 					currentSuperSubWeights[subTopic] =
 						currentSuperWeight *
 						wordWeights[ 1 + numSuperTopics + subTopic ] *
-						((double) currentSuperSubCounts[subTopic] + 
+						(currentSuperSubCounts[subTopic] + 
 						 ( subTopicBalance * priorCache[subTopic] ));
 					cumulativeWeight += currentSuperSubWeights[subTopic];
 				}
@@ -441,7 +441,7 @@ public class HierarchicalPAM {
 				currentSuperSubWeights[numSubTopics] = 
 					currentSuperWeight *
 					wordWeights[1 + superTopic] *
-					((double) currentSuperSubCounts[numSubTopics] +
+					(currentSuperSubCounts[numSubTopics] +
 					 ( subTopicBalance * priorCache[numSubTopics] ));
 				cumulativeWeight += currentSuperSubWeights[numSubTopics];
 
@@ -525,9 +525,9 @@ public class HierarchicalPAM {
 
 			// Update the weight for the new super topic
 			superWeights[superTopic] =
-                ((double) superCounts[superTopic] +
+                (superCounts[superTopic] +
                  (superTopicBalance * superTopicPriorWeights[superTopic])) /
-                ((double) superCounts[superTopic] + subTopicBalance);
+                (superCounts[superTopic] + subTopicBalance);
 
 		}
 

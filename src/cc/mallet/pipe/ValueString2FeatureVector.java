@@ -15,6 +15,7 @@ public class ValueString2FeatureVector extends Pipe implements Serializable {
 
 	public ValueString2FeatureVector () {}
 	
+	@Override
 	public Instance pipe(Instance carrier) {
 
 		String data = (String) carrier.getData();

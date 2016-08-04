@@ -47,7 +47,8 @@ public class UndirectedModel extends FactorGraph {
     return Collections.unmodifiableSet (edges);
   }
 
-  public void addFactor (Factor factor)
+  @Override
+public void addFactor (Factor factor)
   {
     super.addFactor (factor);
     if (factor.varSet ().size() == 2) {

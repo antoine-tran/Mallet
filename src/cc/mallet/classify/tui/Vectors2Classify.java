@@ -60,6 +60,7 @@ public abstract class Vectors2Classify
 					true, new String[] {"train:accuracy",  "test:accuracy", "test:confusion",  "test:precision",  "test:recall", "test:f1"},
 					"", null) 
 	{
+		@Override
 		public void postParsing (CommandOption.List list)
 		{
 			java.lang.String defaultRawFormatting = "siw";
@@ -120,6 +121,7 @@ public abstract class Vectors2Classify
 					"Java code for the constructor used to create a ClassifierTrainer.  "+
 							"If no '(' appears, then \"new \" will be prepended and \"Trainer()\" will be appended."+
 							"You may use this option mutiple times to compare multiple classifiers.", null) {
+		@Override
 		public void postParsing (CommandOption.List list) {
 			classifierTrainerStrings.add (this.value);
 		}};

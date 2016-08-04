@@ -33,6 +33,7 @@ public class CRFWriter extends TransducerEvaluator {
 		this.filenamePrefix = filenamePrefix;
 	}
 
+	@Override
 	protected void preamble (TransducerTrainer tt) {
 		int iteration = tt.getIteration();
 		String filename = filenamePrefix + "." + iteration + ".bin";

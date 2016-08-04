@@ -74,6 +74,7 @@ public class ConstrainedViterbiTransducerCorrector implements TransducerCorrecto
 	}
 		
 
+	@Override
 	public ArrayList correctLeastConfidentSegments (InstanceList ilist,
 																									Object[] startTags,
 																									Object[] continueTags) {

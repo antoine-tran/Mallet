@@ -16,10 +16,12 @@ public class AccuracyEvaluator extends ClusteringEvaluator {
 		correctTotal = comparisonsTotal = 0;
 	}
 
+	@Override
 	public String evaluate (Clustering truth, Clustering predicted) {
 		return "accuracy=" + String.valueOf(getEvaluationScores(truth, predicted)[0]);
 	}
 
+	@Override
 	public String evaluateTotals () {
 		return ("accuracy=" + ((double)correctTotal / comparisonsTotal));
 	}

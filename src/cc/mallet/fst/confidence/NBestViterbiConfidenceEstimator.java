@@ -15,7 +15,6 @@ import java.util.logging.*;
 import java.util.*;
 
 import cc.mallet.fst.*;
-import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
 import cc.mallet.util.MalletLogger;
 
@@ -44,6 +43,7 @@ public class NBestViterbiConfidenceEstimator extends TransducerSequenceConfidenc
 	/**
 		 Calculates the confidence in the tagging of a {@link Instance}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Instance instance,
 																			 Object[] startTags,
 																			 Object[] inTags) {

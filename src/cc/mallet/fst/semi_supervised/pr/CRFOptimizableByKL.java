@@ -172,6 +172,7 @@ public class CRFOptimizableByKL implements Serializable, ByGradientValue {
 		return value;
 	}
 
+	@Override
 	public double getValue() {
 		if (crf.getWeightsValueChangeStamp() != cachedValueWeightsStamp) {
 			cachedValueWeightsStamp = crf.getWeightsValueChangeStamp();
@@ -195,6 +196,7 @@ public class CRFOptimizableByKL implements Serializable, ByGradientValue {
 		return cachedValue;
 	}
 
+	@Override
 	public void getValueGradient(double[] buffer) {
 		if (cachedGradientWeightsStamp != crf.getWeightsValueChangeStamp()) {
 			cachedGradientWeightsStamp = crf.getWeightsValueChangeStamp();
@@ -210,23 +212,28 @@ public class CRFOptimizableByKL implements Serializable, ByGradientValue {
 		System.arraycopy(cachedGradient, 0, buffer, 0, cachedGradient.length);
 	}
 
+	@Override
 	public int getNumParameters() {
 		return numParameters;
 	}
 
+	@Override
 	public void getParameters(double[] buffer) {
 		crf.getParameters().getParameters(buffer);
 	}
 
+	@Override
 	public double getParameter(int index) {
 		return crf.getParameters().getParameter(index);
 	}
 
+	@Override
 	public void setParameters(double[] buff) {
 		crf.getParameters().setParameters(buff);
 		crf.weightsValueChanged();
 	}
 
+	@Override
 	public void setParameter(int index, double value) {
 		crf.getParameters().setParameter(index, value);
 		crf.weightsValueChanged();
@@ -256,6 +263,7 @@ public class CRFOptimizableByKL implements Serializable, ByGradientValue {
   		return expectationsCopy;
   	}
   	
+		@Override
 		public Double call() throws Exception {
 			double value = 0;
 			

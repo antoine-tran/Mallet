@@ -62,7 +62,8 @@ public class LoopyBP extends AbstractBeliefPropagation {
     return this;
   }
 
-  public void computeMarginals (FactorGraph mdl)
+  @Override
+public void computeMarginals (FactorGraph mdl)
   {
     super.initForGraph (mdl);
 

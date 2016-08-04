@@ -257,13 +257,15 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
     protected MessageArray messages;
     protected MessageArray oldMessages;
 
-    public void setMessageArray (MessageArray msgs, MessageArray oldMsgs)
+    @Override
+	public void setMessageArray (MessageArray msgs, MessageArray oldMsgs)
     {
       messages = msgs;
       oldMessages = oldMsgs;
     }
 
-    public Factor msgProduct (Factor product, int idx, int excludeMsgFrom)
+    @Override
+	public Factor msgProduct (Factor product, int idx, int excludeMsgFrom)
     {
       if (product == null) {
         product = createEmptyFactorForVar (idx);
@@ -308,7 +310,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
       this.damping = damping;
     }
 
-    public void sendMessage (FactorGraph mdl, Factor from, Variable to)
+    @Override
+	public void sendMessage (FactorGraph mdl, Factor from, Variable to)
     {
       int fromIdx = messages.getIndex (from);
       int toIdx = messages.getIndex (to);
@@ -332,7 +335,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
       makeDampedUpdate (fromIdx, toIdx, msg);
     }
 
-    public void sendMessage (FactorGraph mdl, Variable from, Factor to)
+    @Override
+	public void sendMessage (FactorGraph mdl, Variable from, Factor to)
     {
 //      System.err.println ("...sum-prod message");
       int fromIdx = messages.getIndex (from);
@@ -393,7 +397,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
 
   public static class MaxProductMessageStrategy extends AbstractMessageStrategy implements Serializable {
 
-    public void sendMessage (FactorGraph mdl, Factor from, Variable to)
+    @Override
+	public void sendMessage (FactorGraph mdl, Factor from, Variable to)
     {
 //      System.err.println ("...max-prod message");
       int fromIdx = messages.getIndex (from);
@@ -411,7 +416,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
       messages.put (fromIdx, toIdx, msg);
     }
 
-    public void sendMessage (FactorGraph mdl, Variable from, Factor to)
+    @Override
+	public void sendMessage (FactorGraph mdl, Variable from, Factor to)
     {
 //      System.err.println ("...max-prod message");
       int fromIdx = messages.getIndex (from);
@@ -444,7 +450,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
   }
 
 
-  public Factor lookupMarginal (Variable var)
+  @Override
+public Factor lookupMarginal (Variable var)
   {
     int idx = mdlCurrent.getIndex (var);
     if ((idx < 0) || (idx > bel.length)) {
@@ -471,12 +478,14 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
     return bel[idx];
   }
 
-  public void dump ()
+  @Override
+public void dump ()
   {
     messages.dump ();
   }
 
-  public void reportTime ()
+  @Override
+public void reportTime ()
   {
     System.err.println ("AbstractBeliefPropagation: Total messages sent = "+totalMessagesSent);
   }
@@ -503,7 +512,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
     in.defaultReadObject ();
   }
 
-  public Factor lookupMarginal (VarSet c)
+  @Override
+public Factor lookupMarginal (VarSet c)
   {
     if (c.size () == 1) {
       return lookupMarginal (c.get (0));
@@ -537,7 +547,8 @@ public abstract class AbstractBeliefPropagation extends AbstractInferencer {
     return marginal;
   }
 
-  public double lookupLogJoint (Assignment assn)
+  @Override
+public double lookupLogJoint (Assignment assn)
   {
     double accum = 0.0;
 

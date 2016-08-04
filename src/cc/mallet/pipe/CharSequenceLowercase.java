@@ -10,8 +10,6 @@ package cc.mallet.pipe;
 import java.io.*;
 
 import cc.mallet.types.Instance;
-import cc.mallet.types.Token;
-import cc.mallet.types.TokenSequence;
 
 /**
  * Replace the data string or string buffer with a lowercased version. 
@@ -20,6 +18,7 @@ import cc.mallet.types.TokenSequence;
 
 public class CharSequenceLowercase extends Pipe implements Serializable {
 	
+	@Override
 	public Instance pipe (Instance carrier) {
 
 		if (carrier.getData() instanceof CharSequence) {

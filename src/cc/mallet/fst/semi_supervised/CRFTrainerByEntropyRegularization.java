@@ -92,7 +92,8 @@ public class CRFTrainerByEntropyRegularization extends TransducerTrainer impleme
   /* 
    * This is not used because we require both labeled and unlabeled data.
    */
-  public boolean train(InstanceList trainingSet, int numIterations) {
+  @Override
+public boolean train(InstanceList trainingSet, int numIterations) {
   	throw new RuntimeException("Use train(InstanceList labeled, InstanceList unlabeled, int numIterations) instead.");
   }
 	
@@ -176,6 +177,7 @@ public class CRFTrainerByEntropyRegularization extends TransducerTrainer impleme
 		return converged;
 	}
 	
+	@Override
 	public Optimizer getOptimizer() {
 		return bfgs;
 	}

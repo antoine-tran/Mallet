@@ -2,7 +2,6 @@ package cc.mallet.pipe;
 
 import cc.mallet.types.*;
 import gnu.trove.*;
-import java.io.*;
 
 /** 
  *  Pruning low-count features can be a good way to save memory and computation.
@@ -34,6 +33,7 @@ public class FeatureDocFreqPipe extends Pipe {
 		numInstances = 0;
 	}
 
+	@Override
 	public Instance pipe(Instance instance) {
 		
 		TIntIntHashMap localCounter = new TIntIntHashMap();

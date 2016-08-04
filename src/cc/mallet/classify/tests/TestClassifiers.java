@@ -16,13 +16,9 @@ package cc.mallet.classify.tests;
 
 //import edu.umass.cs.mallet.base.pipe.SerialPipe;
 import junit.framework.*;
-import java.net.URI;
 import java.util.Iterator;
 
 import cc.mallet.classify.*;
-import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.ArrayIterator;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.pipe.iterator.RandomTokenSequenceIterator;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
@@ -126,6 +122,7 @@ public class TestClassifiers extends TestCase
 		return new TestSuite (TestClassifiers.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

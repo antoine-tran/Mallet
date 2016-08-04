@@ -33,6 +33,7 @@ public class PrintInputAndTarget extends Pipe implements Serializable
 	{
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		 if (prefix != null)

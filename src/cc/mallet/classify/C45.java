@@ -62,6 +62,7 @@ public class C45 extends Classifier implements Boostable, Serializable
 			return getLeaf(node.getRightChild(), fv);
 	}
 	
+	@Override
 	public Classification classify (Instance instance)
 	{
 		FeatureVector fv = (FeatureVector) instance.getData ();
@@ -93,6 +94,7 @@ public class C45 extends Classifier implements Boostable, Serializable
 	/**
 	 * Prints the tree
 	 */
+	@Override
 	public void print()
 	{
 		if (getRoot() != null)

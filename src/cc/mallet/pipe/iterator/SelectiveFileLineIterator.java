@@ -33,6 +33,7 @@ public class SelectiveFileLineIterator implements Iterator<Instance> {
 		this.skipRegex = skipRegex;
 	}
 
+	@Override
 	public Instance next () {
 		if (!hasNextUsed) {
 			try {
@@ -55,6 +56,7 @@ public class SelectiveFileLineIterator implements Iterator<Instance> {
 		return new Instance (currentLine, null, uri, null);
 	}
 
+	@Override
 	public boolean hasNext ()	{	
 		hasNextUsed = true; 
 		try {
@@ -69,6 +71,7 @@ public class SelectiveFileLineIterator implements Iterator<Instance> {
 		return (currentLine != null);	
 	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

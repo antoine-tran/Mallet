@@ -34,7 +34,6 @@ import cc.mallet.grmm.learning.*;
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.FileListIterator;
 import cc.mallet.pipe.iterator.LineGroupIterator;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.util.*;

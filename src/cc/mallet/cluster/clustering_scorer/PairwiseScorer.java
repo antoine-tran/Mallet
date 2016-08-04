@@ -24,6 +24,7 @@ public class PairwiseScorer implements ClusteringScorer {
 		this.evaluator = evaluator;
 	}
 
+	@Override
 	public double score(Clustering clustering) {
 		Clustering singletons = ClusterUtils
 				.createSingletonClustering(clustering.getInstances());
@@ -31,7 +32,7 @@ public class PairwiseScorer implements ClusteringScorer {
 		int count = 0;
 		for (AllPairsIterator iter = new AllPairsIterator(singletons); iter
 				.hasNext(); count++) {
-			Instance instance = (Instance) iter.next();
+			Instance instance = iter.next();
 			AgglomerativeNeighbor neighbor = (AgglomerativeNeighbor) instance
 					.getData();
 			double score = evaluator.evaluate(neighbor);
@@ -42,7 +43,7 @@ public class PairwiseScorer implements ClusteringScorer {
 			else
 				total += 1.0 - score;
 		}
-		return (double) total / count;
+		return total / count;
 	}
 
 }

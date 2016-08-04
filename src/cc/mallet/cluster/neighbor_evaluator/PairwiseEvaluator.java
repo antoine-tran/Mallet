@@ -66,6 +66,7 @@ public class PairwiseEvaluator extends ClassifyingNeighborEvaluator {
 		this.mergeFirst = mergeFirst;
 	}
 
+	@Override
 	public double[] evaluate (Neighbor[] neighbors) {
 		double[] scores = new double[neighbors.length];
 		for (int i = 0; i < neighbors.length; i++)
@@ -73,6 +74,7 @@ public class PairwiseEvaluator extends ClassifyingNeighborEvaluator {
 		return scores;
 	}
 	
+	@Override
 	public double evaluate (Neighbor neighbor) {
  		if (!(neighbor instanceof AgglomerativeNeighbor))
  			throw new IllegalArgumentException("Expect AgglomerativeNeighbor not " + neighbor.getClass().getName());
@@ -122,14 +124,16 @@ public class PairwiseEvaluator extends ClassifyingNeighborEvaluator {
 		
  		double[] vals = new double[scores.size()];
 		for (int i = 0; i < vals.length; i++)
-			vals[i] = ((Double)scores.get(i)).doubleValue();
+			vals[i] = scores.get(i).doubleValue();
  		return combiningStrategy.combine(vals);
 	}
 
+	@Override
 	public void reset () {
 		scoreCache = null;
 	}
 	
+	@Override
 	public String toString () {
 		return "class=" + this.getClass().getName() +
 			" classifier=" + classifier.getClass().getName();
@@ -159,6 +163,7 @@ public class PairwiseEvaluator extends ClassifyingNeighborEvaluator {
 	}
 
 	public static class Average implements CombiningStrategy, Serializable {
+		@Override
 		public double combine (double[] scores) {
 			return MatrixOps.mean(scores);
 		}		
@@ -181,6 +186,7 @@ public class PairwiseEvaluator extends ClassifyingNeighborEvaluator {
 	}
 
 	public static class Minimum implements CombiningStrategy, Serializable {
+		@Override
 		public double combine (double[] scores) {
 			return MatrixOps.min(scores);
 		}		
@@ -203,6 +209,7 @@ public class PairwiseEvaluator extends ClassifyingNeighborEvaluator {
 	}
 
 	public static class Maximum implements CombiningStrategy, Serializable {
+		@Override
 		public double combine (double[] scores) {
 			return MatrixOps.max(scores);
 		}		

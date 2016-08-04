@@ -45,6 +45,7 @@ public class Labels implements AlphabetCarrying, Serializable
 
 	public void set (int i, Label l) { labels[i] = l; }
 
+	@Override
 	public String toString ()
 	{
 		String ret = "";
@@ -55,7 +56,9 @@ public class Labels implements AlphabetCarrying, Serializable
 		return ret;
 	}
 	
+	@Override
 	public Alphabet getAlphabet () { return labels[0].getAlphabet(); }
+	@Override
 	public Alphabet[] getAlphabets () { return labels[0].getAlphabets(); }
 
   // Serialization

@@ -296,11 +296,14 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
    */
   abstract void setAsIdentity ();
 
-  public abstract Factor duplicate ();
+  @Override
+public abstract Factor duplicate ();
 
-  public abstract Factor normalize ();
+  @Override
+public abstract Factor normalize ();
 
-  public abstract double sum ();
+  @Override
+public abstract double sum ();
 
   protected abstract AbstractTableFactor createBlankSubset (Variable[] vars);
 
@@ -333,7 +336,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
   /**
    * Returns true iff this potential is over the given variable
    */
-  public boolean containsVar (Variable var)
+  @Override
+public boolean containsVar (Variable var)
   {
     return vars.contains (var);
   }
@@ -341,12 +345,14 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
   /**
    * Returns set of variables in this potential.
    */
-  public VarSet varSet ()
+  @Override
+public VarSet varSet ()
   {
     return new UnmodifiableVarSet (vars);
   }
 
-  public AssignmentIterator assignmentIterator ()
+  @Override
+public AssignmentIterator assignmentIterator ()
   {
     if (probs instanceof SparseMatrixn) {
       int[] idxs = ((SparseMatrixn) probs).getIndices ();
@@ -380,7 +386,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
   }
 
 
-  public abstract double value (Assignment assn);
+  @Override
+public abstract double value (Assignment assn);
 
 
   // Special function to do normalization in log space
@@ -392,7 +399,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
     return Math.log (probs.oneNorm ());
   }
 
-  public double entropy ()
+  @Override
+public double entropy ()
   {
     double h = 0;
     double p;
@@ -537,32 +545,37 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
   /**
    * Returns the marginal of this distribution over the given variables.
    */
-  public Factor marginalize (Variable vars[])
+  @Override
+public Factor marginalize (Variable vars[])
   {
     assert varSet ().containsAll (Arrays.asList (vars)); // Perhaps throw exception instead
     return marginalizeInternal (createBlankSubset (vars));
   }
 
-  public Factor marginalize (Collection vars)
+  @Override
+public Factor marginalize (Collection vars)
   {
     assert varSet ().containsAll (vars);  // Perhaps throw exception instead
     return marginalizeInternal (createBlankSubset (vars));
   }
 
-  public Factor marginalize (Variable var)
+  @Override
+public Factor marginalize (Variable var)
   {
     assert varSet ().contains (var);  // Perhaps throw exception instead
     return marginalizeInternal (createBlankSubset (new Variable[]{var}));
   }
 
-  public Factor marginalizeOut (Variable var)
+  @Override
+public Factor marginalizeOut (Variable var)
   {
     Set newVars = new HashVarSet (vars);
     newVars.remove (var);
     return marginalizeInternal (createBlankSubset (newVars));
   }
 
-  public Factor marginalizeOut (VarSet badVars)
+  @Override
+public Factor marginalizeOut (VarSet badVars)
   {
     Set newVars = new HashVarSet (vars);
     newVars.remove (badVars);
@@ -572,17 +585,20 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
 
   protected abstract Factor marginalizeInternal (AbstractTableFactor result);
 
-  public Factor extractMax (Variable var)
+  @Override
+public Factor extractMax (Variable var)
   {
     return extractMaxInternal (createBlankSubset (new Variable[] { var }));
   }
 
-  public Factor extractMax (Variable[] vars)
+  @Override
+public Factor extractMax (Variable[] vars)
   {
     return extractMaxInternal (createBlankSubset (vars));
   }
 
-  public Factor extractMax (Collection vars)
+  @Override
+public Factor extractMax (Collection vars)
   {
     return extractMaxInternal (createBlankSubset (vars));
   }
@@ -651,7 +667,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
    * Assumes that pot's variables are a subset of
    * this potential's.
    */
-  public void multiplyBy (Factor pot)
+  @Override
+public void multiplyBy (Factor pot)
   {
     if (pot instanceof DiscreteFactor) {
       DiscreteFactor factor = (DiscreteFactor) pot;
@@ -691,7 +708,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
    * Returns the elementwise product of this potential and
    * another one.
    */
-  public Factor multiply (Factor dist)
+  @Override
+public Factor multiply (Factor dist)
   {
     Factor result = duplicate ();
     result.multiplyBy (dist);
@@ -703,7 +721,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
    * Assumes that pot's variables are a subset of
    * this potential's.
    */
-  public void divideBy (Factor pot)
+  @Override
+public void divideBy (Factor pot)
   {
     if (pot instanceof DiscreteFactor) {
       DiscreteFactor pot1 = (DiscreteFactor) pot; // cheating
@@ -730,7 +749,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
 
 
   // xxx Should return an assignment
-  public int argmax ()
+  @Override
+public int argmax ()
   {
     int bestIdx = 0;
     double bestVal = probs.singleValue (0);
@@ -748,7 +768,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
 
   private static final double EPS = 1e-5;
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     int loc = sampleLocation (r);
     return location2assignment (loc);
@@ -759,7 +780,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
     return new DenseAssignmentIterator (vars, loc).assignment ();
   }
 
-  public int sampleLocation (Randoms r)
+  @Override
+public int sampleLocation (Randoms r)
   {
     double sum = sum();
     double sampled = r.nextUniform () * sum;
@@ -779,12 +801,14 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
   }
 
 
-  public boolean almostEquals (Factor p)
+  @Override
+public boolean almostEquals (Factor p)
   {
     return almostEquals (p, Maths.EPSILON);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     if (!(p instanceof AbstractTableFactor)) {
       return false;
@@ -817,12 +841,14 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
 
 
 
-  public Object clone ()
+  @Override
+public Object clone ()
   {
     return duplicate ();
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     StringBuffer s = new StringBuffer (1024);
     s.append ("[");
@@ -833,7 +859,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
     return s.toString ();
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     StringBuffer s = new StringBuffer (1024);
     s.append (this.toString ());
@@ -856,7 +883,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
     return s.toString ();
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return probs.isNaN ();
   }
@@ -891,17 +919,20 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
     return null;
   }
 
-  public int numLocations ()
+  @Override
+public int numLocations ()
   {
     return probs.numLocations ();
   }
 
-  public int indexAtLocation (int loc)
+  @Override
+public int indexAtLocation (int loc)
   {
     return probs.indexAtLocation (loc);
   }
 
-  public Variable getVariable (int i)
+  @Override
+public Variable getVariable (int i)
   {
     return vars.get (i);
   }
@@ -1000,7 +1031,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
 
   protected abstract double rawValue (int singleIdx);
 
-  public double[] toValueArray () {
+  @Override
+public double[] toValueArray () {
     Matrix matrix = getValueMatrix ();
     double[] arr = new double [matrix.numLocations ()];
     for (int i = 0; i < arr.length; i++) {
@@ -1009,7 +1041,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
     return arr;
   }
 
-  public int singleIndex (int[] smallDims)
+  @Override
+public int singleIndex (int[] smallDims)
   {
     return probs.singleIndex (smallDims);
   }
@@ -1076,7 +1109,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
    */
   public abstract AbstractTableFactor recenter ();
 
-  public AbstractTableFactor asTable ()
+  @Override
+public AbstractTableFactor asTable ()
   {
     return this;
   }
@@ -1086,7 +1120,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
    * @param assn Variables to hold as fixed
    * @return A new factor over VARS(factor)\VARS(assn)
    */
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     Set intersection = varSet().intersection (assn.varSet ());
     if (intersection.isEmpty ()) {
@@ -1116,7 +1151,8 @@ public abstract class AbstractTableFactor implements DiscreteFactor {
 
   protected abstract Factor slice_general (Variable[] vars, Assignment observed);
 
-    public String prettyOutputString () {
+    @Override
+	public String prettyOutputString () {
 	StringBuffer buf = new StringBuffer();
 	for (Iterator it = vars.iterator(); it.hasNext();) {
 	    Variable var = (Variable) it.next();

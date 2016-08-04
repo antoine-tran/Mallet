@@ -341,6 +341,7 @@ public class ExpGain extends RankedFeatureVector
 			this.gaussianPriorVariance = gaussianPriorVariance;
 		}
 		
+		@Override
 		public RankedFeatureVector newRankedFeatureVector (InstanceList ilist)
 		{
 			assert (ilist.getTargetAlphabet() == classifications[0].getAlphabet());

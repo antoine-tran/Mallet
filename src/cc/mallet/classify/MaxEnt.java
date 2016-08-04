@@ -16,7 +16,6 @@ import java.io.PrintStream;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
@@ -95,6 +94,7 @@ public class MaxEnt extends Classifier implements Serializable
 		parameters[classIndex*(getAlphabet().size()+1) + featureIndex] = value;
 	}
 
+	@Override
 	public FeatureSelection getFeatureSelection() {
 		return featureSelection;
 	}
@@ -105,6 +105,7 @@ public class MaxEnt extends Classifier implements Serializable
 	}
 
 
+	@Override
 	public FeatureSelection[] getPerClassFeatureSelection(){
 		return perClassFeatureSelection;
 	}
@@ -187,6 +188,7 @@ public class MaxEnt extends Classifier implements Serializable
 	}
 
 	//modified by Limin Yao, using temperature classification score
+	@Override
 	public Classification classify (Instance instance)
 	{
 		int numClasses = getLabelAlphabet().size();
@@ -199,6 +201,7 @@ public class MaxEnt extends Classifier implements Serializable
 						scores));
 	}
 
+	@Override
 	public void print () {
 		print(System.out);
 	}

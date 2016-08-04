@@ -16,14 +16,9 @@ package cc.mallet.optimize.tests;
 
 import junit.framework.*;
 import java.util.logging.*;
-import java.io.*;
 import java.util.Random;
 
-import cc.mallet.classify.*;
-import cc.mallet.optimize.LineOptimizer;
 import cc.mallet.optimize.Optimizable;
-import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
 
@@ -64,14 +59,14 @@ public class TestOptimizable extends TestCase
 		double[] parameters = new double [maxable.getNumParameters()];
 		maxable.getParameters (parameters);
 		for (int i = 0; i < parameters.length; i++)
-			parameters[i] = (double)i;
+			parameters[i] = i;
 		maxable.setParameters (parameters);
 
 		// Test to make sure those parameters are there
 		MatrixOps.setAll (parameters, 0.0);
 		maxable.getParameters (parameters);
 		for (int i = 0; i < parameters.length; i++)
-			assertTrue (parameters[i] == (double)i);
+			assertTrue (parameters[i] == i);
 		return true;
 	}
 
@@ -277,23 +272,30 @@ public class TestOptimizable extends TestCase
 
 		double[] params = new double [1];
 
+		@Override
 		public void getParameters(double[] doubleArray) {
 			doubleArray [0] = params [0];
 		}
 
+		@Override
 		public int getNumParameters() { return 1; }
 
+		@Override
 		public double getParameter(int n) { return params [0]; };
 
+		@Override
 		public void setParameters(double[] doubleArray) {
 			params [0] = doubleArray [0];
 		}
+		@Override
 		public void setParameter(int n, double d) { params[n] = d; }
 
+		@Override
 		public double getValue () {
 			return 3*params[0]*params[0] - 5 * params[0] + 2;
 		}
 
+		@Override
 		public void getValueGradient (double[] buffer)
 		{
 			buffer [0] = 3*params [0] - 5;
@@ -301,6 +303,7 @@ public class TestOptimizable extends TestCase
 	}
 
 	static class WrongSimplePoly extends SimplePoly {
+		@Override
 		public void getValueGradient (double[] buffer)
 		{
 			buffer [0] = 3*params [0]; // WRONG: Missing -5
@@ -325,6 +328,7 @@ public class TestOptimizable extends TestCase
 		return new TestSuite (TestOptimizable.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

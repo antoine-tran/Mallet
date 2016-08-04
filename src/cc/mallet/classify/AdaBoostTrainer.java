@@ -7,7 +7,6 @@
 
 package cc.mallet.classify;
 
-import java.util.Random;
 import java.util.logging.*;
 
 import cc.mallet.types.*;
@@ -34,6 +33,7 @@ public class AdaBoostTrainer extends ClassifierTrainer<AdaBoost>
 	ClassifierTrainer weakLearner;
 	int numRounds;
 	AdaBoost classifier;
+	@Override
 	public AdaBoost getClassifier () { return classifier; }
 
 	public AdaBoostTrainer (ClassifierTrainer weakLearner, int numRounds)
@@ -54,6 +54,7 @@ public class AdaBoostTrainer extends ClassifierTrainer<AdaBoost>
 	/**
 	 * Boosting method that resamples instances using their weights
 	 */    
+	@Override
 	public AdaBoost train (InstanceList trainingList)
 	{
 		FeatureSelection selectedFeatures = trainingList.getFeatureSelection();

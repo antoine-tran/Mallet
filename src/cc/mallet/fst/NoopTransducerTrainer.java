@@ -5,9 +5,9 @@ import cc.mallet.types.InstanceList;
 /** A TransducerTrainer that does no training, but simply acts as a container for a Transducer;
  * for use in situations that require a TransducerTrainer, such as the TransducerEvaluator methods. */
 public class NoopTransducerTrainer extends TransducerTrainer {
-	
+
 	Transducer transducer;
-	
+
 	public NoopTransducerTrainer (Transducer transducer) {
 		this.transducer = transducer;
 	}

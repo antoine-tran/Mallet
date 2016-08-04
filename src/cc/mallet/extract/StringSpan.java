@@ -36,7 +36,8 @@ public class StringSpan extends Token implements Span
     this.end = end;
   }
 
-  public Span intersection (Span r)
+  @Override
+public Span intersection (Span r)
   {
     StringSpan other = (StringSpan) r;
     int newStart = Math.max (start, other.start);
@@ -50,12 +51,14 @@ public class StringSpan extends Token implements Span
     return subseq.toString();
   }
 
-  public Object getDocument ()
+  @Override
+public Object getDocument ()
   {
     return document;
   }
 
-  public boolean intersects (Span r)
+  @Override
+public boolean intersects (Span r)
   {
     if (!(r instanceof StringSpan))
       return false;
@@ -64,17 +67,21 @@ public class StringSpan extends Token implements Span
   }
 
 
-  public boolean isSubspan (Span r)
+  @Override
+public boolean isSubspan (Span r)
   {
     return (r.getDocument() == this.document &&
             (this.start <= r.getStartIdx ()) && (r.getEndIdx () <= this.end));
   }
 
-  public int getStartIdx () { return start; }
+  @Override
+public int getStartIdx () { return start; }
 
-  public int getEndIdx () { return end; }
+  @Override
+public int getEndIdx () { return end; }
 
-  public String toString() {
+  @Override
+public String toString() {
     return super.toString() + "  span["+start+".."+end+"]";
   }
 

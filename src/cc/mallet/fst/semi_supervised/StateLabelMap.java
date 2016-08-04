@@ -8,7 +8,6 @@
 package cc.mallet.fst.semi_supervised;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import cc.mallet.types.Alphabet;

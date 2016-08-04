@@ -123,6 +123,7 @@ public class Multinomial extends FeatureVector
 		return logProbability (dictionary.lookupIndex (key));
 	}
 
+	@Override
 	public Alphabet getAlphabet ()
 	{
 		return dictionary;
@@ -164,7 +165,7 @@ public class Multinomial extends FeatureVector
 		if (! (dictionary instanceof Alphabet))
 			throw new UnsupportedOperationException
 				("Multinomial's dictionary must be a Alphabet");
-		FeatureSequence fs = new FeatureSequence ((Alphabet)dictionary, length);
+		FeatureSequence fs = new FeatureSequence (dictionary, length);
 		while (length-- > 0)
 			fs.add (randomIndex (r));
 		return fs;
@@ -223,11 +224,13 @@ public class Multinomial extends FeatureVector
 			this (probabilities, null, false);
 		}
 
+		@Override
 		public double probability (int featureIndex)
 		{
 			return Math.exp (values[featureIndex]);
 		}
 
+		@Override
 		public double logProbability (int featureIndex)
 		{
 			return values[featureIndex];
@@ -397,6 +400,7 @@ public class Multinomial extends FeatureVector
 			return counts[index];
 		}
 
+		@Override
 		public Object clone ()
 		{
 			try {
@@ -473,6 +477,7 @@ public class Multinomial extends FeatureVector
 			this.m = m;
 		}
 
+		@Override
 		public Multinomial estimate ()
 		{
 			double[] pr = new double[dictionary==null ? size : dictionary.size()];
@@ -609,6 +614,7 @@ public class Multinomial extends FeatureVector
 			prior = d;
 		}
 
+		@Override
 		public Multinomial estimate ()
 		{
 			// xxx unfinished.

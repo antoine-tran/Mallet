@@ -29,6 +29,7 @@ public class RandomEvaluator implements NeighborEvaluator, Serializable {
 	 * @param neighbor
 	 * @return A higher score indicates that the modified Clustering is preferred.
 	 */
+	@Override
 	public double evaluate (Neighbor neighbor) {
 		return random.nextUniform(0, 1);
 	}
@@ -40,6 +41,7 @@ public class RandomEvaluator implements NeighborEvaluator, Serializable {
 	 * modified Clustering is preferred.
 	 *
 	 */
+	@Override
 	public double[] evaluate (Neighbor[] neighbors) {
 		double[] scores = new double[neighbors.length];
 		for (int i = 0; i < neighbors.length; i++)
@@ -50,6 +52,7 @@ public class RandomEvaluator implements NeighborEvaluator, Serializable {
 	/**
 	 * Reset the state of the evaluator.
 	 */
+	@Override
 	public void reset () {}
 		
 	// SERIALIZATION

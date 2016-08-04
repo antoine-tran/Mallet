@@ -19,9 +19,6 @@
 package cc.mallet.optimize;
 
 import java.util.logging.*;
-import java.util.Arrays;
-
-import cc.mallet.fst.CRF;
 import cc.mallet.optimize.LineOptimizer;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.types.MatrixOps;
@@ -69,6 +66,7 @@ public class BackTrackLineSearch implements LineOptimizer.ByGradient
 
 	// returns fraction of step size (alam) if found a good step
 	// returns 0.0 if could not step in direction
+	@Override
 	public double optimize (double[] line, double initialStep) {
 		double[] g, x, oldParameters;
 		double slope, newSlope, temp, test, alamin, alam, alam2, tmplam;

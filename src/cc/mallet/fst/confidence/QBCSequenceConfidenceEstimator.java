@@ -15,7 +15,6 @@ import java.util.logging.*;
 import java.util.*;
 
 import cc.mallet.fst.*;
-import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
 import cc.mallet.util.MalletLogger;
 
@@ -40,6 +39,7 @@ public class QBCSequenceConfidenceEstimator extends TransducerSequenceConfidence
 	/**
 		 Calculates the confidence in the tagging of a {@link Instance}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Instance instance,
 																			 Object[] startTags,
 																			 Object[] inTags) {
@@ -74,7 +74,7 @@ public class QBCSequenceConfidenceEstimator extends TransducerSequenceConfidence
 			}
 			sum += voteEntropy(label2Count);
 		}
-		return (double)sum / predictions[0].size();
+		return sum / predictions[0].size();
 	}
 
 	private double voteEntropy (HashMap label2Count) {
@@ -86,7 +86,7 @@ public class QBCSequenceConfidenceEstimator extends TransducerSequenceConfidence
 			double quot = (double)count / committee.length;
  			sum += quot * Math.log(quot);
 		}
-		double ret = (double) -1.0 * sum / Math.log((double)committee.length);
+		double ret = -1.0 * sum / Math.log(committee.length);
 		return ret;
 	}
 }

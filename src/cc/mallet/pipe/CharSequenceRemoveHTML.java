@@ -26,6 +26,7 @@ import java.io.*;
 
 public class CharSequenceRemoveHTML extends Pipe {
 
+	@Override
 	public Instance pipe(Instance carrier) {
 		String text = ((CharSequence) carrier.getData()).toString();
 		
@@ -45,7 +46,7 @@ public class CharSequenceRemoveHTML extends Pipe {
 			System.err.println(e);
 		}
 		String result = ((TagStripper) callback).getText();
-		carrier.setData((CharSequence) result);
+		carrier.setData(result);
 		return carrier;
 	}
 
@@ -56,6 +57,7 @@ public class CharSequenceRemoveHTML extends Pipe {
 			text = "";
 		}
 
+		@Override
 		public void handleText(char[] txt, int position) {
 			for (int index = 0; index < txt.length; index++) {
 				text += txt[index];
@@ -71,6 +73,7 @@ public class CharSequenceRemoveHTML extends Pipe {
 
 	private class ParserGetter extends HTMLEditorKit {
 		// purely to make this method public
+		@Override
 		public HTMLEditorKit.Parser getParser() {
 			return super.getParser();
 		}

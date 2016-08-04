@@ -46,7 +46,7 @@ public class PerLabelInfoGain
 	{
 		assert (Math.abs((pc+pnc)-1) < 0.0001) : "pc="+pc+" pnc="+pnc;
 		if (pc == 0 || pnc == 0)
-			return (float) 0;
+			return 0;
 		else {
 			float ret = (float) (- pc*Math.log(pc)/log2 - pnc*Math.log(pnc)/log2);
 			assert (ret >= 0) : "pc="+pc+" pnc="+pnc;
@@ -133,12 +133,12 @@ public class PerLabelInfoGain
 				}
 				double pc, pnc, ef;
 				// Calculate the {ci,!ci}-entropy given that the feature does occur
-				pc = ((double)classFeatureCounts[ci][fi]) / featureCounts[fi];
-				pnc = ((double)featureCounts[fi]-classFeatureCounts[ci][fi]) / featureCounts[fi];
+				pc = (classFeatureCounts[ci][fi]) / featureCounts[fi];
+				pnc = (featureCounts[fi]-classFeatureCounts[ci][fi]) / featureCounts[fi];
 				ef = entropy (pc, pnc);
 				// Calculate the {ci,!ci}-entropy given that the feature does not occur
-				pc = ((double)classCounts[ci]-classFeatureCounts[ci][fi]) / (numInstances-featureCounts[fi]);
-				pnc = ((double)(numInstances-featureCounts[fi])-(classCounts[ci]-classFeatureCounts[ci][fi])) / (numInstances-featureCounts[fi]);
+				pc = (classCounts[ci]-classFeatureCounts[ci][fi]) / (numInstances-featureCounts[fi]);
+				pnc = (numInstances-featureCounts[fi]-(classCounts[ci]-classFeatureCounts[ci][fi])) / (numInstances-featureCounts[fi]);
 				double enf = entropy(pc, pnc);
 				classFeatureCounts[ci][fi] = classEntropies[ci] - (pf*ef + pnf*enf);
 				if (print && fi < 10000)
@@ -169,6 +169,7 @@ public class PerLabelInfoGain
 		{
 		}
 		
+		@Override
 		public RankedFeatureVector[] newRankedFeatureVectors (InstanceList ilist)
 		{
 			PerLabelInfoGain x = new PerLabelInfoGain (ilist);

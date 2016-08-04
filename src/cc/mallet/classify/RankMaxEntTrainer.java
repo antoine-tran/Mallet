@@ -16,10 +16,8 @@ package cc.mallet.classify;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Logger;
 
 import cc.mallet.optimize.ConjugateGradient;
@@ -27,25 +25,17 @@ import cc.mallet.optimize.LimitedMemoryBFGS;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.optimize.Optimizer;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.ExpGain;
-import cc.mallet.types.FeatureInducer;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.FeatureVectorSequence;
-import cc.mallet.types.GradientGain;
-import cc.mallet.types.InfoGain;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
-import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labels;
 import cc.mallet.types.MatrixOps;
-import cc.mallet.types.RankedFeatureVector;
-import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
-import cc.mallet.util.Maths;
 
 
 /**
@@ -81,6 +71,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 		return new MaximizableTrainer (ilist, null);
 	}
 
+	@Override
 	public MaxEnt train (InstanceList trainingSet)
 	{
 		logger.fine ("trainingSet.size() = "+trainingSet.size());
@@ -285,6 +276,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
   */
 
 	
+	@Override
 	public String toString()
 	{
 		return "RankMaxEntTrainer"
@@ -380,7 +372,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 					logger.warning("True label is -1. Skipping...");
  					continue;
 				}
-				FeatureVector fv = (FeatureVector)fvs.get(positiveIndex);
+				FeatureVector fv = fvs.get(positiveIndex);
 				Alphabet fdict = fv.getAlphabet();
 				assert (fv.getAlphabet() == fd);
 
@@ -408,26 +400,31 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 
 		public RankMaxEnt getClassifier () { return theClassifier; }
 		
+		@Override
 		public double getParameter (int index) {
 			return parameters[index];
 		}
 		
+		@Override
 		public void setParameter (int index, double v) {
 			cachedValueStale = true;
 			cachedGradientStale = true;
 			parameters[index] = v;
 		}
 		
+		@Override
 		public int getNumParameters() {
 			return parameters.length;
 		}
 		
+		@Override
 		public void getParameters (double[] buff) {
 			if (buff == null || buff.length != parameters.length)
 				buff = new double [parameters.length];
 			System.arraycopy (parameters, 0, buff, 0, parameters.length);
 		}
 		
+		@Override
 		public void setParameters (double [] buff) {
 			assert (buff != null);
 			cachedValueStale = true;
@@ -439,6 +436,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 
 		// log probability of the training labels, which here means the
 		// probability of the positive example being labeled as such
+		@Override
 		public double getValue ()
 		{
 			if (cachedValueStale) {
@@ -502,7 +500,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 						if (scores[si]==0)
 							continue;
 						assert (!Double.isInfinite(scores[si]));
-						FeatureVector cfv = (FeatureVector)fvs.get(si);
+						FeatureVector cfv = fvs.get(si);
 						MatrixOps.rowPlusEquals (cachedGradient, numFeatures,
 																		 0, cfv, -instanceWeight * scores[si]);
 						cachedGradient[numFeatures*0 + defaultFeatureIndex] += (-instanceWeight * scores[si]);						
@@ -522,6 +520,7 @@ public class RankMaxEntTrainer extends MaxEntTrainer
 			return cachedValue;
 		}
 
+		@Override
 		public void getValueGradient (double [] buffer)
 		{
 			// Gradient is (constraint - expectation - parameters/gaussianPriorVariance)

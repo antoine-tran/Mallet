@@ -48,7 +48,8 @@ public abstract class MaxEntFLGEConstraints implements MaxEntGEConstraint {
 
   public abstract void addConstraint(int fi, double[] ex, double weight);
   
-  public double getCompositeConstraintFeatureValue(FeatureVector input, int label) {
+  @Override
+public double getCompositeConstraintFeatureValue(FeatureVector input, int label) {
     double value = 0;
     for (int i = 0; i < indexCache.size(); i++) {
       if (useValues) {
@@ -61,7 +62,8 @@ public abstract class MaxEntFLGEConstraints implements MaxEntGEConstraint {
     return value;
   }
 
-  public void computeExpectations(FeatureVector input, double[] dist, double weight) {
+  @Override
+public void computeExpectations(FeatureVector input, double[] dist, double weight) {
     preProcess(input);
     for (int li = 0; li < numLabels; li++) {
       double p = weight * dist[li];
@@ -76,13 +78,15 @@ public abstract class MaxEntFLGEConstraints implements MaxEntGEConstraint {
     }
   }
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     for (int fi : constraints.keys()) {
       constraints.get(fi).expectation = new double[numLabels];
     }
   }
 
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count
     int ii = 0;
     int fi;
@@ -113,7 +117,8 @@ public abstract class MaxEntFLGEConstraints implements MaxEntGEConstraint {
     return bitSet;
   }
 
-  public void preProcess(FeatureVector input) {
+  @Override
+public void preProcess(FeatureVector input) {
     indexCache.resetQuick();
     if (useValues) valueCache.resetQuick();
     int fi;

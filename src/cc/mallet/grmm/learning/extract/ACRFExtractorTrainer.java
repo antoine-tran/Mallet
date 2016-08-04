@@ -23,7 +23,6 @@ import cc.mallet.grmm.util.RememberTokenizationPipe;
 import cc.mallet.grmm.util.PipedIterator;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.PipeUtils;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Instance;
 import cc.mallet.util.CollectionUtils;
@@ -315,7 +314,8 @@ public class ACRFExtractorTrainer {
       this.featurePipe = featurePipe;
     }
 
-    public boolean evaluate (ACRF acrf, int iter, InstanceList training, InstanceList validation, InstanceList testing)
+    @Override
+	public boolean evaluate (ACRF acrf, int iter, InstanceList training, InstanceList validation, InstanceList testing)
     {
       if (iter > 0 && iter % interval == 0) {
         ACRFExtractor extor = new ACRFExtractor (acrf, tokPipe, featurePipe);
@@ -324,6 +324,7 @@ public class ACRFExtractorTrainer {
       return true;
     }
 
-    public void test (InstanceList gold, List returned, String description) { }
+    @Override
+	public void test (InstanceList gold, List returned, String description) { }
   }
 }

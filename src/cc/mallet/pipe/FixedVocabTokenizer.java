@@ -2,8 +2,6 @@ package cc.mallet.pipe;
 
 import cc.mallet.types.*;
 
-import java.util.HashSet;
-import java.util.ArrayList;
 import java.io.*;
 
 /** 
@@ -23,6 +21,7 @@ public class FixedVocabTokenizer extends Pipe implements Serializable {
 		characterBuffer = new int[1000];
 	}
 
+	@Override
 	public Instance pipe(Instance instance) {
 			
 		Alphabet alphabet = this.getAlphabet();

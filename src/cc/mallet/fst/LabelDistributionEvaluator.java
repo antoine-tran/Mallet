@@ -42,7 +42,7 @@ public class LabelDistributionEvaluator extends TransducerEvaluator {
     for (int i = 0; i < instances.size(); i++) {
       Instance instance = instances.get(i);
       Sequence trueOutput = (Sequence) instance.getTarget();
-      Sequence predOutput = (Sequence) transducer.getTransducer().transduce((Sequence)instance.getData());
+      Sequence predOutput = transducer.getTransducer().transduce((Sequence)instance.getData());
       for (int j = 0; j < predOutput.size(); j++) {
         total++;
         predCounts[instances.getTargetAlphabet().lookupIndex(predOutput.get(j))]++;

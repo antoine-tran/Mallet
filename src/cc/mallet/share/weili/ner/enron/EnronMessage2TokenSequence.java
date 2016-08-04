@@ -12,7 +12,6 @@
 
 package cc.mallet.share.weili.ner.enron;
 
-import java.util.regex.*;
 import java.util.*;
 import java.io.*;
 
@@ -37,10 +36,11 @@ public class EnronMessage2TokenSequence extends Pipe implements Serializable
 		headerPersonNames = new HashSet();
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence data = new TokenSequence ();
-		LabelSequence target = new LabelSequence ((LabelAlphabet)getTargetAlphabet());
+		LabelSequence target = new LabelSequence (getTargetAlphabet());
 		StringBuffer source = saveSource ? new StringBuffer() : null;
 		WordTransformation wt = new WordTransformation();
 

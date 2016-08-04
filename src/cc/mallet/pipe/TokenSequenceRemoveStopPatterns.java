@@ -71,6 +71,7 @@ public class TokenSequenceRemoveStopPatterns extends Pipe implements Serializabl
 		return this;
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier) {
 		
 		TokenSequence originalSequence = (TokenSequence) carrier.getData();

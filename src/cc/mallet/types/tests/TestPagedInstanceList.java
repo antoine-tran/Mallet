@@ -13,7 +13,6 @@ import java.util.Iterator;
 
 import cc.mallet.classify.*;
 import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.pipe.iterator.RandomTokenSequenceIterator;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.Dirichlet;

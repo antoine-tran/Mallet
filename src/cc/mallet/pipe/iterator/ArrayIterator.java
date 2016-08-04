@@ -50,6 +50,7 @@ public class ArrayIterator implements Iterator<Instance>
 	}
 	
 
+	@Override
 	public Instance next ()
 	{
 		URI uri = null;
@@ -58,8 +59,10 @@ public class ArrayIterator implements Iterator<Instance>
 		return new Instance (subIterator.next(), target, uri, null);
 	}
 
+	@Override
 	public boolean hasNext ()	{	return subIterator.hasNext();	}
 
+	@Override
 	public void remove() { subIterator.remove(); }
 	
 }

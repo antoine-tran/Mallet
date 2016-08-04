@@ -45,7 +45,7 @@ public class Univariate {
   private double median,min,Q1,Q3,max;
 
   public Univariate(double[] data) {
-    x=(double[])data.clone();
+    x=data.clone();
     n=x.length;
     createSummaryStats();
   }
@@ -122,7 +122,7 @@ public class Univariate {
   }
 
   public double[] sort() {
-    sortx=(double[])x.clone();
+    sortx=x.clone();
     int incr=(int)(n*.5);
     while (incr >= 1) {
       for (int i=incr;i<n;i++) {

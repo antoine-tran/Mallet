@@ -78,6 +78,7 @@ public class TestClusteringEvaluators extends TestCase
 		return new TestSuite (TestClusteringEvaluators.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

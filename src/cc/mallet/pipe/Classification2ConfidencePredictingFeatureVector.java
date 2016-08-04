@@ -14,11 +14,7 @@
 
 package cc.mallet.pipe;
 
-import java.util.ArrayList;
-import java.util.logging.*;
-
 import cc.mallet.classify.*;
-import cc.mallet.classify.evaluate.*;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 import cc.mallet.util.PropertyList;
@@ -33,13 +29,14 @@ public class Classification2ConfidencePredictingFeatureVector extends Pipe
 		super (new Alphabet(), new LabelAlphabet());
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		Classification classification = (Classification) carrier.getData();
 		PropertyList features = null;
 		LabelVector lv = classification.getLabelVector();
 		Label bestLabel = lv.getBestLabel();
-		Instance inst = (Instance)classification.getInstance();
+		Instance inst = classification.getInstance();
 		FeatureVector fv = (FeatureVector)inst.getData();
 		Alphabet fdict = fv.getAlphabet();
 		
@@ -160,7 +157,7 @@ public class Classification2ConfidencePredictingFeatureVector extends Pipe
 			// ...
 		
 		carrier.setTarget(((LabelAlphabet)getTargetAlphabet()).lookupLabel(classification.bestLabelIsCorrect() ? "correct" : "incorrect"));
-		carrier.setData(new FeatureVector ((Alphabet) getDataAlphabet(), features, false));
+		carrier.setData(new FeatureVector (getDataAlphabet(), features, false));
 
 		carrier.setName(inst.getName());
 		carrier.setSource(inst.getSource());

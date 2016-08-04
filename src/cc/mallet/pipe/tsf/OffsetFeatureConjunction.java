@@ -121,7 +121,8 @@ public class OffsetFeatureConjunction extends Pipe implements Serializable
     return isNonNegated;
   }
 
-  public Instance pipe (Instance carrier)
+  @Override
+public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();
 		int tsSize = ts.size();

@@ -40,7 +40,8 @@ public class ClusterVariationalRegionGenerator implements RegionGraphGenerator {
     this.regionComputer = regionComputer;
   }
 
-  public RegionGraph constructRegionGraph (FactorGraph mdl)
+  @Override
+public RegionGraph constructRegionGraph (FactorGraph mdl)
   {
     RegionGraph rg = new RegionGraph ();
 
@@ -172,7 +173,8 @@ public class ClusterVariationalRegionGenerator implements RegionGraphGenerator {
    */
   public static class ByFactorRegionComputer implements BaseRegionComputer {
 
-    public List computeBaseRegions (FactorGraph mdl)
+    @Override
+	public List computeBaseRegions (FactorGraph mdl)
     {
       List regions = new ArrayList (mdl.factors ().size ());
       for (Iterator it = mdl.factorsIterator (); it.hasNext ();) {
@@ -188,7 +190,8 @@ public class ClusterVariationalRegionGenerator implements RegionGraphGenerator {
 
   public static class Grid2x2RegionComputer implements BaseRegionComputer {
 
-    public List computeBaseRegions (FactorGraph mdl)
+    @Override
+	public List computeBaseRegions (FactorGraph mdl)
     {
       List regions = new ArrayList ();
       UndirectedGrid grid = (UndirectedGrid) mdl;

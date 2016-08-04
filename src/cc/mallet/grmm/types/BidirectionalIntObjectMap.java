@@ -40,7 +40,7 @@ public class BidirectionalIntObjectMap implements Serializable {
 
   public BidirectionalIntObjectMap (BidirectionalIntObjectMap other)
   {
-    map = (gnu.trove.TObjectIntHashMap) other.map.clone ();
+    map = other.map.clone ();
     entries = (ArrayList) other.entries.clone ();
     growthStopped = other.growthStopped;
   }
@@ -157,7 +157,8 @@ public class BidirectionalIntObjectMap implements Serializable {
    * Return String representation of all Alphabet entries, each
    * separated by a newline.
    */
-  public String toString ()
+  @Override
+public String toString ()
   {
     StringBuffer sb = new StringBuffer ();
     for (int i = 0; i < entries.size (); i++) {

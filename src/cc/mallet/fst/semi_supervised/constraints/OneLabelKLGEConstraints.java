@@ -35,7 +35,8 @@ public class OneLabelKLGEConstraints extends OneLabelGEConstraints {
     super(constraints,map);
   }
   
-  public GEConstraint copy() {
+  @Override
+public GEConstraint copy() {
     return new OneLabelKLGEConstraints(this.constraints, this.map); 
   }
   
@@ -82,7 +83,8 @@ public class OneLabelKLGEConstraints extends OneLabelGEConstraints {
       super(target,weight);
     }
     
-    public double getValue(int li) {
+    @Override
+	public double getValue(int li) {
       assert(this.count != 0);
       if (this.target[li] == 0 && this.expectation[li] == 0) {
         return 0;

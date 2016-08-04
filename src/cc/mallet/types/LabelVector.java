@@ -45,11 +45,13 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 		super (dict, values);
 	}
 
+	@Override
 	public final Label labelAtLocation (int loc)
 	{
 		return ((LabelAlphabet)dictionary).lookupLabel(indexAtLocation (loc));
 	}
 
+	@Override
 	public LabelAlphabet getLabelAlphabet ()
 	{
 		return (LabelAlphabet) dictionary;
@@ -60,6 +62,7 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 
 	// xxx Change these names to better match RankedFeatureVector?
 
+	@Override
 	public int getBestIndex ()
 	{
 		if (rankOrder == null)
@@ -67,11 +70,13 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 		return rankOrder[0];
 	}
 
+	@Override
 	public Label getBestLabel ()
 	{
 		return ((LabelAlphabet)dictionary).lookupLabel (getBestIndex());
 	}
 
+	@Override
 	public double getBestValue ()
 	{
 		if (rankOrder == null)
@@ -79,12 +84,14 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 		return values[rankOrder[0]];
 	}
 
+	@Override
 	public double value (Label label)
 	{
 		assert (label.dictionary  == this.dictionary);
 		return values[this.location (label.toString ())];
 	}
 
+	@Override
 	public int getRank (Label label)
 	{
 
@@ -107,11 +114,13 @@ public class LabelVector extends RankedFeatureVector implements Labeling
         return ii;
 	}
 
+	@Override
 	public int getRank (int labelIndex)
 	{
 		return getRank(((LabelAlphabet)dictionary).lookupLabel(labelIndex));
 	}
 
+	@Override
 	public Label getLabelAtRank (int rank)
 	{
 		if (rankOrder == null)
@@ -119,6 +128,7 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 		return ((LabelAlphabet)dictionary).lookupLabel (rankOrder[rank]);
 	}
 
+	@Override
 	public double getValueAtRank (int rank)
 	{
 		if (rankOrder == null)
@@ -126,6 +136,7 @@ public class LabelVector extends RankedFeatureVector implements Labeling
 		return values[rankOrder[rank]];
 	}
 
+	@Override
 	public LabelVector toLabelVector ()
 	{
 		return this;

@@ -272,6 +272,7 @@ public class GainRatio extends RankedFeatureVector
 		}
 		Collections.sort(list, new Comparator() 
 				{
+			@Override
 			public int compare(Object o1, Object o2)
 			{
 				Point2D.Double p1 = (Point2D.Double) o1;

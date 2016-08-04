@@ -29,6 +29,7 @@ public class InstanceListTrimFeaturesByCount extends Pipe implements Serializabl
 		this.minCount = minCount;
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		// xxx Not yet implemented!

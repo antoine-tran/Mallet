@@ -14,9 +14,6 @@
 
 package cc.mallet.types;
 
-import java.util.Iterator;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,6 +44,7 @@ public class Token implements Serializable, PropertyHolder {
 
 	// xxx This implementation may change in the future!
 	// If you really just want the text, you should use Token.getText() instead.
+	@Override
 	public String toString () {
 		StringBuffer sb = new StringBuffer ();
 		sb.append (getText());
@@ -83,50 +81,62 @@ public class Token implements Serializable, PropertyHolder {
 		return sb.toString();
 	}
 
+	@Override
 	public FeatureVector toFeatureVector (Alphabet dict, boolean binary) {
 		return new FeatureVector (dict, features, binary);
 	}
 
+	@Override
 	public void setProperty (String key, Object value) {
 		properties = PropertyList.add (key, value, properties);
 	}
 
+	@Override
 	public void setNumericProperty (String key, double value) {
 		properties = PropertyList.add (key, value, properties);
 	}
 
+	@Override
 	public PropertyList getProperties () {
 		return properties;
 	}
 
+	@Override
 	public void setProperties (PropertyList newProperties) {
 		properties = newProperties;
 	}
 
+	@Override
 	public Object getProperty (String key) {
 		return properties == null ? null : properties.lookupObject (key);
 	}
 
+	@Override
 	public double getNumericProperty (String key) {
 		return (properties == null ? 0.0 : properties.lookupNumber (key));
 	}
 
+	@Override
 	public boolean hasProperty (String key) {
 		return (properties != null && properties.hasProperty( key ));
 	}
 
+	@Override
 	public void setFeatureValue (String key, double value) {
 		features = PropertyList.add (key, value, features);
 	}
 
+	@Override
 	public double getFeatureValue (String key) {
 		return (features == null ? 0.0 : features.lookupNumber (key));
 	}
 
+	@Override
 	public PropertyList getFeatures () {
 		return features;
 	}
 
+	@Override
 	public void setFeatures (PropertyList pl) {
 		features = pl;
 	}

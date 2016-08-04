@@ -15,6 +15,7 @@ import cc.mallet.types.SparseVector;
 
 public class EuclideanDistance implements Metric {
 
+	@Override
 	public double distance(SparseVector a, SparseVector b)    {
 		double dist = 0;
 		double diff;

@@ -13,15 +13,18 @@ public class SingleInstanceIterator implements Iterator<Instance> {
 		doesHaveNext = true;
 	}
 
+	@Override
 	public boolean hasNext() {
 		return doesHaveNext;
 	}
 
+	@Override
 	public Instance next() {
 		doesHaveNext = false;
 		return nextInstance;
 	}
 	
+	@Override
 	public void remove () { throw new IllegalStateException ("This iterator does not support remove().");	}
 
 }

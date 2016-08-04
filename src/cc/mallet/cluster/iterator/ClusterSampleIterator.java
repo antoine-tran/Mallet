@@ -35,6 +35,7 @@ public class ClusterSampleIterator extends PairSampleIterator {
 		super(clustering, random, positiveProportion, numberSamples);
 	}
 	
+	@Override
 	public Instance next () {
 		AgglomerativeNeighbor neighbor = null;
 		

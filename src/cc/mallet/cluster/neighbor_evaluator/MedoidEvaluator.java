@@ -83,6 +83,7 @@ public class MedoidEvaluator extends ClassifyingNeighborEvaluator {
 	}
     */
 
+	@Override
 	public double[] evaluate (Neighbor[] neighbors) {
 		double[] scores = new double[neighbors.length];
 		for (int i = 0; i < neighbors.length; i++)
@@ -92,7 +93,8 @@ public class MedoidEvaluator extends ClassifyingNeighborEvaluator {
 	
 
     
-    public double evaluate(Neighbor neighbor)
+    @Override
+	public double evaluate(Neighbor neighbor)
     {
 	int result[] = new int[2];
 	if (!(neighbor instanceof AgglomerativeNeighbor))
@@ -245,10 +247,12 @@ public class MedoidEvaluator extends ClassifyingNeighborEvaluator {
 	}
     */
 
+	@Override
 	public void reset () {
 		scoreCache = null;
 	}
 	
+	@Override
 	public String toString () {
 		return "class=" + this.getClass().getName() +
 			" classifier=" + classifier.getClass().getName();
@@ -278,18 +282,21 @@ public class MedoidEvaluator extends ClassifyingNeighborEvaluator {
 	}
 
 	public static class Average implements CombiningStrategy {
+		@Override
 		public double combine (double[] scores) {
 			return MatrixOps.mean(scores);
 		}		
 	}
 
 	public static class Minimum implements CombiningStrategy {
+		@Override
 		public double combine (double[] scores) {
 			return MatrixOps.min(scores);
 		}		
 	}
 
 	public static class Maximum implements CombiningStrategy {
+		@Override
 		public double combine (double[] scores) {
 			return MatrixOps.max(scores);
 		}		

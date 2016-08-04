@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.io.*;
 
 import cc.mallet.types.*;
-import cc.mallet.util.ArrayUtils;
 import cc.mallet.util.Randoms;
 
 /**
@@ -24,6 +23,7 @@ import cc.mallet.util.Randoms;
 // (I think this means we might want to use FeatureSequence directly).
 // We will also need to support a growing vocabulary!
 
+@Deprecated
 public class LDA implements Serializable {
 
 	int numTopics; // Number of topics to be fit
@@ -298,6 +298,7 @@ public class LDA implements Serializable {
 			int wi;
 			double p;
 			public WordProb (int wi, double p) { this.wi = wi; this.p = p; }
+			@Override
 			public final int compareTo (Object o2) {
 				if (p > ((WordProb)o2).p)
 					return -1;

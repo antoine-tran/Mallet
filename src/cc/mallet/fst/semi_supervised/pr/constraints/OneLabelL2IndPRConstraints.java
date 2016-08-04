@@ -67,7 +67,8 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     this.cache = new TIntArrayList();
   }
   
-  public PRConstraint copy() {
+  @Override
+public PRConstraint copy() {
     return new OneLabelL2IndPRConstraints(this.constraints, this.map, this.normalized); 
   }
 
@@ -79,15 +80,18 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     numDimensions++;
   }
   
-  public int numDimensions() {
+  @Override
+public int numDimensions() {
     return numDimensions;
   }
   
-  public void setStateLabelMap(StateLabelMap map) {
+  @Override
+public void setStateLabelMap(StateLabelMap map) {
     this.map = map;
   }
   
-  public void preProcess(FeatureVector fv) {
+  @Override
+public void preProcess(FeatureVector fv) {
     cache.resetQuick();
     int fi;
     // cache constrained input features
@@ -100,7 +104,8 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
   }
   
   // find examples that contain constrained input features
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count
     int ii = 0;
     int fi;
@@ -123,7 +128,8 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     return bitSet;
   }    
   
-  public double getScore(FeatureVector input, int inputPosition,
+  @Override
+public double getScore(FeatureVector input, int inputPosition,
       int srcIndex, int destIndex, double[] parameters) {
     double dot = 0;
     int li2 = map.getLabelIndex(destIndex);
@@ -135,7 +141,8 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     return dot;
   }
 
-  public void incrementExpectations(FeatureVector input, int inputPosition,
+  @Override
+public void incrementExpectations(FeatureVector input, int inputPosition,
       int srcIndex, int destIndex, double prob) {
     int li2 = map.getLabelIndex(destIndex);
     for (int i = 0; i < cache.size(); i++) {
@@ -143,27 +150,31 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     }
   }
   
-  public void getExpectations(double[] expectations) {
+  @Override
+public void getExpectations(double[] expectations) {
     assert(expectations.length == numDimensions()) : expectations.length + " " + numDimensions();
     for (int fi : constraints.keys()) {
       constraints.get(fi).getExpectations(expectations);
     }
   }
   
-  public void addExpectations(double[] expectations) {
+  @Override
+public void addExpectations(double[] expectations) {
     assert(expectations.length == numDimensions());
     for (int fi : constraints.keys()) {
       constraints.get(fi).addExpectations(expectations);
     }
   }
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     for (int fi : constraints.keys()) {
       constraints.get(fi).zeroExpectation();
     }
   }
 
-  public double getAuxiliaryValueContribution(double[] parameters) {
+  @Override
+public double getAuxiliaryValueContribution(double[] parameters) {
     double value = 0;
     for (int fi : constraints.keys()) {
       OneLabelL2IndPRConstraint constraint = constraints.get(fi);
@@ -172,7 +183,8 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     return value;
   }
 
-  public double getCompleteValueContribution(double[] parameters) {
+  @Override
+public double getCompleteValueContribution(double[] parameters) {
     double value = 0;
     for (int fi : constraints.keys()) {
       OneLabelL2IndPRConstraint constraint = constraints.get(fi);
@@ -181,7 +193,8 @@ public class OneLabelL2IndPRConstraints implements PRConstraint {
     return value;
   }
 
-  public void getGradient(double[] parameters, double[] gradient) {
+  @Override
+public void getGradient(double[] parameters, double[] gradient) {
     for (int fi : constraints.keys()) {
       OneLabelL2IndPRConstraint constraint = constraints.get(fi);
       constraint.getGradient(parameters, gradient);

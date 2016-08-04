@@ -17,17 +17,11 @@
 
 package cc.mallet.types;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Arrays;
 import java.util.logging.*;
 import java.io.*;
 
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureSequence;
-import cc.mallet.types.Vector;
 import cc.mallet.util.MalletLogger;
-import cc.mallet.util.PropertyList;
 
 public class IndexedSparseVector extends SparseVector implements Serializable 
 {
@@ -66,11 +60,13 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 	}
 
 	// xxx We need to implement this in FeatureVector subclasses
+	@Override
 	public ConstantMatrix cloneMatrix ()
 	{
 		return new IndexedSparseVector (indices, values);
 	}
 
+	@Override
 	public ConstantMatrix cloneMatrixZeroed () {
 		assert (values != null);
 		int[] newIndices = new int[indices.length];
@@ -112,6 +108,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 			index2location[indices[i]] = i;
 	}
 
+	@Override
 	public final void setValue (int index, double value) {
 		if (index2location == null)
 			setIndex2Location ();
@@ -122,6 +119,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 			throw new IllegalArgumentException ("Trying to set value that isn't present in IndexedSparseVector");
 	}
 
+	@Override
 	public final void setValueAtLocation (int location, double value)
 	{
 		values[location] = value;
@@ -138,6 +136,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 			throw new IllegalArgumentException ("Trying to set value that isn't present in IndexedSparseVector");
 	}
 		
+	@Override
 	public final double dotProduct (DenseVector v) {
 		double ret = 0;
 		if (values == null)
@@ -149,6 +148,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 		return ret;
 	}
 		
+	@Override
 	public final double dotProduct (SparseVector v)
 	{
 		if (indices.length == 0)
@@ -189,6 +189,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 		return ret;
 	}
 	
+	@Override
 	public final void plusEqualsSparse (SparseVector v, double factor)
 	{
 		if (indices.length == 0)
@@ -205,6 +206,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 		}
 	}
 
+	@Override
 	public final void plusEqualsSparse (SparseVector v)
 	{
 		if (indices.length == 0)
@@ -221,6 +223,7 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 		}
 	}
 	
+	@Override
 	public final void setAll (double v)
 	{
 		for (int i = 0; i < values.length; i++)
@@ -228,7 +231,8 @@ public class IndexedSparseVector extends SparseVector implements Serializable
 	}
 
 
-  public int location (int index)
+  @Override
+public int location (int index)
   {
     // No test for indices == null, for this is not allowed in an IndexedSparseVector
     if (index2location == null)

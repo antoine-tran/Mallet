@@ -12,9 +12,9 @@ public class TestStaticParameters extends TestCase
 	public static class Factory {
 		protected static int gamma = 2;
 		public TestStaticParameters newTSP () {
-			System.out.println ("Factory gamma="+this.gamma);
+			System.out.println ("Factory gamma="+Factory.gamma);
 			TestStaticParameters t = new TestStaticParameters();
-			t.gamma = this.gamma;
+			t.gamma = Factory.gamma;
 			return t;
 		}
 	}
@@ -31,6 +31,7 @@ public class TestStaticParameters extends TestCase
 		return new TestSuite (TestClassifiers.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

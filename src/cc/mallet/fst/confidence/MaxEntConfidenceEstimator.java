@@ -11,8 +11,6 @@
 
 package cc.mallet.fst.confidence;
 
-import java.util.*;
-
 import cc.mallet.classify.*;
 import cc.mallet.fst.*;
 import cc.mallet.pipe.*;
@@ -40,7 +38,7 @@ public class MaxEntConfidenceEstimator extends TransducerConfidenceEstimator
 	}
 
 	public MaxEnt trainClassifier (InstanceList ilist, String correct, String incorrect) {
-		this.meClassifier = (MaxEnt) meTrainer.train (ilist);
+		this.meClassifier = meTrainer.train (ilist);
 		this.pipe = ilist.getPipe ();
 		this.correct = correct;
 		this.incorrect = incorrect;
@@ -54,6 +52,7 @@ public class MaxEntConfidenceEstimator extends TransducerConfidenceEstimator
 	/**
 		 Calculates the confidence in the tagging of a {@link Segment}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Segment segment, SumLatticeDefault cachedLattice) {		
 		Classification c = this.meClassifier.classify (pipe.instanceFrom(new Instance (
 																										 segment, segment.getTruth(), null, null)));

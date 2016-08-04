@@ -16,11 +16,8 @@ package cc.mallet.util;
 
 import java.io.*;
 import java.lang.CharSequence;
-import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import java.io.*;
-
 import cc.mallet.util.Lexer;
 
 public class CharSequenceLexer implements Lexer, Serializable
@@ -98,6 +95,7 @@ public class CharSequenceLexer implements Lexer, Serializable
 		}
 	}
 	
+	@Override
 	public int getStartOffset ()
 	{
 		if (matchText == null)
@@ -105,6 +103,7 @@ public class CharSequenceLexer implements Lexer, Serializable
 		return matcher.start();
 	}
 
+	@Override
 	public int getEndOffset ()
 	{
 		if (matchText == null)
@@ -112,6 +111,7 @@ public class CharSequenceLexer implements Lexer, Serializable
 		return matcher.end();
 	}
 
+	@Override
 	public String getTokenString ()
 	{
 		return matchText;
@@ -137,6 +137,7 @@ public class CharSequenceLexer implements Lexer, Serializable
 		matchTextFresh = true;
 	}
 
+	@Override
 	public boolean hasNext ()
 	{
 		if (! matchTextFresh)
@@ -144,6 +145,7 @@ public class CharSequenceLexer implements Lexer, Serializable
 		return (matchText != null);
 	}
 
+	@Override
 	public Object next ()
 	{
 		if (! matchTextFresh)
@@ -152,6 +154,7 @@ public class CharSequenceLexer implements Lexer, Serializable
 		return matchText;
 	}
 
+	@Override
 	public void remove ()
 	{
 		throw new UnsupportedOperationException ();

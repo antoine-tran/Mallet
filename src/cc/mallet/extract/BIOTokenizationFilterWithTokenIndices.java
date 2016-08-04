@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 public class BIOTokenizationFilterWithTokenIndices extends
 		BIOTokenizationFilter {
 
+	@Override
 	protected Span createSpan(Tokenization input, int startTokenIdx,
 			int endTokenIdx) {
 		StringSpan span = (StringSpan) input

@@ -12,15 +12,9 @@
 
 package cc.mallet.classify;
 
-import java.io.*;
-import java.util.*;
-
 import cc.mallet.classify.Classifier;
 import cc.mallet.types.FeatureSelector;
-import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.util.BshInterpreter;
-import cc.mallet.util.CommandOption;
 /**
  * Adaptor for adding feature selection to a classifier trainer.
    @author Andrew McCallum <a href="mailto:mccallum@cs.umass.edu">mccallum@cs.umass.edu</a>
@@ -30,6 +24,7 @@ public class FeatureSelectingClassifierTrainer extends ClassifierTrainer
 	ClassifierTrainer underlyingTrainer;
 	FeatureSelector featureSelector;
 	Classifier classifier;
+	@Override
 	public Classifier getClassifier () { return classifier; }
 
 	public FeatureSelectingClassifierTrainer (ClassifierTrainer underlyingTrainer,
@@ -39,6 +34,7 @@ public class FeatureSelectingClassifierTrainer extends ClassifierTrainer
 		this.featureSelector = featureSelector;
 	}
 
+	@Override
 	public Classifier train (InstanceList trainingSet)
 	{
 		featureSelector.selectFeaturesFor (trainingSet);

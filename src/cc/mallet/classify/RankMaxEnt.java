@@ -19,7 +19,6 @@ import java.io.ObjectOutputStream;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.FeatureVectorSequence;
@@ -76,6 +75,7 @@ public class RankMaxEnt extends MaxEnt
 	 * @param instance instance with data field a {@link InstanceList}.
 	 * @param scores has length = number of Instances in Instance.data,
 	 * which is of type InstanceList */
+	@Override
 	public void getUnnormalizedClassificationScores (Instance instance, double[] scores)
 	{
 		FeatureVectorSequence fvs = (FeatureVectorSequence)instance.getData();
@@ -83,7 +83,7 @@ public class RankMaxEnt extends MaxEnt
 		int numFeatures = instance.getDataAlphabet().size()+1;
 
 		for (int instanceNumber=0; instanceNumber < fvs.size(); instanceNumber++) {
-			FeatureVector fv = (FeatureVector)fvs.get(instanceNumber);
+			FeatureVector fv = fvs.get(instanceNumber);
 			// Make sure the feature vector's feature dictionary matches
 			// what we are expecting from our data pipe (and thus our notion
 			// of feature probabilities.
@@ -104,6 +104,7 @@ public class RankMaxEnt extends MaxEnt
 		}
 	}
 	
+	@Override
 	public void getClassificationScores (Instance instance, double[] scores)
 	{
 		FeatureVectorSequence fvs = (FeatureVectorSequence)instance.getData();
@@ -112,7 +113,7 @@ public class RankMaxEnt extends MaxEnt
 		assert (scores.length == fvs.size());
 
 		for (int instanceNumber=0; instanceNumber < fvs.size(); instanceNumber++) {
-			FeatureVector fv = (FeatureVector)fvs.get(instanceNumber);
+			FeatureVector fv = fvs.get(instanceNumber);
 			// Make sure the feature vector's feature dictionary matches
 			// what we are expecting from our data pipe (and thus our notion
 			// of feature probabilities.
@@ -159,6 +160,7 @@ public class RankMaxEnt extends MaxEnt
 		for (int li = 0; li < scores.length; li++) 
 			scores[li] /= sum;		
 	}
+	@Override
 	public Classification classify (Instance instance)
 	{
 		FeatureVectorSequence fvs = (FeatureVectorSequence) instance.getData();
@@ -192,10 +194,11 @@ public class RankMaxEnt extends MaxEnt
 		return new LabelVector(labelAlphabet, allScores);
 	}
 	
+	@Override
 	public void print () 
 	{		
 		final Alphabet dict = getAlphabet();
-		final LabelAlphabet labelDict = (LabelAlphabet)getLabelAlphabet();
+		final LabelAlphabet labelDict = getLabelAlphabet();
 		
 		int numFeatures = dict.size() + 1;
 		int numLabels = labelDict.size();

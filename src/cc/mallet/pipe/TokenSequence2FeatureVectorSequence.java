@@ -14,10 +14,8 @@ package cc.mallet.pipe;
 import java.io.*;
 
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureVector;
 import cc.mallet.types.FeatureVectorSequence;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 /**
  * Convert the token sequence in the data field of each instance to a feature vector sequence.
@@ -55,9 +53,10 @@ public class TokenSequence2FeatureVectorSequence extends Pipe implements Seriali
 		this (false, false);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
-		carrier.setData(new FeatureVectorSequence ((Alphabet)getDataAlphabet(),
+		carrier.setData(new FeatureVectorSequence (getDataAlphabet(),
 																							 (TokenSequence)carrier.getData(),
 																							 binary, augmentable,
 																							 growAlphabet));

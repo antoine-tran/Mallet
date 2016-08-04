@@ -10,13 +10,21 @@ public class JSONTopicReports extends AbstractTopicReports implements TopicRepor
 		super(model);
 	}
 	
+	@Override
 	public void printSamplingState(PrintWriter out) throws IOException { }
+	@Override
 	public void printTopicDocuments(PrintWriter out, int max) throws IOException { }
+	@Override
 	public void printDocumentTopics(PrintWriter out, double threshold, int max) throws IOException { }
+	@Override
 	public void printDenseDocumentTopics(PrintWriter out) throws IOException { }
+	@Override
 	public void printTopicWordWeights(PrintWriter out) throws IOException { }
+	@Override
 	public void printTypeTopicCounts(PrintWriter out) throws IOException { }
+	@Override
 	public void printTopicPhrases(PrintWriter out, int numWords) throws IOException { }
+	@Override
 	public void printSummary(PrintWriter out, int numWords) throws IOException {
 		Formatter buffer = new Formatter();
 

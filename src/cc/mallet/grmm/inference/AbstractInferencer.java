@@ -24,20 +24,24 @@ import cc.mallet.grmm.util.Models;
  */
 abstract public class AbstractInferencer implements Inferencer, Cloneable {
 
-  public abstract void computeMarginals (FactorGraph fg);
+  @Override
+public abstract void computeMarginals (FactorGraph fg);
 
-  public double lookupJoint (Assignment assn)
+  @Override
+public double lookupJoint (Assignment assn)
   {
     return Math.exp (lookupLogJoint (assn));
   }
 
-  public double lookupLogJoint (Assignment assn)
+  @Override
+public double lookupLogJoint (Assignment assn)
   {
     throw new UnsupportedOperationException
       (this.getClass().getName()+" doesn't compute joint probabilities.");
   }
 
-  public Factor lookupMarginal (VarSet c)
+  @Override
+public Factor lookupMarginal (VarSet c)
   {
     switch (c.size()) {
       case 1:
@@ -50,7 +54,8 @@ abstract public class AbstractInferencer implements Inferencer, Cloneable {
   }
 
   // TODO: Make destructive...
-  public double query (FactorGraph mdl, Assignment assn)
+  @Override
+public double query (FactorGraph mdl, Assignment assn)
   {
     // Computes joint of assignment using chain rule
     double marginal = 1.0;
@@ -64,9 +69,11 @@ abstract public class AbstractInferencer implements Inferencer, Cloneable {
     return marginal;
   }
 
-  abstract public Factor lookupMarginal(Variable variable);
+  @Override
+abstract public Factor lookupMarginal(Variable variable);
 
-  public Inferencer duplicate () {
+  @Override
+public Inferencer duplicate () {
     try {
       return (Inferencer) clone();
     } catch (CloneNotSupportedException e) {
@@ -74,12 +81,14 @@ abstract public class AbstractInferencer implements Inferencer, Cloneable {
     }
   }
 
-  public void dump ()
+  @Override
+public void dump ()
   {
     throw new UnsupportedOperationException ();
   }
 
-  public void reportTime ()
+  @Override
+public void reportTime ()
   {
     System.err.println ("AbstractInferencer: reportTime(): No report available.");
   }

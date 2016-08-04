@@ -14,8 +14,10 @@ public interface SearchState {
    * Iterator over the states with transitions from a given state.
    */
   public static abstract class NextStateIterator implements Iterator<SearchState> {
-    public abstract boolean hasNext();
-    public SearchState next() {return nextState(); };
+    @Override
+	public abstract boolean hasNext();
+    @Override
+	public SearchState next() {return nextState(); };
     /**
      * Get the next reachable state.
      * @return the state
@@ -26,7 +28,8 @@ public interface SearchState {
      * @return transition cost
      */
     public abstract double cost();
-    public void remove() {
+    @Override
+	public void remove() {
       throw new UnsupportedOperationException();
     }
   }

@@ -96,11 +96,13 @@ public class Clustering implements Serializable {
 		return indices;
 	}
 	
+	@Override
 	public boolean equals (Object o) {
 		Clustering c = (Clustering) o;
 		return Arrays.equals(c.getLabels(), labels);
 	}
 	
+	@Override
 	public String toString () {
     	String result="";
 		result+="#Clusters: "+getNumClusters()+"\n";

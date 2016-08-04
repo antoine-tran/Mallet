@@ -14,7 +14,6 @@ import java.util.zip.*;
 import java.io.*;
 import java.text.NumberFormat;
 
-import cc.mallet.topics.*;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
 
@@ -172,7 +171,7 @@ public class SimpleLDA implements Serializable {
 				FeatureSequence tokenSequence =
 					(FeatureSequence) data.get(doc).instance.getData();
 				LabelSequence topicSequence =
-					(LabelSequence) data.get(doc).topicSequence;
+					data.get(doc).topicSequence;
 
 				sampleTopicsForOneDoc (tokenSequence, topicSequence);
 			}
@@ -287,7 +286,7 @@ public class SimpleLDA implements Serializable {
 		}
 	
 		for (int doc=0; doc < data.size(); doc++) {
-			LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence = data.get(doc).topicSequence;
 
 			docTopics = topicSequence.getFeatures();
 
@@ -406,7 +405,7 @@ public class SimpleLDA implements Serializable {
 		}
 
 		for (int doc = 0; doc < data.size(); doc++) {
-			LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence = data.get(doc).topicSequence;
 			int[] currentDocTopics = topicSequence.getFeatures();
 
 			out.print (doc); out.print (' ');
@@ -459,7 +458,7 @@ public class SimpleLDA implements Serializable {
 
 		for (int doc = 0; doc < data.size(); doc++) {
 			FeatureSequence tokenSequence =	(FeatureSequence) data.get(doc).instance.getData();
-			LabelSequence topicSequence =	(LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence =	data.get(doc).topicSequence;
 
 			String source = "NA";
 			if (data.get(doc).instance.getSource() != null) {

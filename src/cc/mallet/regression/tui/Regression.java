@@ -5,7 +5,6 @@ import cc.mallet.types.*;
 import cc.mallet.util.*;
 
 import java.io.*;
-import java.util.*;
 import java.util.logging.*;
 
 public class Regression {

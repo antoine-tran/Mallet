@@ -12,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-import cc.mallet.fst.confidence.*;
 import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.Sequence;
@@ -34,7 +33,8 @@ public class ConfidenceTokenizationFilter implements TokenizationFilter, Seriali
     this.underlyingFilter = underlyingFilter;
   }
       
-  public LabeledSpans constructLabeledSpans (LabelAlphabet dict, Object document, Label backgroundTag,
+  @Override
+public LabeledSpans constructLabeledSpans (LabelAlphabet dict, Object document, Label backgroundTag,
                                              Tokenization input, Sequence seq)
   {
     DocumentExtraction extraction = new DocumentExtraction("Extraction",

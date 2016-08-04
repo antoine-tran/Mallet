@@ -35,7 +35,8 @@ public class TestPottsFactor extends TestCase {
     return new TestSuite (TestPottsFactor.class);
   }
 
-  protected void setUp () throws Exception
+  @Override
+protected void setUp () throws Exception
   {
     alpha = new Variable (Variable.CONTINUOUS);
     Variable v1 = new Variable (2);

@@ -14,7 +14,6 @@ import junit.framework.TestSuite;
 import java.io.BufferedReader;
 import java.io.StringReader;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Arrays;
@@ -46,7 +45,8 @@ public class TestFactorGraph extends TestCase {
     super (name);
   }
 
-  protected void setUp () throws Exception
+  @Override
+protected void setUp () throws Exception
   {
     vars = new Variable[] {
             new Variable (2),

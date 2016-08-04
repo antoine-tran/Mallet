@@ -17,7 +17,6 @@ package cc.mallet.types;
 import java.util.logging.*;
 import java.util.Arrays;
 
-import cc.mallet.types.Matrix;
 import cc.mallet.util.MalletLogger;
 
 @Deprecated // This class is very sparsely used, and I think we can get rid of it. -akm 1/2008
@@ -61,8 +60,10 @@ public final class Matrix2 extends DenseMatrix
 		Arrays.fill (this.values, value);
 	}
 
+	@Override
 	public int getNumDimensions () { return 2; }
 
+	@Override
 	public int getDimensions (int[] sizes) { sizes[0] = nr; sizes[1] = nc; return 2; }
 
 	public double value (int rowIndex, int colIndex)
@@ -119,24 +120,31 @@ public final class Matrix2 extends DenseMatrix
 
 	// The Matrix interface
 	
+	@Override
 	public final double value (int[] indices) {
 		assert (indices.length == 2); return values[indices[0]*nc+indices[1]]; }
+	@Override
 	public final void setValue (int[] indices, double val) {
 		assert (indices.length == 2); values[indices[0]*nc+indices[1]] = val; }
 
 	// Access using a single index
+	@Override
 	public final int singleIndex (int[] indices) {
 		assert (indices.length == 2); return indices[indices[0]*nc+indices[1]]; }
+	@Override
 	public final void singleToIndices (int i, int[] indices) {
 		assert (indices.length == 2);
 		assert (i < nc * nr);
 		indices[0] = i/nc;
 		indices[1] = i%nc; }
+	@Override
 	public final double singleValue (int i) { return values[i]; }
 	public final void setSingle (int i, double value) { values[i] = value; }
+	@Override
 	public final int singleSize () { return nc * nr; }
 
 	
+	@Override
 	public final ConstantMatrix cloneMatrix () { return cloneMatrix2 (); }
 	public final Matrix2 cloneMatrix2 () {
 		Matrix2 ret = new Matrix2 (nr, nc);
@@ -144,6 +152,7 @@ public final class Matrix2 extends DenseMatrix
 		return ret;
 	}
 
+	@Override
 	public final void setAll (double v) {
 		for (int i = 0; i < values.length; i++)
 			values[i] = v;
@@ -270,6 +279,7 @@ public final class Matrix2 extends DenseMatrix
 		return ret;
 	}
 	
+	@Override
 	public void print ()
 	{
 		for (int i = 0; i < nr; i++) {
@@ -279,6 +289,7 @@ public final class Matrix2 extends DenseMatrix
 		}
 	}
 
+	@Override
 	public String toString ()
 	{
 		StringBuffer sb = new StringBuffer();

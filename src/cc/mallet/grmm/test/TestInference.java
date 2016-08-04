@@ -668,13 +668,13 @@ public class TestInference extends TestCase {
       trp.computeMarginals (mdl);
       int expectedMessages = (mdl.numVariables () - 1) * 2
                              * trp.iterationsUsed();
-      assertEquals (expectedMessages, trp.getTotalMessagesSent ());
+      assertEquals (expectedMessages, AbstractBeliefPropagation.getTotalMessagesSent ());
 
       LoopyBP loopy = new LoopyBP ();
       loopy.computeMarginals (mdl);
       expectedMessages = mdl.getEdgeSet().size() * 2
                          * loopy.iterationsUsed();
-      assertEquals (expectedMessages, loopy.getTotalMessagesSent ());
+      assertEquals (expectedMessages, AbstractBeliefPropagation.getTotalMessagesSent ());
     }
   }
 
@@ -888,7 +888,8 @@ public void testJtConsistency() {
     UndirectedModel mdl = models[0];
     final Tree tree = trp1.new AlmostRandomTreeFactory().nextTree(mdl);
     TRP trp2 = new TRP(new TRP.TreeFactory() {
-      public Tree nextTree(FactorGraph mdl)
+      @Override
+	public Tree nextTree(FactorGraph mdl)
       {
         return tree;
       }
@@ -1278,7 +1279,8 @@ public void testJtConsistency() {
   }
 
 
-  protected void setUp()
+  @Override
+protected void setUp()
   {
     modelsList = createTestModels();
     createTestTrees();
@@ -1670,7 +1672,7 @@ public void testJtConsistency() {
     try {
       inf.computeMarginals (mdl);
     } catch (OutOfMemoryError e) {
-      System.out.println ("OUT OF MEMORY: Messages sent "+inf.getTotalMessagesSent ());
+      System.out.println ("OUT OF MEMORY: Messages sent "+AbstractBeliefPropagation.getTotalMessagesSent ());
       throw e;
     }
     

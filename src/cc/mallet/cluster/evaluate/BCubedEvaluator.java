@@ -26,11 +26,13 @@ public class BCubedEvaluator extends ClusteringEvaluator {
 		macroNumInstances = 0;
 	}
 	
+	@Override
 	public String evaluate (Clustering truth, Clustering predicted) {
 		double[] vals = getEvaluationScores(truth, predicted);
 		return "pr=" + vals[0] + " re=" + vals[1] + " f1=" + vals[2];
 	}
 
+	@Override
 	public String evaluateTotals () {
 		double pr = macroPrecision / macroNumInstances;
 		double re = macroRecall / macroNumInstances;

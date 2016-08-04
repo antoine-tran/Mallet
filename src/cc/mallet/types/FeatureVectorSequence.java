@@ -60,10 +60,12 @@ public class FeatureVectorSequence implements Sequence<FeatureVector>, Serializa
 		this (dict, tokens, false, false);
 	}
 
+	@Override
 	public Alphabet getAlphabet() {
 		return alphabet;
 	}
 
+	@Override
 	public Alphabet[] getAlphabets()
 	{
 		return new Alphabet[] {getAlphabet()};
@@ -71,11 +73,13 @@ public class FeatureVectorSequence implements Sequence<FeatureVector>, Serializa
 
 
 
+	@Override
 	public int size ()
 	{
 		return sequence.length;
 	}
 
+	@Override
 	public FeatureVector get (int i)
 	{
 		return sequence[i];
@@ -105,15 +109,18 @@ public class FeatureVectorSequence implements Sequence<FeatureVector>, Serializa
 		public Iterator () {
 			pos = 0;
 		}
+		@Override
 		public FeatureVector next() {
 			return sequence[pos++];
 		}
 		public int getIndex () {
 			return pos;
 		}
+		@Override
 		public boolean hasNext() {
 			return pos < sequence.length;
 		}
+		@Override
 		public void remove () {
 			throw new UnsupportedOperationException ();
 		}
@@ -125,6 +132,7 @@ public class FeatureVectorSequence implements Sequence<FeatureVector>, Serializa
 	}
 
 
+	@Override
 	public String toString ()
 	{
 		StringBuffer sb = new StringBuffer ();

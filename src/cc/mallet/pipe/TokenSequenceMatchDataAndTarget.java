@@ -65,6 +65,7 @@ public class TokenSequenceMatchDataAndTarget extends Pipe implements Serializabl
 		this (Pattern.compile (regex), dataGroup, targetGroup);
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

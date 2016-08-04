@@ -31,7 +31,8 @@ public class CachingOptimizable {
 
     protected abstract void setParametersInternal (double[] params);
 
-    public void setParameters (double[] params)
+    @Override
+	public void setParameters (double[] params)
     {
       if (params.length != getNumParameters ())
         throw new IllegalArgumentException ("Argument is not of the " +
@@ -49,7 +50,8 @@ public class CachingOptimizable {
      * @param index
      * @param value
      */
-    public void setParameter (int index, double value)
+    @Override
+	public void setParameter (int index, double value)
     {
       cachedValueStale = cachedGradientStale = true;
       double[] params = new double[getNumParameters ()];
@@ -66,7 +68,8 @@ public class CachingOptimizable {
      * @param index
      * @return The value of parameter <tt>index<tt>
      */
-    public double getParameter (int index)
+    @Override
+	public double getParameter (int index)
     {
       double[] params = new double[getNumParameters ()];
       getParameters (params);
@@ -87,7 +90,8 @@ public class CachingOptimizable {
 
     protected abstract void computeValueGradient (double[] buffer);
 
-    public void getValueGradient (double[] buffer)
+    @Override
+	public void getValueGradient (double[] buffer)
     {
       if (buffer.length != getNumParameters ())
         throw new IllegalArgumentException ("Argument is not of the " +
@@ -107,7 +111,8 @@ public class CachingOptimizable {
       System.arraycopy (cachedGradient, 0, buffer, 0, cachedGradient.length);
     }
 
-    public double getValue ()
+    @Override
+	public double getValue ()
     {
       if (cachedValueStale) {
         long startTime = System.currentTimeMillis();
@@ -144,7 +149,8 @@ public class CachingOptimizable {
     private int lastIndex;
     private int[] lastAssns;
 
-    public void getBatchValueGradient (double[] buffer, int batchIndex, int[] batchAssignments)
+    @Override
+	public void getBatchValueGradient (double[] buffer, int batchIndex, int[] batchAssignments)
     {
       if (buffer.length != getNumParameters ())
         throw new IllegalArgumentException ("Argument is not of the " +
@@ -170,7 +176,8 @@ public class CachingOptimizable {
       System.arraycopy (cachedGradient, 0, buffer, 0, cachedGradient.length);
     }
 
-    public double getBatchValue (int batchIndex, int[] batchAssignments)
+    @Override
+	public double getBatchValue (int batchIndex, int[] batchAssignments)
     {
       if ((batchIndex != lastIndex) || (batchAssignments != lastAssns)) {
         forceStale ();

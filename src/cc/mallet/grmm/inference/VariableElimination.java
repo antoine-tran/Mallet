@@ -121,11 +121,13 @@ public class VariableElimination
 	transient FactorGraph mdlCurrent;
 
 	// Inert. All work done in lookupMarginal().
+	@Override
 	public void computeMarginals (FactorGraph m)
 	{
 		mdlCurrent = m;
 	}
 
+	@Override
 	public Factor lookupMarginal (Variable var)
 	{
 		Factor marginal = unnormalizedMarginal (mdlCurrent, var);

@@ -27,11 +27,13 @@ public class NullLabel implements AlphabetCarrying {
     this.alphabet = alphabet;  
   }
 
-  public Alphabet getAlphabet() {
+  @Override
+public Alphabet getAlphabet() {
     return alphabet;
   }
 
-  public Alphabet[] getAlphabets() {
+  @Override
+public Alphabet[] getAlphabets() {
     return new Alphabet[] { alphabet };
   }
 }

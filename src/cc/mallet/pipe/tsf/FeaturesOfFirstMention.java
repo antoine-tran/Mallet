@@ -58,6 +58,7 @@ public class FeaturesOfFirstMention extends Pipe implements Serializable
 		this (namePrefix, null);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

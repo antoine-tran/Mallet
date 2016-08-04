@@ -40,6 +40,7 @@ public class CRFTrainerByL1LabelLikelihood extends CRFTrainerByLabelLikelihood {
 		this.l1Weight = l1Weight;
 	}
 
+	@Override
 	public Optimizer getOptimizer(InstanceList trainingSet) {
 		getOptimizableCRF(trainingSet);
 		if (opt == null || ocrf != opt.getOptimizable())

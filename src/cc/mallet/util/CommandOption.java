@@ -71,6 +71,7 @@ public abstract class CommandOption
 	}
 
 	/**  @deprecated */
+	@Deprecated
 	public CommandOption (Class owner, java.lang.String name, java.lang.String argName,
 						  Class argType, boolean argRequired,
 						  java.lang.String shortdoc)
@@ -229,14 +230,16 @@ public abstract class CommandOption
 			add (new Boolean (CommandOption.class, "help", "TRUE|FALSE", false, false,
 							  "Print this command line option usage information.  "+
 							  "Give argument of TRUE for longer documentation", null)
-				{ public void postParsing(CommandOption.List list) { printUsage(value); System.exit(-1); } });
+				{ @Override
+				public void postParsing(CommandOption.List list) { printUsage(value); System.exit(-1); } });
 			add (new Object	(CommandOption.class, "prefix-code", "'JAVA CODE'", true, null,
 							 "Java code you want run before any other interpreted code.  Note that the text "+
 							 "is interpreted without modification, so unlike some other Java code options, "+
 							 "you need to include any necessary 'new's when creating objects.", null));
 			add (new File (CommandOption.class, "config", "FILE", false, null,
 						   "Read command option values from a file", null)
-				{ public void postParsing(CommandOption.List list) { readFromFile(value); } } );
+				{ @Override
+				public void postParsing(CommandOption.List list) { readFromFile(value); } } );
 		}
 
 		public List (java.lang.String summary, CommandOption[] options) {
@@ -409,6 +412,7 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public boolean value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) {
 			if (arg == null || arg.equalsIgnoreCase("true") || arg.equals("1"))
 				value = true;
@@ -417,7 +421,9 @@ public abstract class CommandOption
 			else
 				throw new IllegalArgumentException ("Boolean option should be true|false|0|1.  Instead found "+arg);
 		}
+		@Override
 		public java.lang.String defaultValueToString() { return java.lang.Boolean.toString(defaultValue); }
+		@Override
 		public java.lang.String valueToString () { return java.lang.Boolean.toString (value); }
 	}
 
@@ -432,8 +438,11 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public int value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) { value = java.lang.Integer.parseInt(arg); }
+		@Override
 		public java.lang.String defaultValueToString() { return java.lang.Integer.toString(defaultValue); }
+		@Override
 		public java.lang.String valueToString () { return java.lang.Integer.toString (value); }
 	}
 
@@ -448,12 +457,14 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public int[] value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) {
 			java.lang.String elts[] = arg.split(",");
 			value = new int[elts.length];
 			for (int i = 0; i < elts.length; i++)
 				value[i] = java.lang.Integer.parseInt(elts[i]);
 		}
+		@Override
 		public java.lang.String defaultValueToString() {
 			StringBuffer b = new StringBuffer();
 			java.lang.String sep = "";
@@ -463,6 +474,7 @@ public abstract class CommandOption
 			}
 			return b.toString();
 		}
+		@Override
 		public java.lang.String valueToString() {
 			StringBuffer b = new StringBuffer();
 			java.lang.String sep = "";
@@ -485,8 +497,11 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public double value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) { value = java.lang.Double.parseDouble(arg); }
+		@Override
 		public java.lang.String defaultValueToString() { return java.lang.Double.toString(defaultValue); }
+		@Override
 		public java.lang.String valueToString () { return java.lang.Double.toString (value); }
 	}
 
@@ -501,12 +516,14 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public double[] value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) {
 			java.lang.String elts[] = arg.split(",");
 			value = new double[elts.length];
 			for (int i = 0; i < elts.length; i++)
 				value[i] = java.lang.Double.parseDouble(elts[i]);
 		}
+		@Override
 		public java.lang.String defaultValueToString() {
 			StringBuffer b = new StringBuffer();
 			java.lang.String sep = "";
@@ -516,6 +533,7 @@ public abstract class CommandOption
 			}
 			return b.toString();
 		}
+		@Override
 		public java.lang.String valueToString() {
 			StringBuffer b = new StringBuffer();
 			java.lang.String sep = "";
@@ -538,8 +556,11 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public java.lang.String value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) { value = arg; }
+		@Override
 		public java.lang.String defaultValueToString() { return defaultValue; }
+		@Override
 		public java.lang.String valueToString() { return value; }
 	}
 
@@ -554,6 +575,7 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public java.lang.String[] value () { return value; }
+		@Override
 		public int parseArg (java.lang.String args[], int index)
 		{
 			int count = 0;
@@ -571,6 +593,7 @@ public abstract class CommandOption
 			}
 			return index;
 		}
+		@Override
 		public java.lang.String defaultValueToString() {
 			if (defaultValue == null)
 				return "(null)";
@@ -582,6 +605,7 @@ public abstract class CommandOption
 			}
 			return sb.toString();
 		}
+		@Override
 		public java.lang.String valueToString () {
 			if (value == null)
 				return "(null)";
@@ -605,8 +629,11 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public java.io.File value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) { value = new java.io.File(arg); }
+		@Override
 		public java.lang.String defaultValueToString() { return defaultValue == null ? null : defaultValue.toString(); }
+		@Override
 		public java.lang.String valueToString () { return value == null ? null : value.toString(); };
 	}
 
@@ -631,6 +658,7 @@ public abstract class CommandOption
 			this.contentsString = sb.toString();
 		}
 		public java.lang.String value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg)
 		{
 			value = null;
@@ -640,7 +668,9 @@ public abstract class CommandOption
 			if (value == null)
 				throw new IllegalArgumentException ("Unrecognized option argument \""+arg+"\" not in set "+contentsString);
 		}
+		@Override
 		public java.lang.String defaultValueToString() { return defaultValue; }
+		@Override
 		public java.lang.String valueToString() { return value; }
 	}
 
@@ -656,6 +686,7 @@ public abstract class CommandOption
 			this.defaultValue = value = defaultValue;
 		}
 		public java.lang.Object value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) {
 			try {
 				value = interpreter.eval (arg);
@@ -663,7 +694,9 @@ public abstract class CommandOption
 				throw new IllegalArgumentException ("Java interpreter eval error\n"+e);
 			}
 		}
+		@Override
 		public java.lang.String defaultValueToString() { return defaultValue == null ? null : defaultValue.toString(); }
+		@Override
 		public java.lang.String valueToString() { return value == null ? null : value.toString(); }
 	}
 
@@ -676,7 +709,9 @@ public abstract class CommandOption
 			super (owner, name, argName, argRequired, java.lang.Object.class, shortdoc, longdoc);
 			defaultValue = value = defValue;
 		}
+		@Override
 		public java.lang.Object value () { return value; }
+		@Override
 		public void parseArg (java.lang.String arg) {
 			// parse something like MaxEntTrainer,gaussianPriorVariance=10,numIterations=20
 			//System.out.println("Arg = " + arg);
@@ -758,7 +793,9 @@ public abstract class CommandOption
 		}
 
 		
+		@Override
 		public java.lang.String defaultValueToString() { return defaultValue == null ? null : defaultValue.toString(); }
+		@Override
 		public java.lang.String valueToString() { return value == null ? null : value.toString(); }
 	}
 

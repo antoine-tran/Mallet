@@ -108,6 +108,7 @@ public class ThreadedOptimizable implements Optimizable.ByGradientValue {
 		assert(executor.shutdownNow().size() == 0) : "All tasks didn't finish";
 	}
 
+	@Override
 	public double getValue () {
 		if (cacheIndicator.isValueStale()) {
 			// compute values again
@@ -139,6 +140,7 @@ public class ThreadedOptimizable implements Optimizable.ByGradientValue {
 	 *
 	 * *Note*: Assumes that <tt>buffer</tt> is already initialized.
 	 */
+	@Override
 	public void getValueGradient (double[] buffer) {
 		if (cacheIndicator.isGradientStale()) {
 			// compute values again if required
@@ -184,20 +186,25 @@ public class ThreadedOptimizable implements Optimizable.ByGradientValue {
 		}
 	}
 
+	@Override
 	public int getNumParameters () { return optimizable.getNumParameters(); }
 
+	@Override
 	public void getParameters (double[] buffer) {
 		optimizable.getParameters(buffer);
 	}
 
+	@Override
 	public double getParameter (int index) {
 		return optimizable.getParameter(index);
 	}
 
+	@Override
 	public void setParameters (double [] buff) {
 		optimizable.setParameters(buff);
 	}
 
+	@Override
 	public void setParameter (int index, double value) {
 		optimizable.setParameter(index, value);
 	}
@@ -217,6 +224,7 @@ public class ThreadedOptimizable implements Optimizable.ByGradientValue {
 		/**
 		 * Returns the value for a batch.
 		 */
+		@Override
 		public Double call() {
 			return optimizable.getBatchValue(batchIndex, batchAssignments);
 		}
@@ -237,6 +245,7 @@ public class ThreadedOptimizable implements Optimizable.ByGradientValue {
 		/**
 		 * Computes the gradient for a batch, always returns true.
 		 */
+		@Override
 		public Boolean call() {
 			optimizable.getBatchValueGradient(batchCachedGradient.get(batchIndex),
 					batchIndex, batchAssignments);

@@ -45,23 +45,27 @@ public class PottsTableFactor extends AbstractFactor implements ParameterizedFac
     return ret;
   }
 
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     throw new UnsupportedOperationException ();
   }
 
   /* Inefficient, but this will seldom be called. */
-  public double value (AssignmentIterator it)
+  @Override
+public double value (AssignmentIterator it)
   {
     Assignment assn = it.assignment();
     Factor tbl = sliceForAlpha (assn);
@@ -75,7 +79,7 @@ public class PottsTableFactor extends AbstractFactor implements ParameterizedFac
     Matrix diag = Matrices.diag (sizes, alph);
     Matrix matrix = Matrices.constant (sizes, -alph);
     matrix.plusEquals (diag);
-    return LogTableFactor.makeFromLogMatrix (xs.toVariableArray (), (SparseMatrixn) matrix);
+    return LogTableFactor.makeFromLogMatrix (xs.toVariableArray (), matrix);
   }
 
   private int[] sizesFromVarSet (VarSet xs)
@@ -87,29 +91,34 @@ public class PottsTableFactor extends AbstractFactor implements ParameterizedFac
     return szs;
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     throw new UnsupportedOperationException ();
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public double logValue (AssignmentIterator it)
+  @Override
+public double logValue (AssignmentIterator it)
   {
     return Math.log (value (it));
   }
 
-  public Factor slice (Assignment assn) 
+  @Override
+public Factor slice (Assignment assn) 
   {
     Factor alphSlice = sliceForAlpha (assn);
     // recursively slice, in case assn includes some of the xs
     return alphSlice.slice (assn);
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     StringBuffer buf = new StringBuffer ();
     buf.append ("[Potts: alpha:");
@@ -120,7 +129,8 @@ public class PottsTableFactor extends AbstractFactor implements ParameterizedFac
     return buf.toString ();
   }
 
-  public double sumGradLog (Factor q, Variable param, Assignment theta)
+  @Override
+public double sumGradLog (Factor q, Variable param, Assignment theta)
   {
     if (param != alpha) throw new IllegalArgumentException ();
     Factor q_xs = q.marginalize (xs);
@@ -163,22 +173,26 @@ public class PottsTableFactor extends AbstractFactor implements ParameterizedFac
     return true;
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new PottsTableFactor (xs, alpha);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return false;
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     if (this == o) return true;
     if (o == null || getClass () != o.getClass ()) return false;
@@ -191,7 +205,8 @@ public class PottsTableFactor extends AbstractFactor implements ParameterizedFac
     return true;
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     int result;
     result = (alpha != null ? alpha.hashCode () : 0);

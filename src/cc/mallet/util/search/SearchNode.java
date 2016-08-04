@@ -29,8 +29,10 @@ public class SearchNode implements QueueElement {
     protected NextNodeIterator() {
       stateIter = state.getNextStates();
     }
-    public boolean hasNext() { return stateIter.hasNext(); }
-    public Object next() { return nextNode(); };
+    @Override
+	public boolean hasNext() { return stateIter.hasNext(); }
+    @Override
+	public Object next() { return nextNode(); };
     /**
      * The search tree node for the next state reached from
      * the current state.
@@ -47,7 +49,8 @@ public class SearchNode implements QueueElement {
      * @return the cost
      */
     public double cost() { return stateIter.cost(); }
-    public void remove() {
+    @Override
+	public void remove() {
       throw new UnsupportedOperationException();
     }
     protected SearchState.NextStateIterator getStateIter() {
@@ -66,10 +69,14 @@ public class SearchNode implements QueueElement {
     this.cost = cost;
   }
 
-  public double getPriority() { return priority; }
-  public void setPriority(double priority) { this.priority = priority; }
-  public int getPosition() { return position; }
-  public void setPosition(int position) { this.position = position; }
+  @Override
+public double getPriority() { return priority; }
+  @Override
+public void setPriority(double priority) { this.priority = priority; }
+  @Override
+public int getPosition() { return position; }
+  @Override
+public void setPosition(int position) { this.position = position; }
   /**
    * The node that generated this node.
    * @return the parent
@@ -98,7 +105,8 @@ public class SearchNode implements QueueElement {
   public NextNodeIterator getNextNodes() {
     return new NextNodeIterator();
   }
-  public String toString() {
+  @Override
+public String toString() {
     return state.toString() + "/" + priority;
   }
 }

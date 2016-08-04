@@ -23,6 +23,7 @@ public class BaggingTrainer extends ClassifierTrainer<BaggingClassifier>
 	ClassifierTrainer.Factory underlyingTrainer;
 	int numBags;
 	BaggingClassifier classifier;
+	@Override
 	public BaggingClassifier getClassifier () { return classifier; }
 
 	public BaggingTrainer (ClassifierTrainer.Factory underlyingTrainerFactory, int numBags)
@@ -36,6 +37,7 @@ public class BaggingTrainer extends ClassifierTrainer<BaggingClassifier>
 		this (underlyingTrainerFactory, 10);
 	}
 
+	@Override
 	public BaggingClassifier train (InstanceList trainingList)
 	{
 		Classifier[] classifiers = new Classifier[numBags];

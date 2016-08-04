@@ -162,6 +162,7 @@ public class InfoGain extends RankedFeatureVector
 		{
 		}
 		
+		@Override
 		public RankedFeatureVector newRankedFeatureVector (InstanceList ilist)
 		{
 			return new InfoGain (ilist);

@@ -48,14 +48,15 @@ public class Token2FeatureVector extends Pipe implements Serializable
 		this (false, false);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		if (augmentable)
-			carrier.setData(new AugmentableFeatureVector ((Alphabet)getDataAlphabet(),
+			carrier.setData(new AugmentableFeatureVector (getDataAlphabet(),
 																										((Token)carrier.getData()).getFeatures(),
 																										binary));
 		else
-			carrier.setData(new FeatureVector ((Alphabet)getDataAlphabet(),
+			carrier.setData(new FeatureVector (getDataAlphabet(),
 																				 ((Token)carrier.getData()).getFeatures(),
 																				 binary));
 		return carrier;

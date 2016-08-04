@@ -11,7 +11,6 @@
 
 package cc.mallet.pipe;
 
-import java.util.*;
 import java.io.*;
 
 import cc.mallet.types.*;
@@ -36,6 +35,7 @@ public class AugmentableFeatureVectorAddConjunctions extends Pipe implements Ser
 		return this;
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		AugmentableFeatureVector afv = (AugmentableFeatureVector) carrier.getData();

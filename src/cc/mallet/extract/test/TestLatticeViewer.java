@@ -90,7 +90,7 @@ public class TestLatticeViewer extends TestCase {
 
     Pipe tokPipe = new SerialPipes (newPipes);
 
-    CRFExtractor extor = new CRFExtractor (crf, (Pipe)tokPipe);
+    CRFExtractor extor = new CRFExtractor (crf, tokPipe);
     return extor;
   }
 

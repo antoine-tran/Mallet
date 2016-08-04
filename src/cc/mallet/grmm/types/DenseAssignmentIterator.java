@@ -27,15 +27,18 @@ class DenseAssignmentIterator extends AbstractAssignmentIterator implements Assi
     }
   }
 
-  public void advance()
+  @Override
+public void advance()
   {
     current++;
   }
 
   //xxx wise to make public?
-  public int indexOfCurrentAssn () { return current; }
+  @Override
+public int indexOfCurrentAssn () { return current; }
 
-  public boolean hasNext() {
+  @Override
+public boolean hasNext() {
     return current < max;
   }
 

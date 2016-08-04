@@ -21,7 +21,6 @@ import cc.mallet.classify.Classification;
 import cc.mallet.classify.Classifier;
 import cc.mallet.classify.Trial;
 import cc.mallet.classify.evaluate.GraphItem;
-import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.LabelVector;
 import cc.mallet.util.MalletLogger;
@@ -125,7 +124,7 @@ public class AccuracyCoverage implements ActionListener
 		{
 			accuracyValues[i] =
 				accuracyAtCoverage(step
-													 *(double)(i+1)/100.0);
+													 *(i+1)/100.0);
 		}
 	}
 	
@@ -137,7 +136,7 @@ public class AccuracyCoverage implements ActionListener
 	public double accuracyAtCoverage(double cov)
 	{
 		assert(cov <= 1 && cov > 0);
-		int numTrials = (int)(Math.round((double)classifications.size()*cov));
+		int numTrials = (int)(Math.round(classifications.size()*cov));
 		int numCorrect = 0;
 //		System.out.println("NumTrials="+numTrials);
 		for(int i= classifications.size()-1; 
@@ -191,6 +190,7 @@ public class AccuracyCoverage implements ActionListener
 		frame.addWindowListener
 			(new WindowAdapter() 
 				{
+					@Override
 					public void windowClosing(WindowEvent e) 
 					{
 						System.exit(0);
@@ -229,6 +229,7 @@ public class AccuracyCoverage implements ActionListener
 	}
 	
 	
+	@Override
 	public void actionPerformed(ActionEvent event)
 	{
 		PrintUtilities.printComponent(graph);
@@ -252,10 +253,11 @@ public class AccuracyCoverage implements ActionListener
 	}
 	public class ClassificationComparator implements Comparator
 	{
+		@Override
 		public final int compare (Object a, Object b)
 		{
-			LabelVector x = (LabelVector) (((Classification)a).getLabelVector());
-			LabelVector y = (LabelVector) (((Classification)b).getLabelVector());
+			LabelVector x = (((Classification)a).getLabelVector());
+			LabelVector y = (((Classification)b).getLabelVector());
 			double difference = x.getBestValue() - y.getBestValue();
 			int toReturn = 0;
 			if(difference > 0)

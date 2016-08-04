@@ -15,10 +15,7 @@
 package cc.mallet.pipe;
 
 import java.io.*;
-import java.net.URI;
-
 import cc.mallet.types.Instance;
-import cc.mallet.util.CharSequenceLexer;
 
 /**
  *  Pipe that can adds special text between lines to explicitly
@@ -30,6 +27,7 @@ public class StringAddNewLineDelimiter extends Pipe implements Serializable
 	
 	public StringAddNewLineDelimiter (String delim) { this.delim = delim; }
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		if (!(carrier.getData() instanceof String))

@@ -61,7 +61,8 @@ public class JunctionTree extends Tree {
   } // JunctionTree constructor
 
 
-  public void addNode (Object parent1, Object child1)
+  @Override
+public void addNode (Object parent1, Object child1)
   {
     super.addNode(parent1, child1);
     VarSet parent = (VarSet) parent1;

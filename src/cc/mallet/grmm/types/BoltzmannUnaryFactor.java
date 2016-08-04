@@ -6,8 +6,6 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.grmm.types;
 
-import cc.mallet.util.Randoms;
-
 /**
  * A factor over a continuous variable theta and binary variables <tt>var</tt>.
  *  such that <tt>phi(x|theta)<tt> is Potts.  That is, for fixed theta, <tt>phi(x)</tt> = 1
@@ -45,22 +43,26 @@ public class BoltzmannUnaryFactor extends TableFactor {
   }
   */
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new BoltzmannUnaryFactor (var, theta);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
       return Double.isNaN (theta);
   }
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     if (this == o) return true;
     if (o == null || getClass () != o.getClass ()) return false;
@@ -73,7 +75,8 @@ public class BoltzmannUnaryFactor extends TableFactor {
     return true;
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     int result;
     result = new Double(theta).hashCode();
@@ -81,12 +84,14 @@ public class BoltzmannUnaryFactor extends TableFactor {
     return result;
   }
 
-    public String prettyOutputString ()
+    @Override
+	public String prettyOutputString ()
     {
 	return var.getLabel() + " ~ Unary " + Double.toString(theta);
     }
 
-    public Factor multiply (Factor other) {
+    @Override
+	public Factor multiply (Factor other) {
 	Factor result = new TableFactor (this);
 	result.multiplyBy (other);
 	return result;

@@ -31,6 +31,7 @@ public class TokenSequenceNGrams extends Pipe implements Serializable
 		this.gramSizes = sizes;
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		String newTerm = null;

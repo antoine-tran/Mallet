@@ -55,7 +55,8 @@ public class TestSerializable extends TestCase {
     String foo;
     int bar;
 
-    public boolean equals (Object o)
+    @Override
+	public boolean equals (Object o)
     {
       if (this == o) return true;
       if (!(o instanceof WriteMe)) return false;
@@ -68,7 +69,8 @@ public class TestSerializable extends TestCase {
       return true;
     }
 
-    public int hashCode ()
+    @Override
+	public int hashCode ()
     {
       int result;
       result = (foo != null ? foo.hashCode () : 0);

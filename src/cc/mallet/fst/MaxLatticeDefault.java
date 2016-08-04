@@ -55,6 +55,7 @@ public class MaxLatticeDefault implements MaxLattice
 	private WeightCache[] caches;
 	private int numCaches, maxCaches;
 	
+	@Override
 	public Transducer getTransducer () { return t; }
 	public Sequence getInput() { return input; }
 	public Sequence getProvidedOutput() { return providedOutput; }
@@ -70,7 +71,9 @@ public class MaxLatticeDefault implements MaxLattice
 			this.state = state;
 		}
 		// The one method required by AStarState
+		@Override
 		public double completionCost () { return -delta; }
+		@Override
 		public boolean isFinal() {
 			return inputPosition == 0 && state.getInitialWeight() > Transducer.IMPOSSIBLE_WEIGHT;
 		}
@@ -98,11 +101,13 @@ public class MaxLatticeDefault implements MaxLattice
 						}
 				}
 			}
+			@Override
 			public boolean hasNext() {
 				lookAhead();
 				return weights != null && prev < t.numStates();
 			}
 
+			@Override
 			public SearchState nextState() {
 				lookAhead();
 				weight = weights[prev++];
@@ -111,6 +116,7 @@ public class MaxLatticeDefault implements MaxLattice
 			}
 
 			// Required by SearchState, super-interface of AStarState
+			@Override
 			public double cost() {
 				return -weight;
 			}
@@ -119,6 +125,7 @@ public class MaxLatticeDefault implements MaxLattice
 			}
 		}
 
+		@Override
 		public NextStateIterator getNextStates() {
 			return new PreviousStateIterator();
 		}
@@ -278,6 +285,7 @@ public class MaxLatticeDefault implements MaxLattice
 			}
 	}
 	
+	@Override
 	public double getDelta (int ip, int stateIndex) {
 		if (lattice != null) {
 			return getViterbiNode (ip, stateIndex).delta;
@@ -363,6 +371,7 @@ public class MaxLatticeDefault implements MaxLattice
 		return bestStateAlignments(1).get(0);
 	}
 
+	@Override
 	public List<Sequence<State>> bestStateSequences(int n) {
 		List<SequencePairAlignment<Object,State>> a = bestStateAlignments(n);
 		ArrayList<Sequence<State>> ret = new ArrayList<Sequence<State>>(n);
@@ -371,6 +380,7 @@ public class MaxLatticeDefault implements MaxLattice
 		return ret;
 	}
 	
+	@Override
 	public Sequence<State> bestStateSequence() {
 		return bestStateAlignments(1).get(0).output();
 	}
@@ -397,6 +407,7 @@ public class MaxLatticeDefault implements MaxLattice
 		return bestOutputAlignments(1).get(0);
 	}
 
+	@Override
 	public List<Sequence<Object>> bestOutputSequences (int n) {
 		bestOutputAlignments(n); // ensure that outputAlignmentCache has at least size n
 		ArrayList<Sequence<Object>> ret = new ArrayList<Sequence<Object>>(n);
@@ -406,6 +417,7 @@ public class MaxLatticeDefault implements MaxLattice
 		// TODO consider caching this result
 	}
 	
+	@Override
 	public Sequence<Object> bestOutputSequence () {
 		return bestOutputAlignments(1).get(0).output();
 	}
@@ -451,6 +463,7 @@ public class MaxLatticeDefault implements MaxLattice
 		}
 	}
 
+	@Override
 	public double elementwiseAccuracy (Sequence referenceOutput)
 	{
 		int accuracy = 0;
@@ -489,6 +502,7 @@ public class MaxLatticeDefault implements MaxLattice
 	
 	public static class Factory extends MaxLatticeFactory implements Serializable
 	{
+		@Override
 		public MaxLattice newMaxLattice (Transducer trans, Sequence inputSequence, Sequence outputSequence)
 		{
 			return new MaxLatticeDefault (trans, inputSequence, outputSequence);

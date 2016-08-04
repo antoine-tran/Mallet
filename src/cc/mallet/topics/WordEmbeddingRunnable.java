@@ -49,6 +49,7 @@ public class WordEmbeddingRunnable implements Runnable {
 		return result;
 	}
 
+	@Override
 	public void run() {
 		long previousWordsSoFar = 0;
 		long wordsConsidered = 0;
@@ -72,7 +73,7 @@ public class WordEmbeddingRunnable implements Runnable {
 			maxDocID = numDocuments;
 		}
 		
-		double cacheScale = (double) model.sigmoidCacheSize / (model.maxExpValue - model.minExpValue);
+		double cacheScale = model.sigmoidCacheSize / (model.maxExpValue - model.minExpValue);
 		
 		int[] tokenBuffer = new int[100000];
 				

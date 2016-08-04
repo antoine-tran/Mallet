@@ -32,7 +32,8 @@ public class IDSorter implements Comparable<IDSorter> {
     public IDSorter (int id, double p) { this.id = id; this.p = p; }
     public IDSorter (int id, int p) { this.id = id; this.p = p; }
 
-    public final int compareTo (IDSorter o2) {
+    @Override
+	public final int compareTo (IDSorter o2) {
 
 		double otherP = o2.p;
 

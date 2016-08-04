@@ -31,10 +31,12 @@ public class AllPairsIterator extends NeighborIterator {
 		this.instances = clustering.getInstances();
 	}
 
+	@Override
 	public boolean hasNext () {
 		return i < instances.size() - 1;
 	}
 
+	@Override
 	public Instance next () {
 		AgglomerativeNeighbor neighbor =
 			new AgglomerativeNeighbor(clustering,

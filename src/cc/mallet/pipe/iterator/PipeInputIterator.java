@@ -17,9 +17,7 @@ package cc.mallet.pipe.iterator;
 import java.util.Iterator;
 
 import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Label;
 
 /**
  *  Interface for classes that generate instances.
@@ -35,8 +33,11 @@ import cc.mallet.types.Label;
 @Deprecated // You should just use Iterator<Instance> directly.  This class will be removed in the future.
 public abstract class PipeInputIterator implements Iterator<Instance>
 {
+	@Override
 	public abstract Instance next ();
+	@Override
 	public abstract boolean hasNext ();
+	@Override
 	public void remove () {	throw new UnsupportedOperationException ();	}
 	
 	// Sometimes (as in an InstanceList used for AdaBoost) Instances may be weighted.

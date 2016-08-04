@@ -14,15 +14,12 @@
 
 package cc.mallet.types;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Arrays;
 import java.util.logging.*;
 import java.io.*;
 
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.FeatureSequence;
-import cc.mallet.types.Vector;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.PropertyList;
 
@@ -58,12 +55,11 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 
 	Alphabet dictionary;
 	
-	protected FeatureVector (Alphabet dict,
-													 int[] indices, double[] values, 
-													 int capacity, int size,
-													 boolean copy,
-													 boolean checkIndicesSorted,
-													 boolean removeDuplicates)
+	protected FeatureVector (Alphabet dict, int[] indices, double[] values, 
+	    int capacity, int size,
+		boolean copy,
+		boolean checkIndicesSorted,
+		boolean removeDuplicates)
 	{
 		super (indices, values, capacity, size, copy, checkIndicesSorted, removeDuplicates);
 		this.dictionary = dict;
@@ -77,9 +73,7 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 	}
 	
 	/** Create non-binary vector, possibly dense if "featureIndices" or possibly sparse, if not */
-	public FeatureVector (Alphabet dict,
-												int[] featureIndices,
-												double[] values)
+	public FeatureVector (Alphabet dict, int[] featureIndices, double[] values)
 	{
 		super (featureIndices, values);
 		this.dictionary = dict;
@@ -119,7 +113,7 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 	public FeatureVector (FeatureSequence fs, boolean binary)
 	{
 		super (fs.toSortedFeatureIndexSequence(), false, false, true, binary);
-		this.dictionary = (Alphabet) fs.getAlphabet();
+		this.dictionary = fs.getAlphabet();
 	}
 
 	public FeatureVector (FeatureSequence fs)
@@ -284,11 +278,13 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
   }
 
   // xxx We need to implement this in FeatureVector subclasses
+	@Override
 	public ConstantMatrix cloneMatrix ()
 	{
-		return new FeatureVector ((Alphabet)dictionary, indices, values);
+		return new FeatureVector (dictionary, indices, values);
 	}
 
+	@Override
 	public ConstantMatrix cloneMatrixZeroed () {
 		assert (values != null);
 		if (indices == null)
@@ -301,6 +297,7 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 		}
 	}
 	
+	@Override
 	public String toString ()
 	{
 		return toString (false);
@@ -369,6 +366,7 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 	}
 
 
+	@Override
 	public String toString (boolean onOneLine)
 	{
 		//Thread.currentThread().dumpStack();
@@ -415,11 +413,13 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 		return sb.toString();
 	}
 
+	@Override
 	public Alphabet getAlphabet ()
 	{
 		return dictionary;
 	}
 	
+	@Override
 	public Alphabet[] getAlphabets()
 	{
 		return new Alphabet[] {dictionary};

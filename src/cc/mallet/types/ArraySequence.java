@@ -58,17 +58,20 @@ public class ArraySequence<E> implements Sequence<E>
 		}
 	}
 	
+	@Override
 	public E get (int index)
 	{
 		return data[index];
 	}
 
+	@Override
 	public int size ()
 	{
 		return data.length;
 	}
 
-  public String toString() {
+  @Override
+public String toString() {
     String toret = "";
     for (int i = 0; i < data.length; i++) {
       toret += " " + data[i];

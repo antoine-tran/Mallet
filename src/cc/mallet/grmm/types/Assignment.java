@@ -168,7 +168,8 @@ public class Assignment extends AbstractFactor implements Serializable {
    * @return A newly-created Assignment
    * @deprecated marginalize
    */
-  public static Assignment restriction (Assignment assn, VarSet varSet)
+  @Deprecated
+public static Assignment restriction (Assignment assn, VarSet varSet)
   {
     return (Assignment) assn.marginalize (varSet);
   }
@@ -176,7 +177,7 @@ public class Assignment extends AbstractFactor implements Serializable {
   public Assignment getRow (int ridx)
   {
     Assignment assn = new Assignment ();
-    assn.var2idx = (TObjectIntHashMap) this.var2idx.clone ();
+    assn.var2idx = this.var2idx.clone ();
     assn.vars = new UnmodifiableVarSet (vars);
     assn.addRow ((Object[]) values.get (ridx));
     return assn;
@@ -245,7 +246,7 @@ public class Assignment extends AbstractFactor implements Serializable {
   {
     for (int i = 0; i < vars.length; i++) {
       Variable v1 = vars[i];
-      Variable v2 = (Variable) this.vars.get (i);
+      Variable v2 = this.vars.get (i);
       if (v1 != v2)
         throw new IllegalArgumentException ("Attempt to add row with incompatible variables.");
     }
@@ -338,9 +339,10 @@ public class Assignment extends AbstractFactor implements Serializable {
     return row[ci];
   }
 
-  public Variable getVariable (int i)
+  @Override
+public Variable getVariable (int i)
   {
-    return (Variable) vars.get (i);
+    return vars.get (i);
   }
 
   /** Returns all variables which are assigned to. */
@@ -398,7 +400,7 @@ public class Assignment extends AbstractFactor implements Serializable {
     // these could be cached
     int[] szs = new int [numVariables ()];
     for (int i = 0; i < numVariables (); i++) {
-      Variable var = (Variable) vars.get (i);
+      Variable var = vars.get (i);
       szs[i] = var.getNumOutcomes ();
     }
 
@@ -430,11 +432,12 @@ public class Assignment extends AbstractFactor implements Serializable {
     return idxs;
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     Assignment ret = new Assignment ();
     ret.vars = new HashVarSet (vars);
-    ret.var2idx = (TObjectIntHashMap) var2idx.clone ();
+    ret.var2idx = var2idx.clone ();
     ret.values = new ArrayList (values.size ());
     for (int ri = 0; ri < values.size(); ri++) {
       Object[] vals = (Object[]) values.get (ri);
@@ -476,14 +479,15 @@ public class Assignment extends AbstractFactor implements Serializable {
   public void dumpNumeric ()
   {
     for (int i = 0; i < var2idx.size (); i++) {
-      Variable var = (Variable) vars.get (i);
+      Variable var = vars.get (i);
       int outcome = get (var);
       System.out.println (var + " " + outcome);
     }
   }
 
   /** Returns true if this assignment specifies a value for <tt>var</tt> */
-  public boolean containsVar (Variable var)
+  @Override
+public boolean containsVar (Variable var)
   {
     int idx = colOfVar (var, false);
     return (idx != -1);
@@ -552,12 +556,14 @@ public class Assignment extends AbstractFactor implements Serializable {
   }
 
 
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     return asTable ().extractMax (varSet);
   }
 
-  protected double lookupValueInternal (int assnIdx)
+  @Override
+protected double lookupValueInternal (int assnIdx)
   {
     int val = 0;
     for (int ri = 0; ri < numRows (); ri++) {
@@ -568,7 +574,8 @@ public class Assignment extends AbstractFactor implements Serializable {
     return val * scale;
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     Assignment ret = new Assignment ();
     Variable[] vars = varsToKeep.toVariableArray ();
@@ -586,23 +593,27 @@ public class Assignment extends AbstractFactor implements Serializable {
     return ret;
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return asTable ().almostEquals (p, epsilon);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     scale = 1.0 / numRows ();
     return this;
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     int ri = r.nextInt (numRows ());
     Object[] vals = (Object[]) values.get (ri);
@@ -612,7 +623,8 @@ public class Assignment extends AbstractFactor implements Serializable {
     return assn;
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     StringWriter writer = new StringWriter ();
     dump (new PrintWriter (writer));
@@ -620,12 +632,14 @@ public class Assignment extends AbstractFactor implements Serializable {
   }
 
   // todo: think about the semantics of this
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public AbstractTableFactor asTable ()
+  @Override
+public AbstractTableFactor asTable ()
   {
     Variable[] varr = (Variable[]) vars.toArray (new Variable [0]);
     int[] idxs = new int[numRows ()];

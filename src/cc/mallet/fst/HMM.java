@@ -89,6 +89,7 @@ public class HMM extends Transducer implements Serializable {
 		return initialMultinomial;
 	}
 
+	@Override
 	public void print() {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < numStates(); i++) {
@@ -518,17 +519,20 @@ public class HMM extends Transducer implements Serializable {
 	}
 
 	public State getState(String name) {
-		return (State) name2state.get(name);
+		return name2state.get(name);
 	}
 
+	@Override
 	public int numStates() {
 		return states.size();
 	}
 
+	@Override
 	public Transducer.State getState(int index) {
-		return (Transducer.State) states.get(index);
+		return states.get(index);
 	}
 
+	@Override
 	public Iterator initialStateIterator() {
 		return initialStates.iterator();
 	}
@@ -649,7 +653,7 @@ public class HMM extends Transducer implements Serializable {
 			transitionMultinomial = new Multinomial[numStates()];
 			Alphabet transitionAlphabet = new Alphabet();
 			for (int i = 0; i < numStates(); i++)
-				transitionAlphabet.lookupIndex(((State) states.get(i))
+				transitionAlphabet.lookupIndex(states.get(i)
 						.getName(), true);
 			for (int i = 0; i < numStates(); i++) {
 				emissionEstimator[i] = new Multinomial.LaplaceEstimator(
@@ -682,13 +686,16 @@ public class HMM extends Transducer implements Serializable {
 	}
 
 	public class Incrementor implements Transducer.Incrementor {
+		@Override
 		public void incrementFinalState(Transducer.State s, double count) {
 		}
 
+		@Override
 		public void incrementInitialState(Transducer.State s, double count) {
 			initialEstimator.increment(s.getName(), count);
 		}
 
+		@Override
 		public void incrementTransition(Transducer.TransitionIterator ti,
 				double count) {
 			int inputFtr = (Integer) ti.getInput();
@@ -709,13 +716,16 @@ public class HMM extends Transducer implements Serializable {
 			this.weight = wt;
 		}
 
+		@Override
 		public void incrementFinalState(Transducer.State s, double count) {
 		}
 
+		@Override
 		public void incrementInitialState(Transducer.State s, double count) {
 			initialEstimator.increment(s.getName(), weight * count);
 		}
 
+		@Override
 		public void incrementTransition(Transducer.TransitionIterator ti,
 				double count) {
 			int inputFtr = (Integer) ti.getInput();
@@ -915,22 +925,27 @@ public class HMM extends Transducer implements Serializable {
 			}
 		}
 
+		@Override
 		public Transducer getTransducer() {
 			return hmm;
 		}
 
+		@Override
 		public double getFinalWeight() {
 			return finalWeight;
 		}
 
+		@Override
 		public double getInitialWeight() {
 			return initialWeight;
 		}
 
+		@Override
 		public void setFinalWeight(double c) {
 			finalWeight = c;
 		}
 
+		@Override
 		public void setInitialWeight(double c) {
 			initialWeight = c;
 		}
@@ -947,13 +962,14 @@ public class HMM extends Transducer implements Serializable {
 		public State getDestinationState(int index) {
 			State ret;
 			if ((ret = destinations[index]) == null) {
-				ret = destinations[index] = (State) hmm.name2state
+				ret = destinations[index] = hmm.name2state
 						.get(destinationNames[index]);
 				assert (ret != null) : index;
 			}
 			return ret;
 		}
 
+		@Override
 		public Transducer.TransitionIterator transitionIterator(
 				Sequence inputSequence, int inputPosition,
 				Sequence outputSequence, int outputPosition) {
@@ -972,10 +988,12 @@ public class HMM extends Transducer implements Serializable {
 							.get(outputPosition)), hmm);
 		}
 
+		@Override
 		public String getName() {
 			return name;
 		}
 
+		@Override
 		public int getIndex() {
 			return index;
 		}
@@ -1106,10 +1124,12 @@ public class HMM extends Transducer implements Serializable {
 				nextIndex++;
 		}
 
+		@Override
 		public boolean hasNext() {
 			return nextIndex < source.destinations.length;
 		}
 
+		@Override
 		public Transducer.State nextState() {
 			assert (nextIndex < source.destinations.length);
 			index = nextIndex;
@@ -1120,6 +1140,7 @@ public class HMM extends Transducer implements Serializable {
 			return source.getDestinationState(index);
 		}
 
+		@Override
 		public int getIndex() {
 			return index;
 		}
@@ -1128,23 +1149,28 @@ public class HMM extends Transducer implements Serializable {
 		 * Returns an Integer object containing the feature index of the symbol
 		 * at this position in the input sequence.
 		 */
+		@Override
 		public Object getInput() {
 			return inputFeature;
 		}
 
 		// public int getInputPosition () { return inputPos; }
+		@Override
 		public Object getOutput() {
 			return source.labels[index];
 		}
 
+		@Override
 		public double getWeight() {
 			return weights[index];
 		}
 
+		@Override
 		public Transducer.State getSourceState() {
 			return source;
 		}
 
+		@Override
 		public Transducer.State getDestinationState() {
 			return source.getDestinationState(index);
 		}

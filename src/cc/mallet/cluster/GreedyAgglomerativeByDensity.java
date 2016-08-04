@@ -77,6 +77,7 @@ public class GreedyAgglomerativeByDensity extends GreedyAgglomerative {
 	}
 
 
+	@Override
 	public boolean converged (Clustering clustering) {
 		return converged;
 	}
@@ -85,12 +86,14 @@ public class GreedyAgglomerativeByDensity extends GreedyAgglomerative {
 	 * Reset convergence to false and clear state so a new round of
 	 * clustering can begin.
 	 */
+	@Override
 	public void reset () {
 		super.reset();
 		this.unclusteredInstances = null;
 		this.instanceBeingClustered = -1;
 	}
 	
+	@Override
 	public Clustering improveClustering (Clustering clustering) {
 		if (instanceBeingClustered == -1)
 			sampleNextInstanceToCluster(clustering);
@@ -146,6 +149,7 @@ public class GreedyAgglomerativeByDensity extends GreedyAgglomerative {
 		unclusteredInstances.shuffle(random);
 	}
 	
+	@Override
 	public String toString () {
 		return "class=" + this.getClass().getName() +
 			"\nstoppingThreshold=" + stoppingThreshold +

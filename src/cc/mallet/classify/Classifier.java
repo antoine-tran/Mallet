@@ -15,7 +15,6 @@
 package cc.mallet.classify;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.*;
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -23,10 +22,8 @@ import java.io.Serializable;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.AlphabetCarrying;
-import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.Labeling;
 import cc.mallet.types.FeatureSelection;
@@ -86,9 +83,10 @@ public abstract class Classifier implements AlphabetCarrying, Serializable
 		return instancePipe;
 	}
 
+	@Override
 	public Alphabet getAlphabet ()
 	{
-		return (Alphabet) instancePipe.getDataAlphabet();
+		return instancePipe.getDataAlphabet();
 	}
 
 	public LabelAlphabet getLabelAlphabet ()
@@ -96,6 +94,7 @@ public abstract class Classifier implements AlphabetCarrying, Serializable
 		return (LabelAlphabet) instancePipe.getTargetAlphabet();
 	}
 	
+	@Override
 	public Alphabet[] getAlphabets() 
 	{
 		return new Alphabet[] {getAlphabet(), getLabelAlphabet()};

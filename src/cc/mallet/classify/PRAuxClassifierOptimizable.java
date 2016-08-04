@@ -58,11 +58,13 @@ public class PRAuxClassifierOptimizable implements Optimizable.ByGradientValue {
     this.cacheStale = true;
   }
   
-  public int getNumParameters() {
+  @Override
+public int getNumParameters() {
     return numParameters;
   }
 
-  public void getParameters(double[] buffer) {
+  @Override
+public void getParameters(double[] buffer) {
     int start = 0;
     for (int i = 0; i < parameters.length; i++) {
       System.arraycopy(parameters[i], 0, buffer, start, parameters[i].length);
@@ -70,7 +72,8 @@ public class PRAuxClassifierOptimizable implements Optimizable.ByGradientValue {
     }
   }
 
-  public double getParameter(int index) {
+  @Override
+public double getParameter(int index) {
     int start = 0;
     for (int i = 0; i < parameters.length; i++) {
       if (start < parameters[i].length) {
@@ -83,7 +86,8 @@ public class PRAuxClassifierOptimizable implements Optimizable.ByGradientValue {
     throw new RuntimeException(index + " out of bounds.");
   }
 
-  public void setParameters(double[] params) {
+  @Override
+public void setParameters(double[] params) {
     int start = 0;
     for (int i = 0; i < parameters.length; i++) {
       System.arraycopy(params, start, parameters[i], 0, parameters[i].length);
@@ -92,7 +96,8 @@ public class PRAuxClassifierOptimizable implements Optimizable.ByGradientValue {
     cacheStale = true;
   }
 
-  public void setParameter(int index, double value) {
+  @Override
+public void setParameter(int index, double value) {
     int start = 0;
     for (int i = 0; i < parameters.length; i++) {
       if (start < parameters[i].length) {
@@ -172,7 +177,8 @@ public class PRAuxClassifierOptimizable implements Optimizable.ByGradientValue {
     return value;
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     if (cacheStale) {
       cachedValue = getValueAndGradient(cachedGradient);
       cacheStale = false;
@@ -180,7 +186,8 @@ public class PRAuxClassifierOptimizable implements Optimizable.ByGradientValue {
     return cachedValue;
   }
   
-  public void getValueGradient(double[] gradient) {
+  @Override
+public void getValueGradient(double[] gradient) {
     if (cacheStale) {
       cachedValue = getValueAndGradient(cachedGradient);
       cacheStale = false;

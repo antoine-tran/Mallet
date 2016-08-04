@@ -19,7 +19,6 @@ package cc.mallet.pipe;
 
 import java.io.*;
 
-import cc.mallet.types.FeatureSequence;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 
@@ -39,6 +38,7 @@ public class FeatureVectorConjunctions extends Pipe implements Serializable
 	}
 	
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		FeatureVector fv = (FeatureVector) carrier.getData();

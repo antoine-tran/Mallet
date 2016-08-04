@@ -101,7 +101,8 @@ public final class MatrixOps
 
 
     /** @deprecated  Use dotProduct() */
-    public static double dot (double[] m1, double[] m2) {
+    @Deprecated
+	public static double dot (double[] m1, double[] m2) {
         assert (m1.length == m2.length) : "m1.length != m2.length\n";
         double ret = 0.0;
         for (int i=0; i < m1.length; i++)

@@ -75,22 +75,26 @@ public class LogTableFactor extends AbstractTableFactor {
 
   //**************************************************************************/
 
-  void setAsIdentity ()
+  @Override
+void setAsIdentity ()
   {
     setAll (0.0);
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new LogTableFactor (this);
   }
 
-  protected AbstractTableFactor createBlankSubset (Variable[] vars)
+  @Override
+protected AbstractTableFactor createBlankSubset (Variable[] vars)
   {
     return new LogTableFactor (vars);
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     double sum = logspaceOneNorm ();
     if (sum < -500)
@@ -113,13 +117,15 @@ public class LogTableFactor extends AbstractTableFactor {
     return sum;
   }
 
-  public double sum ()
+  @Override
+public double sum ()
   {
     Flops.exp ();  // logspaceOneNorm counts rest
     return Math.exp (logspaceOneNorm ());
   }
 
-  public double logsum ()
+  @Override
+public double logsum ()
   {
     return logspaceOneNorm ();
   }
@@ -129,7 +135,8 @@ public class LogTableFactor extends AbstractTableFactor {
    * Assumes that pot's variables are a subset of
    * this potential's.
    */
-  protected void multiplyByInternal (DiscreteFactor ptl)
+  @Override
+protected void multiplyByInternal (DiscreteFactor ptl)
   {
     int[] projection = largeIdxToSmall (ptl);
     int numLocs = probs.numLocations ();
@@ -145,7 +152,8 @@ public class LogTableFactor extends AbstractTableFactor {
 
   // Does destructive divison on this, assuming this has all
 // the variables in pot.
-  protected void divideByInternal (DiscreteFactor ptl)
+  @Override
+protected void divideByInternal (DiscreteFactor ptl)
   {
     int[] projection = largeIdxToSmall (ptl);
     int numLocs = probs.numLocations ();
@@ -168,7 +176,8 @@ public class LogTableFactor extends AbstractTableFactor {
    * Assumes that pot's variables are a subset of
    * this potential's.
    */
-  protected void plusEqualsInternal (DiscreteFactor ptl)
+  @Override
+protected void plusEqualsInternal (DiscreteFactor ptl)
   {
     int[] projection = largeIdxToSmall (ptl);
     int numLocs = probs.numLocations ();
@@ -183,7 +192,8 @@ public class LogTableFactor extends AbstractTableFactor {
   }
 
 
-  public double value (Assignment assn)
+  @Override
+public double value (Assignment assn)
   {
     Flops.exp ();
     if (getNumVars () == 0) return 1.0;
@@ -191,35 +201,41 @@ public class LogTableFactor extends AbstractTableFactor {
   }
 
 
-  public double value (AssignmentIterator it)
+  @Override
+public double value (AssignmentIterator it)
   {
     Flops.exp ();
     return Math.exp (rawValue (it.indexOfCurrentAssn ()));
   }
 
 
-  public double value (int idx)
+  @Override
+public double value (int idx)
   {
     Flops.exp ();
     return Math.exp (rawValue (idx));
   }
 
-  public double logValue (AssignmentIterator it)
+  @Override
+public double logValue (AssignmentIterator it)
   {
     return rawValue (it.indexOfCurrentAssn ());
   }
 
-  public double logValue (int idx)
+  @Override
+public double logValue (int idx)
   {
     return rawValue (idx);
   }
 
-  public double logValue (Assignment assn)
+  @Override
+public double logValue (Assignment assn)
   {
     return rawValue (assn);
   }
 
-  protected Factor marginalizeInternal (AbstractTableFactor result)
+  @Override
+protected Factor marginalizeInternal (AbstractTableFactor result)
   {
 
     result.setAll (Double.NEGATIVE_INFINITY);
@@ -265,7 +281,8 @@ to the correct element in the small potential. */
     return rawValue (singleIdx);
   }
 
-  protected double rawValue (int singleIdx)
+  @Override
+protected double rawValue (int singleIdx)
   {
     int loc = probs.location (singleIdx);
     if (loc < 0) {
@@ -275,7 +292,8 @@ to the correct element in the small potential. */
     }
   }
 
-  public void exponentiate (double power)
+  @Override
+public void exponentiate (double power)
   {
     Flops.increment (probs.numLocations ());
     probs.timesEquals (power);
@@ -292,30 +310,35 @@ to the correct element in the small potential. */
   }
   */
 
-  public void setLogValue (Assignment assn, double logValue)
+  @Override
+public void setLogValue (Assignment assn, double logValue)
   {
     setRawValue (assn, logValue);
   }
 
-  public void setLogValue (AssignmentIterator assnIt, double logValue)
+  @Override
+public void setLogValue (AssignmentIterator assnIt, double logValue)
   {
     setRawValue (assnIt, logValue);
   }
 
-  public void setValue (AssignmentIterator assnIt, double value)
+  @Override
+public void setValue (AssignmentIterator assnIt, double value)
   {
     Flops.log ();
     setRawValue (assnIt, Math.log (value));
   }
 
-  public void setLogValues (double[] vals)
+  @Override
+public void setLogValues (double[] vals)
   {
     for (int i = 0; i < vals.length; i++) {
       setRawValue (i, vals[i]);
     }
   }
 
-  public void setValues (double[] vals)
+  @Override
+public void setValues (double[] vals)
   {
     Flops.log (vals.length);
     for (int i = 0; i < vals.length; i++) {
@@ -324,7 +347,8 @@ to the correct element in the small potential. */
   }
 
   // v is *not* in log space
-  public void timesEquals (double v)
+  @Override
+public void timesEquals (double v)
   {
     timesEqualsLog (Math.log (v));
   }
@@ -337,7 +361,8 @@ to the correct element in the small potential. */
     probs.plusEquals (other);
   }
 
-  protected void plusEqualsAtLocation (int loc, double v)
+  @Override
+protected void plusEqualsAtLocation (int loc, double v)
   {
     Flops.log (); Flops.sumLogProb (1);
     double oldVal = logValue (loc);
@@ -370,7 +395,8 @@ to the correct element in the small potential. */
     return makeFromLogValues (new Variable[]{v}, vals);
   }
 
-  public Matrix getValueMatrix ()
+  @Override
+public Matrix getValueMatrix ()
   {
     Matrix logProbs = (Matrix) probs.cloneMatrix ();
     for (int loc = 0; loc < probs.numLocations (); loc++) {
@@ -380,18 +406,21 @@ to the correct element in the small potential. */
     return logProbs;
   }
 
-  public Matrix getLogValueMatrix ()
+  @Override
+public Matrix getLogValueMatrix ()
   {
     return probs;
   }
 
-  public double valueAtLocation (int idx)
+  @Override
+public double valueAtLocation (int idx)
   {
     Flops.exp ();
     return Math.exp (probs.valueAtLocation (idx));
   }
 
-  protected Factor slice_onevar (Variable var, Assignment observed)
+  @Override
+protected Factor slice_onevar (Variable var, Assignment observed)
   {
     Assignment assn = (Assignment) observed.duplicate ();
     double[] vals = new double [var.getNumOutcomes ()];
@@ -403,7 +432,8 @@ to the correct element in the small potential. */
     return LogTableFactor.makeFromLogValues (var, vals);
   }
 
-  protected Factor slice_twovar (Variable v1, Variable v2, Assignment observed)
+  @Override
+protected Factor slice_twovar (Variable v1, Variable v2, Assignment observed)
   {
     Assignment assn = (Assignment) observed.duplicate ();
 
@@ -424,7 +454,8 @@ to the correct element in the small potential. */
     return LogTableFactor.makeFromLogValues (new Variable[]{v1, v2}, vals);
   }
 
-  protected Factor slice_general (Variable[] vars, Assignment observed)
+  @Override
+protected Factor slice_general (Variable[] vars, Assignment observed)
   {
     VarSet toKeep = new HashVarSet (vars);
     toKeep.removeAll (observed.varSet ());
@@ -459,7 +490,8 @@ to the correct element in the small potential. */
     return newCPF;
   }
 
-  public AbstractTableFactor recenter ()
+  @Override
+public AbstractTableFactor recenter ()
   {
 //    return (AbstractTableFactor) normalize ();
     int loc = argmax ();

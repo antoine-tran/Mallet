@@ -14,7 +14,6 @@ import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.InstanceList;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 

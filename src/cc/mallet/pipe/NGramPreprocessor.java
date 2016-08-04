@@ -5,7 +5,6 @@ import java.io.*;
 
 import cc.mallet.util.*;
 import cc.mallet.types.*;
-import java.util.regex.*;
 
 /** This pipe changes text to lowercase, removes common XML entities (quot, apos, lt, gt), and replaces all punctuation
 	except the - character with whitespace. It then breaks up tokens on whitespace and applies n-gram token replacements
@@ -58,6 +57,7 @@ public class NGramPreprocessor extends Pipe implements Serializable {
 		return totalReplacements;
 	}
 
+	@Override
 	public Instance pipe (Instance instance) {
 
 		String input = (String) instance.getData();

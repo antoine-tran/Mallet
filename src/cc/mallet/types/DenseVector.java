@@ -32,18 +32,23 @@ public class DenseVector extends DenseMatrix implements Vector, Serializable
 
 	public DenseVector (int size) { this (new double[size], false); }
 	
+	@Override
 	public int getNumDimensions () { return 1; }
+	@Override
 	public int getDimensions (int[] sizes) { sizes[0] = values.length; return 1; }
 	
+	@Override
 	public double value (int[] indices) {
 		assert (indices.length == 1);
 		return values[indices[0]];
 	}
 
+	@Override
 	public double value (int index) {
 		return values[index];
 	}
 	
+	@Override
 	public void setValue (int[] indices, double value) {
 		assert (indices.length == 1);
 		values[indices[0]] = value;
@@ -58,11 +63,14 @@ public class DenseVector extends DenseMatrix implements Vector, Serializable
 		values[columnIndex] += value;
 	}
 	
+	@Override
 	public ConstantMatrix cloneMatrix () {
 		return new DenseVector (values, true);
 	}
 
+	@Override
 	public int singleIndex (int[] indices) { assert (indices.length == 1); return indices[0]; }
+	@Override
 	public void singleToIndices (int i, int[] indices) { indices[0] = i; }
 
     

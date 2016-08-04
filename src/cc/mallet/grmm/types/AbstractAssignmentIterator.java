@@ -51,12 +51,14 @@ abstract class AbstractAssignmentIterator implements AssignmentIterator {
     return new Assignment (vars, outcomes);
   }
 
-  public void remove() {
+  @Override
+public void remove() {
     throw new UnsupportedOperationException
       ("Attempt to remave assignment from Clique.");
   }
 
-  public Assignment assignment ()
+  @Override
+public Assignment assignment ()
   {
     if (assn == null) {
       assn = constructAssignment ();
@@ -70,7 +72,8 @@ abstract class AbstractAssignmentIterator implements AssignmentIterator {
     }
   }
 
-  public Object next()
+  @Override
+public Object next()
   {
     Assignment assn = assignment ();
     advance ();

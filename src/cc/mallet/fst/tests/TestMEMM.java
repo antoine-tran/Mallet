@@ -269,7 +269,8 @@ public class TestMEMM extends TestCase {
 	  }
 
 
-	  public Instance pipe(Instance carrier)
+	  @Override
+	public Instance pipe(Instance carrier)
 	  {
 	    StringTokenization ts =  (StringTokenization) carrier.getData();
 	    StringTokenization newTs = new StringTokenization((CharSequence) ts.getDocument ());
@@ -324,7 +325,8 @@ public class TestMEMM extends TestCase {
 	  }
 
 
-	  public Instance pipe(Instance carrier)
+	  @Override
+	public Instance pipe(Instance carrier)
 	  {
 	    StringBuffer sb = new StringBuffer();
 	    String source = (String) carrier.getSource();

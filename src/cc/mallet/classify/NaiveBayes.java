@@ -133,7 +133,8 @@ public class NaiveBayes extends Classifier implements Serializable
         * @param instance to be classified. Data field must be a FeatureVector
         * @return Classification containing the labeling of  the instance
         */
-  public Classification classify (Instance instance)
+  @Override
+public Classification classify (Instance instance)
   {
         // Note that the current size of the label alphabet can be larger
       // than it was at the time of training.  We are careful here

@@ -335,7 +335,8 @@ public class RankedFeatureVector extends FeatureVector
     /**
      * Sort by value. Greater comes to the left of smaller.
      */
-    public int compareTo(final EntryWithOriginalIndex other) {
+    @Override
+	public int compareTo(final EntryWithOriginalIndex other) {
       return Double.compare(other._value, _value);
     }
 

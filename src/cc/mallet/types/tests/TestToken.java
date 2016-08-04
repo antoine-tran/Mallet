@@ -18,7 +18,6 @@ import junit.framework.*;
 
 
 import java.net.URI;
-import java.net.URL;
 import java.io.File;
 
 import cc.mallet.types.Alphabet;
@@ -73,6 +72,7 @@ public class TestToken extends TestCase
 		return new TestSuite (TestToken.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

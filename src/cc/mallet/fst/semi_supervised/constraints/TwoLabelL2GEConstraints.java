@@ -36,7 +36,8 @@ public class TwoLabelL2GEConstraints extends TwoLabelGEConstraints {
     super(constraintsList,constraintsMap,map);
   }
   
-  public GEConstraint copy() {
+  @Override
+public GEConstraint copy() {
     return new TwoLabelL2GEConstraints(this.constraintsList, this.constraintsMap, this.map); 
   }
   
@@ -74,7 +75,8 @@ public class TwoLabelL2GEConstraints extends TwoLabelGEConstraints {
       super(target,weight);
     }
     
-    public double getValue(int liPrev, int liCurr) {
+    @Override
+	public double getValue(int liPrev, int liCurr) {
       assert(this.count != 0);
       return 2 * this.weight * (target[liPrev][liCurr] / count - expectation[liPrev][liCurr] / (count * count));
     }

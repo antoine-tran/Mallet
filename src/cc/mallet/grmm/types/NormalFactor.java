@@ -41,33 +41,39 @@ public class NormalFactor extends AbstractFactor {
 
 
   //
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public double value (Assignment assn)
+  @Override
+public double value (Assignment assn)
   {
     // stub
     return 1.0;
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     return this;
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     // generate from standard normal
     double[] vals = new double [mean.size ()];
@@ -84,33 +90,39 @@ public class NormalFactor extends AbstractFactor {
     return new Assignment (vars.toVariableArray (), result.getData ());
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new NormalFactor (vars, mean, variance);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return false;
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     return toString ();
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return "[NormalFactor "+vars+" "+mean+" ... " +variance+" ]";
   }
 
   // todo
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     if (assn.varSet ().containsAll (vars)) {
       // special case
@@ -120,7 +132,8 @@ public class NormalFactor extends AbstractFactor {
     }
   }
 
-  public void multiplyBy (Factor f)
+  @Override
+public void multiplyBy (Factor f)
   {
     if (f instanceof ConstantFactor) {
       double val = f.value (new Assignment());
@@ -133,7 +146,8 @@ public class NormalFactor extends AbstractFactor {
     throw new UnsupportedOperationException ("Can't multiply NormalFactor by "+f);
   }
 
-  public void divideBy (Factor f)
+  @Override
+public void divideBy (Factor f)
   {
     if (f instanceof ConstantFactor) {
       double val = f.value (new Assignment());

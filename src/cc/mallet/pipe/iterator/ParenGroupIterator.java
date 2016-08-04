@@ -54,7 +54,7 @@ public class ParenGroupIterator implements Iterator<Instance> {
 		try {
 			// Eat up nonparen characters
 			int b;
-			while ((b = reader.read()) != (int)open) {
+			while ((b = reader.read()) != open) {
 				if (b == -1) return null;
 			}
 			
@@ -79,6 +79,7 @@ public class ParenGroupIterator implements Iterator<Instance> {
 
 	// Interface PipeInputIterate
 
+	@Override
 	public Instance next ()
 	{
 		Instance carrier = new Instance (nextGroup, null, 
@@ -88,10 +89,12 @@ public class ParenGroupIterator implements Iterator<Instance> {
 		return carrier;
 	}
 
+	@Override
 	public boolean hasNext () {
 		return nextGroup != null;
 	}
 
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

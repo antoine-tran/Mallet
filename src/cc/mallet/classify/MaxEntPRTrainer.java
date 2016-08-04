@@ -89,11 +89,13 @@ public class MaxEntPRTrainer extends ClassifierTrainer<MaxEnt> implements Classi
     this.normalize = normalize;
   }
 
-  public Optimizer getOptimizer() {
+  @Override
+public Optimizer getOptimizer() {
     throw new RuntimeException("Not yet implemented!");
   }
 
-  public int getIteration() {
+  @Override
+public int getIteration() {
     return numIterations;
   }
   
@@ -112,7 +114,8 @@ public class MaxEntPRTrainer extends ClassifierTrainer<MaxEnt> implements Classi
     return train(trainingSet,maxIterations);
   }
 	
-  public MaxEnt train(InstanceList trainingSet, int maxIterations) {
+  @Override
+public MaxEnt train(InstanceList trainingSet, int maxIterations) {
     return train(trainingSet,Math.min(maxIterations,minIterations),maxIterations);
   }
   

@@ -6,7 +6,6 @@ package cc.mallet.pipe;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.FeatureSequence;
 import cc.mallet.types.Instance;
-import cc.mallet.types.TokenSequence;
 
 /**
  * @author lmyao
@@ -43,11 +42,12 @@ public class FeatureSequenceConvolution extends Pipe {
 		}
 	}*/
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		FeatureSequence fseq = (FeatureSequence) carrier.getData();
 		FeatureSequence ret =
-			new FeatureSequence ((Alphabet)getDataAlphabet());
+			new FeatureSequence (getDataAlphabet());
 		int i,j, curLen;
 		curLen=fseq.getLength();
 		//first add fseq to ret

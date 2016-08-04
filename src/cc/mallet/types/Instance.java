@@ -110,10 +110,12 @@ public class Instance implements Serializable, AlphabetCarrying, Cloneable
 			return null;
 	}
 	
+	@Override
 	public Alphabet getAlphabet () {
 		return getDataAlphabet();
 	}
 	
+	@Override
 	public Alphabet[] getAlphabets()
 	{
 		return new Alphabet[] {getDataAlphabet(), getTargetAlphabet()};
@@ -171,6 +173,7 @@ public class Instance implements Serializable, AlphabetCarrying, Cloneable
 		return ret;
 	}
 	
+	@Override
 	public Object clone ()
 	{
 		return shallowCopy();

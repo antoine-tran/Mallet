@@ -33,6 +33,7 @@ public class RankingNeighborEvaluator extends ClassifyingNeighborEvaluator {
 		super(classifier, null);		
 	}
 
+	@Override
 	public double evaluate (Neighbor neighbor) {
 		throw new UnsupportedOperationException("This class expects an array of Neighbors to choose from");
 	}
@@ -42,6 +43,7 @@ public class RankingNeighborEvaluator extends ClassifyingNeighborEvaluator {
 	 * @param neighbors
 	 * @return An array containing a score for each of the elements of <code>neighbors</code>.
 	 */
+	@Override
 	public double[] evaluate (Neighbor[] neighbors) {
 		double[] scores = new double[neighbors.length];
 		LabelVector ranks = classifier.classify(neighbors).getLabelVector();
@@ -52,8 +54,10 @@ public class RankingNeighborEvaluator extends ClassifyingNeighborEvaluator {
 		return scores;
 	}
 	
+	@Override
 	public void reset () { }
 	
+	@Override
 	public String toString () {
 		return "class=" + this.getClass().getName() +
 			" classifier=" + classifier.getClass().getName();

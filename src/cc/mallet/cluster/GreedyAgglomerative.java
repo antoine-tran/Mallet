@@ -66,11 +66,13 @@ public class GreedyAgglomerative extends HillClimbingClusterer {
 	 * @param instances
 	 * @return A singleton clustering (each Instance in its own cluster).
 	 */
+	@Override
 	public Clustering initializeClustering (InstanceList instances) {
 		reset();
 		return ClusterUtils.createSingletonClustering(instances);
 	}
 
+	@Override
 	public boolean converged (Clustering clustering) {
 		return converged;
 	}
@@ -78,6 +80,7 @@ public class GreedyAgglomerative extends HillClimbingClusterer {
 	/**
 	 * Reset convergence to false so a new round of clustering can begin.
 	 */
+	@Override
 	public void reset () {
 		converged = false;
 		scoreCache = null;
@@ -93,6 +96,7 @@ public class GreedyAgglomerative extends HillClimbingClusterer {
 	 * @param clustering
 	 * @return
 	 */
+	@Override
 	public Clustering improveClustering (Clustering clustering) {
 		double bestScore = Double.NEGATIVE_INFINITY;
 		int[] toMerge = new int[]{-1,-1};
@@ -170,6 +174,7 @@ public class GreedyAgglomerative extends HillClimbingClusterer {
 		}
 	}
 		
+	@Override
 	public String toString () {
 		return "class=" + this.getClass().getName() +
 			"\nstoppingThreshold=" + stoppingThreshold + 

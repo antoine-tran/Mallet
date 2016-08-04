@@ -75,6 +75,7 @@ public class BalancedWinnowTrainer extends ClassifierTrainer<BalancedWinnow> imp
 	double[][] m_weights;
 	
 	BalancedWinnow classifier;
+	@Override
 	public BalancedWinnow getClassifier () { return classifier; }
 
 
@@ -112,6 +113,7 @@ public class BalancedWinnowTrainer extends ClassifierTrainer<BalancedWinnow> imp
 	 * @param trainingList Instance list to be trained on
 	 * @return Classifier object containing learned weights
 	 */
+	@Override
 	public BalancedWinnow train (InstanceList trainingList)
 	{
 		FeatureSelection selectedFeatures = trainingList.getFeatureSelection();
@@ -120,7 +122,7 @@ public class BalancedWinnowTrainer extends ClassifierTrainer<BalancedWinnow> imp
 			throw new UnsupportedOperationException ("FeatureSelection not yet implemented.");
 
 		double epsilon = m_epsilon;
-		Alphabet dict = (Alphabet) trainingList.getDataAlphabet ();
+		Alphabet dict = trainingList.getDataAlphabet ();
 		int numLabels = trainingList.getTargetAlphabet().size();
 		int numFeats = dict.size();
 		m_weights = new double [numLabels][numFeats+1];

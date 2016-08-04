@@ -61,15 +61,18 @@ public class OneLabelL2RangeGEConstraints implements GEConstraint {
     constraints.get(fi).add(li, lower, upper, weight);
   }
   
-  public boolean isOneStateConstraint() {
+  @Override
+public boolean isOneStateConstraint() {
     return true;
   }
   
-  public void setStateLabelMap(StateLabelMap map) {
+  @Override
+public void setStateLabelMap(StateLabelMap map) {
     this.map = map;
   }
   
-  public void preProcess(FeatureVector fv) {
+  @Override
+public void preProcess(FeatureVector fv) {
     cache.resetQuick();
     int fi;
     // cache constrained input features
@@ -85,7 +88,8 @@ public class OneLabelL2RangeGEConstraints implements GEConstraint {
   }
   
   // find examples that contain constrained input features
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count
     int ii = 0;
     int fi;
@@ -113,7 +117,8 @@ public class OneLabelL2RangeGEConstraints implements GEConstraint {
     return bitSet;
   }    
   
-  public double getCompositeConstraintFeatureValue(FeatureVector fv, int ip, int si1, int si2) {
+  @Override
+public double getCompositeConstraintFeatureValue(FeatureVector fv, int ip, int si1, int si2) {
     double value = 0;
     int li2 = map.getLabelIndex(si2);
     for (int i = 0; i < cache.size(); i++) {
@@ -122,7 +127,8 @@ public class OneLabelL2RangeGEConstraints implements GEConstraint {
     return value;
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     double value = 0.0;
     for (int fi : constraints.keys()) {
       OneLabelL2IndGEConstraint constraint = constraints.get(fi);
@@ -137,13 +143,15 @@ public class OneLabelL2RangeGEConstraints implements GEConstraint {
     return value;
   }
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     for (int fi : constraints.keys()) {
       constraints.get(fi).expectation = new double[constraints.get(fi).getNumConstrainedLabels()];
     }
   }
   
-  public void computeExpectations(ArrayList<SumLattice> lattices) {
+  @Override
+public void computeExpectations(ArrayList<SumLattice> lattices) {
     double[][] gammas;    
     TIntArrayList cache = new TIntArrayList();
     for (int i = 0; i < lattices.size(); i++) {
@@ -178,7 +186,8 @@ public class OneLabelL2RangeGEConstraints implements GEConstraint {
     }
   }
   
-  public GEConstraint copy() {
+  @Override
+public GEConstraint copy() {
     return new OneLabelL2RangeGEConstraints(this.constraints, this.map); 
   }
   

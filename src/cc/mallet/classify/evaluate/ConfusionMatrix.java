@@ -27,14 +27,10 @@ package cc.mallet.classify.evaluate;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.*;
-import java.text.*;
-
 import cc.mallet.classify.Classification;
 import cc.mallet.classify.Trial;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labeling;
@@ -101,6 +97,7 @@ public class ConfusionMatrix {
 		}
 	}
 
+	@Override
 	public String toString () {
 		StringBuffer sb = new StringBuffer ();
 		int maxLabelNameLength = 0;

@@ -107,7 +107,8 @@ public class TRP extends AbstractBeliefPropagation {
 
   public boolean isConverged () { return hasConverged; }
 
-  protected void initForGraph (FactorGraph m)
+  @Override
+protected void initForGraph (FactorGraph m)
   {
     super.initForGraph (m);
 
@@ -227,7 +228,8 @@ public class TRP extends AbstractBeliefPropagation {
    */
   public class AlmostRandomTreeFactory implements TreeFactory {
 
-    public Tree nextTree (FactorGraph fullGraph)
+    @Override
+	public Tree nextTree (FactorGraph fullGraph)
     {
       SimpleUnionFind unionFind = new SimpleUnionFind ();
       ArrayList edges = new ArrayList (fullGraph.factors ());
@@ -387,7 +389,8 @@ public class TRP extends AbstractBeliefPropagation {
       }
     }
 
-    public cc.mallet.grmm.types.Tree nextTree (FactorGraph mdl)
+    @Override
+	public cc.mallet.grmm.types.Tree nextTree (FactorGraph mdl)
     {
       // If no more trees, rewind.
       if (!it.hasNext ()) {
@@ -418,7 +421,8 @@ public class TRP extends AbstractBeliefPropagation {
     int current;
     int max;
 
-    public void reset () { current = 0; }
+    @Override
+	public void reset () { current = 0; }
 
     public IterationTerminator (int m)
     {
@@ -426,7 +430,8 @@ public class TRP extends AbstractBeliefPropagation {
       reset ();
     }
 
-    public boolean shouldContinue (TRP trp)
+    @Override
+	public boolean shouldContinue (TRP trp)
     {
       current++;
       if (current >= max) {
@@ -435,7 +440,8 @@ public class TRP extends AbstractBeliefPropagation {
       return current <= max;
     }
 
-    public Object clone () throws CloneNotSupportedException
+    @Override
+	public Object clone () throws CloneNotSupportedException
     {
       return super.clone ();
     }
@@ -449,11 +455,13 @@ public class TRP extends AbstractBeliefPropagation {
 
     public ConvergenceTerminator (double delta) { this.delta = delta; }
 
-    public void reset ()
+    @Override
+	public void reset ()
     {
     }
 
-    public boolean shouldContinue (TRP trp)
+    @Override
+	public boolean shouldContinue (TRP trp)
     {
 /*
 			if (oldMessages != null) 
@@ -467,7 +475,8 @@ public class TRP extends AbstractBeliefPropagation {
       return retval;
     }
 
-    public Object clone () throws CloneNotSupportedException
+    @Override
+	public Object clone () throws CloneNotSupportedException
     {
       return super.clone ();
     }
@@ -491,14 +500,16 @@ public class TRP extends AbstractBeliefPropagation {
       msg = "***TRP quitting: over " + maxIter + " iterations";
     }
 
-    public void reset ()
+    @Override
+	public void reset ()
     {
       iterminator.reset ();
       cterminator.reset ();
     }
 
     // Terminate if converged or at insanely high # of iterations
-    public boolean shouldContinue (TRP trp)
+    @Override
+	public boolean shouldContinue (TRP trp)
     {
       boolean notAllTouched = !trp.allEdgesTouched ();
 
@@ -517,7 +528,8 @@ public class TRP extends AbstractBeliefPropagation {
       }
     }
 
-    public Object clone () throws CloneNotSupportedException
+    @Override
+	public Object clone () throws CloneNotSupportedException
     {
       DefaultConvergenceTerminator dup = (DefaultConvergenceTerminator)
               super.clone ();
@@ -530,7 +542,8 @@ public class TRP extends AbstractBeliefPropagation {
 
   // And now, the heart of TRP:
 
-  public void computeMarginals (FactorGraph m)
+  @Override
+public void computeMarginals (FactorGraph m)
   {
     resetMessagesSentAtStart ();
     initForGraph (m);
@@ -699,7 +712,8 @@ public class TRP extends AbstractBeliefPropagation {
   }
 
   // Deep copy termination condition
-  public Object clone ()
+  @Override
+public Object clone ()
   {
     try {
       TRP dup = (TRP) super.clone ();

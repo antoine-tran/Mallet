@@ -27,6 +27,7 @@ public class PipedInstanceWithConfidence implements Comparable{
 		this.correct = correct;
 	}
 
+	@Override
 	public int compareTo (Object o) {
 		PipedInstanceWithConfidence inst = (PipedInstanceWithConfidence) o;
 		if (this.confidence > inst.confidence)

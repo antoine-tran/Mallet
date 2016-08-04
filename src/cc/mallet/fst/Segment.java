@@ -97,6 +97,7 @@ public class Segment implements Comparable
 		return new ArraySequence( ret );
 	}
 	
+	@Override
 	public int compareTo (Object o) {
 		Segment s = (Segment) o;
 		if (s.confidence == -1 || this.confidence == -1) {
@@ -120,6 +121,7 @@ public class Segment implements Comparable
 		return ret;
 	}
 
+	@Override
 	public String toString () {
 		String ret = "";
 		ret += "start: " + start + " end: " + end + " confidence: " + confidence + "\n";
@@ -129,6 +131,7 @@ public class Segment implements Comparable
 		return ret;
 	}
 
+	@Override
 	public boolean equals (Object o) {
 		Segment s = (Segment) o;
 		if (start == s.getStart() &&

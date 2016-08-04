@@ -23,10 +23,13 @@ class SparseAssignmentIterator extends AbstractAssignmentIterator {
     this.indices = indices;
   }
 
-  public void advance() { sparseIdx++; }
+  @Override
+public void advance() { sparseIdx++; }
 
-  public boolean hasNext () { return sparseIdx < indices.length; }
+  @Override
+public boolean hasNext () { return sparseIdx < indices.length; }
 
   //xxx wise to make public?
-  public int indexOfCurrentAssn () { return indices [sparseIdx]; }
+  @Override
+public int indexOfCurrentAssn () { return indices [sparseIdx]; }
 }

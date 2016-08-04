@@ -65,7 +65,7 @@ public class TestGibbsSampler extends TestCase {
         theSuite.addTest (new TestGibbsSampler (args[i]));
       }
     } else {
-      theSuite = (TestSuite) suite ();
+      theSuite = suite ();
     }
 
     junit.textui.TestRunner.run (theSuite);

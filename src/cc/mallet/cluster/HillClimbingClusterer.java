@@ -34,6 +34,7 @@ public abstract class HillClimbingClusterer extends KBestClusterer {
 	 * @param instances
 	 * @return The predicted {@link Clustering}.
 	 */
+	@Override
 	public Clustering cluster (InstanceList instances) {
 		return clusterKBest(instances, 1)[0];
 	}
@@ -41,6 +42,7 @@ public abstract class HillClimbingClusterer extends KBestClusterer {
 	/* (non-Javadoc)
 	 * @see edu.umass.cs.mallet.base.cluster.KBestClusterer#clusterKBest(edu.umass.cs.mallet.base.types.InstanceList)
 	 */
+	@Override
 	public Clustering[] clusterKBest (InstanceList instances, int k) {
 		reset();
 		return clusterKBest(instances, Integer.MAX_VALUE, null, k);

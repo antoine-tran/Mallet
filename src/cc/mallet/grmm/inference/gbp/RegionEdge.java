@@ -39,7 +39,8 @@ class RegionEdge {
     this.to = to;
   }
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     if (this == o) return true;
     if (!(o instanceof RegionEdge)) return false;
@@ -52,7 +53,8 @@ class RegionEdge {
     return true;
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     int result;
     result = (from != null ? from.hashCode () : 0);
@@ -66,7 +68,8 @@ class RegionEdge {
     factorsToSend.removeAll (to.factors);
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return "EDGE:["+from+"-->"+to+"]";
   }

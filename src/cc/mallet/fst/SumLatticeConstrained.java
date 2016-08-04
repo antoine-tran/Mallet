@@ -3,10 +3,8 @@ package cc.mallet.fst;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import cc.mallet.fst.SumLatticeDefault.LatticeNode;
 import cc.mallet.fst.Transducer.State;
 import cc.mallet.fst.Transducer.TransitionIterator;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelVector;
 import cc.mallet.types.MatrixOps;

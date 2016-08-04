@@ -1,15 +1,11 @@
 package cc.mallet.topics.tui;
 
-import cc.mallet.classify.*;
 import cc.mallet.types.*;
 import cc.mallet.pipe.*;
 
-import java.util.logging.*;
 import java.util.*;
 import java.util.zip.*;
 import java.io.*;
-
-import gnu.trove.*;
 
 /**
  *  This class loads data into the format for the MALLET 
@@ -44,11 +40,11 @@ public class DMRLoader implements Serializable {
 
 		Pipe instancePipe =
 			new SerialPipes (new Pipe[] {
-					(Pipe) new TargetStringToFeatures(),
-					(Pipe) new CharSequence2TokenSequence(),
-					(Pipe) new TokenSequenceLowercase(),
-					(Pipe) new TokenSequenceRemoveStopwords(false, false),
-					(Pipe) new TokenSequence2FeatureSequence()
+					new TargetStringToFeatures(),
+					new CharSequence2TokenSequence(),
+					new TokenSequenceLowercase(),
+					new TokenSequenceRemoveStopwords(false, false),
+					new TokenSequence2FeatureSequence()
 				});
 
 		InstanceList instances = new InstanceList (instancePipe);

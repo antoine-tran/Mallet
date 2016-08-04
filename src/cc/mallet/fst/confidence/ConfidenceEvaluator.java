@@ -147,7 +147,7 @@ public class ConfidenceEvaluator
 			double conf = ((EntityConfidence)confidences.get(i)).confidence();
 			sumSquaredDifference += ((conf - mean) * (conf - mean));
 		}
-		return Math.sqrt (sumSquaredDifference / (double)size());
+		return Math.sqrt (sumSquaredDifference / size());
 	}
 	
 	/** Calculate pearson's R for the corellation between confidence and
@@ -227,14 +227,14 @@ public class ConfidenceEvaluator
 	public double accuracyAtCoverage (double cov)
 	{
 		assert (cov <= 1 && cov > 0);
-		int numPoints = (int) (Math.round ((double)size()*cov));
+		int numPoints = (int) (Math.round (size()*cov));
 		return ((double)numCorrectAtCoverage(cov) / numPoints);
 	}
 
         public int numCorrectAtCoverage (double cov) {
 		assert (cov <= 1 && cov > 0);
 		// num accuracies to sum for this value of cov
-		int numPoints = (int) (Math.round ((double)size()*cov));
+		int numPoints = (int) (Math.round (size()*cov));
 		int numCorrect = 0;
 		for (int i = 0; i < numPoints; i++) {
 			if (((EntityConfidence)confidences.get(size() - i - 1)).correct())
@@ -298,7 +298,7 @@ public class ConfidenceEvaluator
 				sum += ec.confidence();				
 			}				
 		}
-		return sum / (double) this.numCorrect; 		
+		return sum / this.numCorrect; 		
 	}
 
 	public int size()
@@ -306,6 +306,7 @@ public class ConfidenceEvaluator
 		return confidences.size();
 	}
 
+	@Override
 	public String toString()
 	{
 		StringBuffer toReturn = new StringBuffer();
@@ -350,7 +351,8 @@ public class ConfidenceEvaluator
     }
     public double confidence () {return confidence;}
     public boolean correct () {return correct;}
-    public String toString ()
+    @Override
+	public String toString ()
     {
       StringBuffer toReturn = new StringBuffer();
       toReturn.append(this.entity + " / " + this.confidence + " / "+ (this.correct ? "correct" : "incorrect") + "\n");
@@ -360,7 +362,8 @@ public class ConfidenceEvaluator
 
   private class ConfidenceComparator implements Comparator
   {
-    public final int compare (Object a, Object b)
+    @Override
+	public final int compare (Object a, Object b)
     {
       double x = ((EntityConfidence) a).confidence();
       double y = ((EntityConfidence) b).confidence();

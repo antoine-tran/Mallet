@@ -48,7 +48,8 @@ public class StringTokenization extends TokenSequence implements Tokenization
 
 
   //xxx Refactor into AbstractTokenization
-  public Span subspan (int firstToken, int lastToken)
+  @Override
+public Span subspan (int firstToken, int lastToken)
   {
     StringSpan firstSpan = (StringSpan) get(firstToken);
     int startIdx = firstSpan.getStartIdx ();
@@ -65,9 +66,11 @@ public class StringTokenization extends TokenSequence implements Tokenization
   }
 
 
-  public Span getSpan (int i) { return (Span) get(i); }
+  @Override
+public Span getSpan (int i) { return (Span) get(i); }
 
-  public Object getDocument ()
+  @Override
+public Object getDocument ()
   {
     return document;
   }

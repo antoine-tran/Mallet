@@ -26,7 +26,8 @@ public class MaxEntKLFLGEConstraints extends MaxEntFLGEConstraints {
     super(numFeatures, numLabels, useValues);
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     double value = 0.0;
     for (int fi : constraints.keys()) {
       MaxEntFLGEConstraint constraint = constraints.get(fi);

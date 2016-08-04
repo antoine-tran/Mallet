@@ -100,7 +100,8 @@ public class GenericAcrfData2TokenSequence extends Pipe {
     return labelDicts.size();
   }
 
-  public Instance pipe (Instance carrier)
+  @Override
+public Instance pipe (Instance carrier)
   {
     String input;
     if (carrier.getData () instanceof CharSequence) {

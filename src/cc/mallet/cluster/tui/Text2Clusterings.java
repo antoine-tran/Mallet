@@ -15,12 +15,10 @@ import cc.mallet.cluster.Clustering;
 import cc.mallet.cluster.Clusterings;
 import cc.mallet.cluster.Record;
 import cc.mallet.pipe.Noop;
-import cc.mallet.pipe.Pipe;
 import cc.mallet.pipe.iterator.FileIterator;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.LabelAlphabet;
 import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 

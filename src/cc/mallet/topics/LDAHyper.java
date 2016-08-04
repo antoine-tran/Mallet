@@ -30,6 +30,7 @@ import cc.mallet.util.Randoms;
  * @deprecated Use ParallelTopicModel instead, which uses substantially faster data structures even for non-parallel operation.
  */
 
+@Deprecated
 public class LDAHyper implements Serializable {
 	
 	// Analogous to a cc.mallet.classify.Classification
@@ -366,7 +367,7 @@ public class LDAHyper implements Serializable {
 			int numDocs = data.size(); // TODO consider beginning by sub-sampling?
 			for (int di = 0; di < numDocs; di++) {
 				FeatureSequence tokenSequence = (FeatureSequence) data.get(di).instance.getData();
-				LabelSequence topicSequence = (LabelSequence) data.get(di).topicSequence;
+				LabelSequence topicSequence = data.get(di).topicSequence;
 				sampleTopicsForOneDoc (tokenSequence, topicSequence,
 									   iterationsSoFar >= burninPeriod && iterationsSoFar % saveSampleInterval == 0,
 									   true);
@@ -940,7 +941,7 @@ public class LDAHyper implements Serializable {
 		}
 
 		for (int di = 0; di < data.size(); di++) {
-			LabelSequence topicSequence = (LabelSequence) data.get(di).topicSequence;
+			LabelSequence topicSequence = data.get(di).topicSequence;
 			int[] currentDocTopics = topicSequence.getFeatures();
 
 			pw.print (di); pw.print (' ');
@@ -993,7 +994,7 @@ public class LDAHyper implements Serializable {
 
 		for (int di = 0; di < data.size(); di++) {
 			FeatureSequence tokenSequence =	(FeatureSequence) data.get(di).instance.getData();
-			LabelSequence topicSequence =	(LabelSequence) data.get(di).topicSequence;
+			LabelSequence topicSequence =	data.get(di).topicSequence;
 
 			String source = "NA";
 			if (data.get(di).instance.getSource() != null) {
@@ -1185,7 +1186,7 @@ public class LDAHyper implements Serializable {
 		for (doc=0; doc < data.size(); doc++) {
 			label = data.get(doc).instance.getLabeling().getBestIndex();
 
-			LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence = data.get(doc).topicSequence;
 			docTopics = topicSequence.getFeatures();
 
 			for (token = 0; token < docTopics.length; token++) {
@@ -1351,7 +1352,7 @@ public class LDAHyper implements Serializable {
 		}
 	
 		for (int doc=0; doc < data.size(); doc++) {
-			LabelSequence topicSequence =	(LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence =	data.get(doc).topicSequence;
 
 			docTopics = topicSequence.getFeatures();
 

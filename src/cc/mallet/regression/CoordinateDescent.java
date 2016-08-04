@@ -1,13 +1,9 @@
 package cc.mallet.regression;
 
-import java.util.Arrays;
 import java.io.*;
 import java.text.NumberFormat;
 
 import cc.mallet.types.*;
-import cc.mallet.optimize.*;
-import cc.mallet.util.MVNormal;
-import cc.mallet.util.StatFunctions;
 
 public class CoordinateDescent {
 
@@ -162,6 +158,7 @@ public class CoordinateDescent {
 
 	}
 
+	@Override
 	public String toString() {
 
 		double sumSquaredError = 0.0;

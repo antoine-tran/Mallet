@@ -23,7 +23,8 @@ import cc.mallet.util.ArrayUtils;
  */
 public class Kikuchi4SquareRegionGenerator implements RegionGraphGenerator {
 
-  public RegionGraph constructRegionGraph (FactorGraph mdl)
+  @Override
+public RegionGraph constructRegionGraph (FactorGraph mdl)
   {
     if (mdl instanceof UndirectedGrid) {
       RegionGraph rg = new RegionGraph ();

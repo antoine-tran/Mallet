@@ -155,6 +155,7 @@ public class FactorGraph implements Factor {
     }
 
     clique2ptl.retainEntries(new TObjectObjectProcedure () {
+			@Override
 			public boolean execute (Object clique, Object ptl) {
 				return !((VarSet) clique).contains (var);
 			}
@@ -286,8 +287,10 @@ public class FactorGraph implements Factor {
 
   public Set variablesSet () {
     return new AbstractSet () {
-      public Iterator iterator () { return variablesIterator (); }
-      public int size () { return numNodes; }
+      @Override
+	public Iterator iterator () { return variablesIterator (); }
+      @Override
+	public int size () { return numNodes; }
     };
   }
 
@@ -295,9 +298,12 @@ public class FactorGraph implements Factor {
   {
     return new Iterator () {
       private int i = 0;
-      public boolean hasNext() { return i < numNodes; }
-      public Object next() { return get(i++); }
-      public void remove() { throw new UnsupportedOperationException (); }
+      @Override
+	public boolean hasNext() { return i < numNodes; }
+      @Override
+	public Object next() { return get(i++); }
+      @Override
+	public void remove() { throw new UnsupportedOperationException (); }
     };
   }
 
@@ -338,6 +344,7 @@ public class FactorGraph implements Factor {
 	 *  graphical model.
 	 * @see Assignment
 	 */
+	@Override
 	public AssignmentIterator assignmentIterator ()
 	{
     return new DenseAssignmentIterator (varSet ());
@@ -586,6 +593,7 @@ public class FactorGraph implements Factor {
 	 *  @param v1 Any Variable object
 	 *  @return true if this variable is contained in the moel.
 	 */
+	@Override
 	public boolean containsVar (Variable v1)
 	{
 		return variablesSet ().contains (v1);
@@ -754,6 +762,7 @@ public class FactorGraph implements Factor {
 	 * Returns a copy of this model.  The variable objects are shared
 	 * between this model and its copy, but the factor objects are deep-copied.
 	 */
+	@Override
 	public Factor duplicate ()
 	{
 		FactorGraph dup = new FactorGraph (numVariables ());
@@ -792,7 +801,8 @@ public class FactorGraph implements Factor {
 		}
 	}
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     StringWriter out = new StringWriter ();
     dump (new PrintWriter (out));
@@ -804,18 +814,21 @@ public class FactorGraph implements Factor {
    *  FACTOR IMPLEMENTATION
    **************************************************************************/
 
-  public double value (Assignment assn)
+  @Override
+public double value (Assignment assn)
   {
     return Math.exp (logValue (assn));
   }
 
-  public double value (AssignmentIterator it)
+  @Override
+public double value (AssignmentIterator it)
   {
     return value (it.assignment ());
   }
 
   // uses brute-force algorithm
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     VariableElimination inf = new VariableElimination ();
     double Z = inf.computeNormalizationFactor (this);
@@ -823,12 +836,14 @@ public class FactorGraph implements Factor {
     return this;
   }
 
-  public Factor marginalize (Variable[] vars)
+  @Override
+public Factor marginalize (Variable[] vars)
   {
     throw new UnsupportedOperationException ("not yet implemented");
   }
 
-  public Factor marginalize (Collection vars)
+  @Override
+public Factor marginalize (Collection vars)
   {
     if (numVariables () < 5) {
       return asTable ().marginalize (vars);
@@ -837,23 +852,27 @@ public class FactorGraph implements Factor {
     }
   }
 
-  public Factor marginalize (Variable var)
+  @Override
+public Factor marginalize (Variable var)
   {
     VariableElimination inf = new VariableElimination ();
     return inf.unnormalizedMarginal (this, var);
   }
 
-  public Factor marginalizeOut (Variable var)
+  @Override
+public Factor marginalizeOut (Variable var)
   {
     throw new UnsupportedOperationException ("not yet implemented");
   }
 
-  public Factor marginalizeOut (VarSet varset)
+  @Override
+public Factor marginalizeOut (VarSet varset)
   {
     throw new UnsupportedOperationException ("not yet implemented");    
   }
 
-  public Factor extractMax (Collection vars)
+  @Override
+public Factor extractMax (Collection vars)
   {
     if (numVariables () < 5) {
       return asTable ().extractMax (vars);
@@ -862,7 +881,8 @@ public class FactorGraph implements Factor {
     }
   }
 
-  public Factor extractMax (Variable var)
+  @Override
+public Factor extractMax (Variable var)
   {
     if (numVariables () < 5) {
       return asTable ().extractMax (var);
@@ -871,7 +891,8 @@ public class FactorGraph implements Factor {
     }
   }
 
-  public Factor extractMax (Variable[] vars)
+  @Override
+public Factor extractMax (Variable[] vars)
   {
     if (numVariables () < 5) {
       return asTable ().extractMax (vars);
@@ -881,13 +902,15 @@ public class FactorGraph implements Factor {
   }
 
   // xxx should return an Assignment
-  public int argmax ()
+  @Override
+public int argmax ()
   {
     throw new UnsupportedOperationException ("not yet implemented");
   }
 
   // Assumes that structure of factor graph is continous --> discrete
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     Variable[] contVars = Factors.continuousVarsOf (this);
     if ((contVars.length == 0) || (contVars.length == numVariables ())) {
@@ -925,35 +948,41 @@ public class FactorGraph implements Factor {
     return sampler.sample (this, 1);
   }
 
-  public double sum ()
+  @Override
+public double sum ()
   {
     VariableElimination inf = new VariableElimination ();
     return inf.computeNormalizationFactor (this);
   }
 
-  public double entropy ()
+  @Override
+public double entropy ()
   {
     throw new UnsupportedOperationException ("not yet implemented");
   }
 
-  public Factor multiply (Factor dist)
+  @Override
+public Factor multiply (Factor dist)
   {
     FactorGraph fg = (FactorGraph) duplicate ();
     fg.addFactor (dist);
     return fg;
   }
 
-  public void multiplyBy (Factor pot)
+  @Override
+public void multiplyBy (Factor pot)
   {
     addFactor (pot);
   }
 
-  public void exponentiate (double power)
+  @Override
+public void exponentiate (double power)
   {
     throw new UnsupportedOperationException ("not yet implemented");
   }
 
-  public void divideBy (Factor pot)
+  @Override
+public void divideBy (Factor pot)
   {
     if (factors.contains (pot)) {
       removeFactor (pot);
@@ -962,22 +991,26 @@ public class FactorGraph implements Factor {
     }
   }
 
-  public VarSet varSet ()
+  @Override
+public VarSet varSet ()
   {
     return new HashVarSet (variablesSet());
   }
 
-  public boolean almostEquals (Factor p)
+  @Override
+public boolean almostEquals (Factor p)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     throw new UnsupportedOperationException ("not yet implemented");
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     for (int fi = 0; fi < factors.size (); fi++) {
       if (getFactor (fi).isNaN ())
@@ -986,23 +1019,27 @@ public class FactorGraph implements Factor {
     return false;
   }
 
-  public double logValue (AssignmentIterator it)
+  @Override
+public double logValue (AssignmentIterator it)
   {
     return logValue (it.assignment ());
   }
 
-  public double logValue (int loc)
+  @Override
+public double logValue (int loc)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public Variable getVariable (int i)
+  @Override
+public Variable getVariable (int i)
   {
     return get (i);
   }
 
   // todo: merge this in
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     return slice (assn, null);
   }
@@ -1054,7 +1091,8 @@ public class FactorGraph implements Factor {
     }
   }
 
-  public double logValue (Assignment assn)
+  @Override
+public double logValue (Assignment assn)
   {
     Iterator ptlIter = factorsIterator ();
     double ptlProd = 0;
@@ -1067,14 +1105,17 @@ public class FactorGraph implements Factor {
     return ptlProd;
   }
 
-  public AbstractTableFactor asTable ()
+  @Override
+public AbstractTableFactor asTable ()
   {
     return TableFactor.multiplyAll (factors).asTable ();
   }
 
-  public String prettyOutputString() { return toString(); }
+  @Override
+public String prettyOutputString() { return toString(); }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     StringBuffer buf = new StringBuffer ();
     buf.append ("FactorGraph: Variables ");

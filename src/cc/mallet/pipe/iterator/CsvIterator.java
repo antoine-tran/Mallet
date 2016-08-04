@@ -18,11 +18,7 @@ import cc.mallet.types.Instance;
 import java.io.*;
 import java.util.Iterator;
 import java.util.regex.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import cc.mallet.pipe.Pipe;
-import cc.mallet.types.*;
 
 /**
  *  This iterator, perhaps more properly called a Line Pattern Iterator, 
@@ -78,6 +74,7 @@ public class CsvIterator implements Iterator<Instance>
 	
 	// The PipeInputIterator interface
 
+	@Override
 	public Instance next ()
 	{
 		String uriStr = null;
@@ -112,8 +109,10 @@ public class CsvIterator implements Iterator<Instance>
 		return carrier;
 	}
 
+	@Override
 	public boolean hasNext ()	{	return currentLine != null;	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

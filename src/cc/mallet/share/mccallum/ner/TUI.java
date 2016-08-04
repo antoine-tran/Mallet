@@ -14,14 +14,11 @@
 
 package cc.mallet.share.mccallum.ner;
 
-import junit.framework.*;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.regex.*;
 import java.io.*;
 
 import cc.mallet.fst.*;
-import cc.mallet.optimize.*;
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.pipe.tsf.*;

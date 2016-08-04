@@ -35,6 +35,7 @@ public class TokenSequenceRemoveNonAlpha extends Pipe {
 		this (false);
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

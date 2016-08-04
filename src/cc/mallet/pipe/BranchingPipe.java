@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import cc.mallet.pipe.iterator.EmptyInstanceIterator;
 import cc.mallet.types.Instance;
 
 /** A Pipe that works like a rule list.  Evaluate predicate() on each Pipe in the array;
@@ -49,6 +48,7 @@ public class BranchingPipe extends Pipe {
 		public PeekingInstanceIterator (Iterator<Instance> source) {
 			this.source = source; 
 		}
+		@Override
 		public boolean hasNext () { return source.hasNext(); }
 		public Instance peekNext () { 
 			if (nextInstance == null && !hasNext())
@@ -57,6 +57,7 @@ public class BranchingPipe extends Pipe {
 				nextInstance = next();
 			return nextInstance; 
 		}
+		@Override
 		public Instance next () {
 			if (nextInstance != null) {
 				Instance tmp = nextInstance;
@@ -66,6 +67,7 @@ public class BranchingPipe extends Pipe {
 				return source.next(); 
 			}
 		} 
+		@Override
 		public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not support remove()."); }
 	}
 
@@ -77,14 +79,17 @@ public class BranchingPipe extends Pipe {
 			this.source = source;
 			this.testingPipe = testingPipe;
 		}
+		@Override
 		public Instance next () {
 			// Make sure this is not an Instance we were supposed to skip.
 			assert (testingPipe.precondition(source.peekNext()));
 			return source.next();
 		}
+		@Override
 		public boolean hasNext () { 
 			return source.hasNext() && testingPipe.precondition(source.peekNext()); 
 		}
+		@Override
 		public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not support remove()."); }
 	}
 
@@ -98,7 +103,9 @@ public class BranchingPipe extends Pipe {
 			for (Pipe p : pipes)
 				iterators.add (new GateKeepingInstanceIterator (source, p));
 		}
+		@Override
 		public boolean hasNext () { return source.hasNext(); }
+		@Override
 		public Instance next() {
 			Instance input = source.peekNext();
 			for (int i = 0; i < pipes.size(); i++) {
@@ -111,9 +118,11 @@ public class BranchingPipe extends Pipe {
 		/** Return the @link{Pipe} that processes @link{Instance}s going through this iterator. */ 
 		public Pipe getPipe () { return null; }
 		public Iterator<Instance> getSourceIterator () { return source; }
+		@Override
 		public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not support remove()."); }
 	}
 
+	@Override
 	public Iterator<Instance> newIteratorFrom (Iterator<Instance> source)
 	{
 		if (pipes.size() == 0)

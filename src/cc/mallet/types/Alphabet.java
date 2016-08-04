@@ -88,12 +88,13 @@ public class Alphabet implements Serializable
 			this.lookupIndex(entry);
 	}
 
+	@Override
 	public Object clone ()
 	{
         lock.readLock().lock();
         try {
             Alphabet ret = new Alphabet();
-            ret.map = (gnu.trove.TObjectIntHashMap) map.clone();
+            ret.map = map.clone();
             ret.entries = (ArrayList) entries.clone();
             ret.growthStopped = growthStopped;
             ret.entryClass = entryClass;
@@ -276,6 +277,7 @@ public class Alphabet implements Serializable
 
 	/** Return String representation of all Alphabet entries, each
 	separated by a newline. */
+	@Override
 	public String toString()
 	{
         lock.readLock().lock();

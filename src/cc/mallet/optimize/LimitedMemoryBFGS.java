@@ -50,7 +50,9 @@ public class LimitedMemoryBFGS implements Optimizer {
 		lineMaximizer = new BackTrackLineSearch (function);
 	}
 	
+	@Override
 	public Optimizable getOptimizable () { return this.optimizable; }
+	@Override
 	public boolean isConverged () { return converged; }
 
 
@@ -90,10 +92,12 @@ public class LimitedMemoryBFGS implements Optimizer {
 		return iterations;
 	}
 
+	@Override
 	public boolean optimize () {
 		return optimize (Integer.MAX_VALUE);
 	}
 
+	@Override
 	public boolean optimize (int numIterations) {
 
 		double initialValue = optimizable.getValue();
@@ -331,7 +335,7 @@ public class LimitedMemoryBFGS implements Optimizer {
 			Object ptr = last;
 			// this readjusts the pointers in the list
 			for (int i=0; i<l.size()-1; i++) {
-				l.set(i, (double[])l.get(i+1));	
+				l.set(i, l.get(i+1));	
 			}
 			l.set(m-1, ptr);
 		}

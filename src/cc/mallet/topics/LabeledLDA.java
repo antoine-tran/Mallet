@@ -279,7 +279,7 @@ public class LabeledLDA implements Serializable {
 
 		for (TopicAssignment document: data) {
 			FeatureSequence tokens = (FeatureSequence) document.instance.getData();
-			FeatureSequence topicSequence =  (FeatureSequence) document.topicSequence;
+			FeatureSequence topicSequence =  document.topicSequence;
 
 			int[] topics = topicSequence.getFeatures();
 			for (int position = 0; position < tokens.size(); position++) {
@@ -318,7 +318,7 @@ public class LabeledLDA implements Serializable {
 					(FeatureSequence) data.get(doc).instance.getData();
 				FeatureVector labels = (FeatureVector) data.get(doc).instance.getTarget();
 				LabelSequence topicSequence =
-					(LabelSequence) data.get(doc).topicSequence;
+					data.get(doc).topicSequence;
 
 				sampleTopicsForOneDoc (tokenSequence, labels, topicSequence);
 			}
@@ -441,7 +441,7 @@ public class LabeledLDA implements Serializable {
 		}
 	
 		for (int doc=0; doc < data.size(); doc++) {
-			LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence = data.get(doc).topicSequence;
 			FeatureVector labels = (FeatureVector) data.get(doc).instance.getTarget();
 			
 			docTopics = topicSequence.getFeatures();

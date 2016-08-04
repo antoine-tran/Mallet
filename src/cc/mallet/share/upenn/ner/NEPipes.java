@@ -4,13 +4,10 @@ package cc.mallet.share.upenn.ner;
 
 import java.io.*;
 
-import java.util.*;
 import java.util.regex.*;
 
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.tsf.*;
-import cc.mallet.share.weili.ner.enron.*;
-import cc.mallet.types.*;
 
 public class NEPipes extends SerialPipes {
 

@@ -15,8 +15,6 @@
 package cc.mallet.pipe.tests;
 
 import junit.framework.*;
-import java.net.URI;
-import java.net.URL;
 import java.io.File;
 import java.util.Iterator;
 import java.util.regex.*;
@@ -51,6 +49,7 @@ public class TestRainbowStyle extends TestCase
 		return new TestSuite (TestRainbowStyle.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

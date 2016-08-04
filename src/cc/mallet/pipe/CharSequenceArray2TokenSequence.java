@@ -9,10 +9,7 @@
 package cc.mallet.pipe;
 
 import java.io.*;
-import java.net.URI;
-
 import cc.mallet.types.Instance;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 
 /**
@@ -26,6 +23,7 @@ public class CharSequenceArray2TokenSequence extends Pipe
 	{
 	}
   
+	@Override
 	public Instance pipe (Instance carrier)
 	{
     carrier.setData(new TokenSequence((CharSequence[]) carrier.getData()));

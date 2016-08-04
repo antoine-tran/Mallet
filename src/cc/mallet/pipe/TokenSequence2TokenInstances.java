@@ -25,6 +25,7 @@ public class TokenSequence2TokenInstances extends Pipe {
 			}
 			currentIndex = 0;
 		}
+		@Override
 		public Instance next ()	{
 			if (currentIndex >= currentTokenSequence.size()) {
 				currentInstance = source.next();
@@ -36,12 +37,15 @@ public class TokenSequence2TokenInstances extends Pipe {
 			currentIndex++;
 			return ret;
 		}
+		@Override
 		public boolean hasNext ()	{
 			return currentInstance != null && (currentIndex < currentTokenSequence.size() || source.hasNext());
 		}
+		@Override
 		public void remove () { throw new IllegalStateException ("This iterator does not support remove().");	}
 	}
 
+	@Override
 	public Iterator<Instance> newIteratorFrom (Iterator<Instance> source) 
 	{
 		return new TokenInstanceIterator (source);

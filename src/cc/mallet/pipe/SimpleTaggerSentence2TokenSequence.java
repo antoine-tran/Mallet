@@ -96,7 +96,8 @@ public class SimpleTaggerSentence2TokenSequence extends Pipe {
    * token is taken as the target (label), so in the previous example "b"
    * would have been the label of the first sequence.
    */
-  public Instance pipe (Instance carrier)
+  @Override
+public Instance pipe (Instance carrier)
   {
     Object inputData = carrier.getData();
     //Alphabet features = getDataAlphabet();

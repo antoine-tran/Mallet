@@ -37,6 +37,7 @@ public class TokenTextCharPrefix extends Pipe implements Serializable
 		this ("PREFIX=", 2);
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

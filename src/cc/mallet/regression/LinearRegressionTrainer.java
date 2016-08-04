@@ -64,6 +64,7 @@ public class LinearRegressionTrainer implements Optimizable.ByGradientValue {
 		cachedResidualsStale = false;
 	}
 
+	@Override
 	public double getValue() {
 
 		for (int parameter = 0; parameter < parameters.length; parameter++) {
@@ -93,7 +94,8 @@ public class LinearRegressionTrainer implements Optimizable.ByGradientValue {
 		
     }
 
-    public void getValueGradient(double[] gradient) {
+    @Override
+	public void getValueGradient(double[] gradient) {
 		
 		//if (cachedResidualsStale) { computeResiduals(); }
 		computeResiduals();
@@ -143,15 +145,19 @@ public class LinearRegressionTrainer implements Optimizable.ByGradientValue {
 
     // The following get/set methods satisfy the Optimizable interface
 
-    public int getNumParameters() { return parameters.length; }
-    public double getParameter(int i) { return parameters[i]; }
-    public void getParameters(double[] buffer) {
+    @Override
+	public int getNumParameters() { return parameters.length; }
+    @Override
+	public double getParameter(int i) { return parameters[i]; }
+    @Override
+	public void getParameters(double[] buffer) {
 		for (int i=0; i < parameters.length; i++) {
 			buffer[i] = parameters[i];
 		}
     }
 
-    public void setParameter(int i, double r) {
+    @Override
+	public void setParameter(int i, double r) {
 		if (i == precisionIndex && r <= 0.0) {
 			System.err.println("attempted to set precision at or less than 0");
 			r = 0.001;
@@ -160,7 +166,8 @@ public class LinearRegressionTrainer implements Optimizable.ByGradientValue {
 		cachedResidualsStale = true;
         parameters[i] = r;
     }
-    public void setParameters(double[] newParameters) {
+    @Override
+	public void setParameters(double[] newParameters) {
 		cachedResidualsStale = true;
 		for (int i=0; i< parameters.length; i++) {
 			if (i == precisionIndex && newParameters[i] <= 0.0) {

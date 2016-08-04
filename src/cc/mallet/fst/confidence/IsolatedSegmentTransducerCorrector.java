@@ -55,6 +55,7 @@ public class IsolatedSegmentTransducerCorrector implements TransducerCorrector
 		 that these corrections will not affect tokens outside of the
 		 corrected segment.
 	*/
+	@Override
 	public ArrayList correctLeastConfidentSegments (InstanceList ilist, Object[] startTags,
 																										Object[] continueTags) {
 		ArrayList correctedPredictionList = new ArrayList ();

@@ -39,29 +39,35 @@ public class CRFOptimizableByGradientValues implements Optimizable.ByGradientVal
 		this.cachedGradientWeightsStamp = -1;
 	}
 
+	@Override
 	public int getNumParameters () {
 		return crf.parameters.getNumFactors();
 	}
 
+	@Override
 	public void getParameters (double[] buffer) {
 		crf.parameters.getParameters(buffer);
 	}
 
+	@Override
 	public double getParameter (int index) {
 		return crf.parameters.getParameter(index);
 	}
 
+	@Override
 	public void setParameters (double [] buff) {
 		crf.parameters.setParameters(buff);
 		crf.weightsValueChanged();
 	}
 
+	@Override
 	public void setParameter (int index, double value) {
 		crf.parameters.setParameter(index, value);
 		crf.weightsValueChanged();
 	}
 
 	/** Returns the log probability of the training sequence labels and the prior over parameters. */
+	@Override
 	public double getValue () {
 		if (crf.weightsValueChangeStamp != cachedValueWeightsStamp) {
 			// The cached value is not up to date; it was calculated for a different set of CRF weights.
@@ -76,6 +82,7 @@ public class CRFOptimizableByGradientValues implements Optimizable.ByGradientVal
 		return cachedValue;
 	}
 
+	@Override
 	public void getValueGradient (double [] buffer) {
 		if (cachedGradientWeightsStamp != crf.weightsValueChangeStamp) {
 			getValue ();

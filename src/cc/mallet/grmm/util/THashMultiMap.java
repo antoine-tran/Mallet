@@ -38,7 +38,8 @@ public class THashMultiMap extends AbstractMap {
   }
 
 
-  public Set entrySet ()
+  @Override
+public Set entrySet ()
   {
     return backing.entrySet (); // potentially inefficient
   }
@@ -46,16 +47,18 @@ public class THashMultiMap extends AbstractMap {
   /** Adds <tt>key</tt> as a key with an empty list as a value. */
   public void add (Object key) { backing.put (key, new ArrayList ()); }
 
-  public Object get (Object o)
+  @Override
+public Object get (Object o)
   {
-    return (List) backing.get (o);
+    return backing.get (o);
   }
 
   /** Adds <tt>value</tt> to the list of things mapped to by key.
    * @return The current list of values associated with key.
    *       (N.B. This deviates from Map contract slightly!  (Hopefully harmlessly))
    */
-  public Object put (Object key, Object value)
+  @Override
+public Object put (Object key, Object value)
   {
     List lst;
     if (!backing.keySet ().contains (key)) {

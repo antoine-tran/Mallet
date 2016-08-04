@@ -39,7 +39,8 @@ public class ResidualBP extends AbstractBeliefPropagation {
 
   private Random rand = new Random ();
 
-  public int iterationsUsed () { return iterUsed; }
+  @Override
+public int iterationsUsed () { return iterUsed; }
 
   public void setUseCaching (boolean useCaching) { this.useCaching = useCaching; }
 
@@ -66,7 +67,8 @@ public class ResidualBP extends AbstractBeliefPropagation {
     return this;
   }
 
-  public void computeMarginals (FactorGraph mdl)
+  @Override
+public void computeMarginals (FactorGraph mdl)
   {
     super.initForGraph (mdl);
 

@@ -29,6 +29,7 @@ public class AugmentableFeatureVectorLogScale extends Pipe
 		super ((Alphabet)null, null);
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		AugmentableFeatureVector afv = (AugmentableFeatureVector)carrier.getData();

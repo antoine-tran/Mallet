@@ -11,7 +11,6 @@
 
 package cc.mallet.types;
 
-import java.util.Arrays;
 import java.io.*;
 
 /**
@@ -65,8 +64,10 @@ public class FeatureSequence implements Sequence, Serializable, AlphabetCarrying
 	
 	public int[] getFeatures() { return features ;}
 	
+	@Override
 	public Alphabet getAlphabet ()	{	return dictionary; }
 	
+	@Override
 	public Alphabet[] getAlphabets() {
 		return new Alphabet[] {getAlphabet()};
 	}
@@ -77,6 +78,7 @@ public class FeatureSequence implements Sequence, Serializable, AlphabetCarrying
 
 	public final int getLength () { return length; }
 
+	@Override
 	public final int size () { return length; }
 
 	public final int getIndexAtPosition (int pos)
@@ -90,11 +92,13 @@ public class FeatureSequence implements Sequence, Serializable, AlphabetCarrying
 	}
 
 	// xxx This method name seems a bit ambiguous?
+	@Override
 	public Object get (int pos)
 	{
 		return dictionary.lookupObject (features[pos]);
 	}
 
+	@Override
 	public String toString ()
 	{
 		StringBuffer sb = new StringBuffer ();

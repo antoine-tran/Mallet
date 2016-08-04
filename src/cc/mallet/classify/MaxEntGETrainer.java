@@ -82,7 +82,8 @@ public class MaxEntGETrainer extends ClassifierTrainer<MaxEnt> implements Classi
     this.gaussianPriorVariance = variance;
   }
   
-  public MaxEnt getClassifier () {
+  @Override
+public MaxEnt getClassifier () {
     return classifier;
   }
 
@@ -107,7 +108,8 @@ public class MaxEntGETrainer extends ClassifierTrainer<MaxEnt> implements Classi
     return ge;
   }
 
-  public Optimizer getOptimizer () {
+  @Override
+public Optimizer getOptimizer () {
     getOptimizable(trainingList);
     if (opt == null) {
       opt = new LimitedMemoryBFGS(ge);
@@ -128,15 +130,18 @@ public class MaxEntGETrainer extends ClassifierTrainer<MaxEnt> implements Classi
     maxIterations = iter;
   }
   
-  public int getIteration () {
+  @Override
+public int getIteration () {
     return numIterations;
   }
 
-  public MaxEnt train (InstanceList trainingList) {
+  @Override
+public MaxEnt train (InstanceList trainingList) {
     return train (trainingList, maxIterations);
   }
 
-  public MaxEnt train (InstanceList train, int maxIterations) {
+  @Override
+public MaxEnt train (InstanceList train, int maxIterations) {
     trainingList = train;
 
     if (constraints == null && constraintsFile != null) {

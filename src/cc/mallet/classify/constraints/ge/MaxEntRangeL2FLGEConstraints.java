@@ -63,7 +63,8 @@ public class MaxEntRangeL2FLGEConstraints implements MaxEntGEConstraint {
     constraints.get(fi).add(li, lower, upper, weight);
   }
 
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count
     int ii = 0;
     int fi;
@@ -94,7 +95,8 @@ public class MaxEntRangeL2FLGEConstraints implements MaxEntGEConstraint {
     return bitSet;
   }
 
-  public void preProcess(FeatureVector input) {
+  @Override
+public void preProcess(FeatureVector input) {
     indexCache.resetQuick();
     if (useValues) valueCache.resetQuick();
     int fi;
@@ -114,7 +116,8 @@ public class MaxEntRangeL2FLGEConstraints implements MaxEntGEConstraint {
     }
   }
   
-  public double getCompositeConstraintFeatureValue(FeatureVector input, int label) {
+  @Override
+public double getCompositeConstraintFeatureValue(FeatureVector input, int label) {
     double value = 0;
     for (int i = 0; i < indexCache.size(); i++) {
       if (useValues) {
@@ -127,7 +130,8 @@ public class MaxEntRangeL2FLGEConstraints implements MaxEntGEConstraint {
     return value;
   }
   
-  public void computeExpectations(FeatureVector input, double[] dist, double weight) {
+  @Override
+public void computeExpectations(FeatureVector input, double[] dist, double weight) {
     preProcess(input);
     for (int li = 0; li < numLabels; li++) {
       double p = weight * dist[li];
@@ -142,7 +146,8 @@ public class MaxEntRangeL2FLGEConstraints implements MaxEntGEConstraint {
     }
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     double value = 0.0;
     for (int fi : constraints.keys()) {
       MaxEntL2IndGEConstraint constraint = constraints.get(fi);
@@ -157,7 +162,8 @@ public class MaxEntRangeL2FLGEConstraints implements MaxEntGEConstraint {
     return value;
   }
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     for (int fi : constraints.keys()) {
       constraints.get(fi).expectation = new double[constraints.get(fi).getNumConstrainedLabels()];
     }

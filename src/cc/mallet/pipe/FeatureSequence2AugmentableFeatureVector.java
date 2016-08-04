@@ -14,8 +14,6 @@
 
 package cc.mallet.pipe;
 
-import java.io.*;
-
 import cc.mallet.types.AugmentableFeatureVector;
 import cc.mallet.types.FeatureSequence;
 import cc.mallet.types.Instance;
@@ -39,6 +37,7 @@ public class FeatureSequence2AugmentableFeatureVector extends Pipe
 		this (false);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		carrier.setData(new AugmentableFeatureVector ((FeatureSequence)carrier.getData(), binary));

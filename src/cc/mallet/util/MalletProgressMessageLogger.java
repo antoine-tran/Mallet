@@ -22,6 +22,7 @@ public class MalletProgressMessageLogger extends MalletLogger{
 		return mpml;
 	}
 
+	@Override
 	public void log(LogRecord logRecord)
 	{
 		// convert to subclass of logRecord, and pass it on..

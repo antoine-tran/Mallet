@@ -55,6 +55,7 @@ public class Graph2 extends Graph
 		super(title, min, max, xLabel, yLabel);
 	}
 	
+	@Override
 	public void paint(Graphics g) 
 	{
 		super.paint(g);

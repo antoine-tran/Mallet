@@ -41,6 +41,7 @@ public class TokenTextNGrams extends Pipe implements Serializable
 		this ("CHARBIGRAM=", new int[] {2});
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

@@ -18,10 +18,14 @@ public class TestPriorityQueue extends TestCase {
   private Item(double p) {
     priority = p;
   }
-  public double getPriority() { return priority; };
-  public void setPriority(double p) { priority = p; }
-  public int getPosition() { return position; }
-  public void setPosition(int p) { position = p; }
+  @Override
+public double getPriority() { return priority; };
+  @Override
+public void setPriority(double p) { priority = p; }
+  @Override
+public int getPosition() { return position; }
+  @Override
+public void setPosition(int p) { position = p; }
   }
   public TestPriorityQueue(String name) {
     super(name);

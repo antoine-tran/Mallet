@@ -11,12 +11,9 @@
 
 package cc.mallet.pipe;
 
-import java.io.*;
-
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.FeatureSequence;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 /**
  * Convert the token sequence in the data field each instance to a feature sequence.
@@ -35,11 +32,12 @@ public class TokenSequence2FeatureSequence extends Pipe
 		super(new Alphabet(), null);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();
 		FeatureSequence ret =
-			new FeatureSequence ((Alphabet)getDataAlphabet(), ts.size());
+			new FeatureSequence (getDataAlphabet(), ts.size());
 		for (int i = 0; i < ts.size(); i++) {
 			ret.add (ts.get(i).getText());
 		}

@@ -15,6 +15,7 @@ import cc.mallet.types.Instance;
 
 public class Target2Integer extends Pipe {
 
+	@Override
 	public Instance pipe (Instance carrier) {
 		if (carrier.getTarget() != null) {
 			if (! (carrier.getTarget() instanceof String)) {

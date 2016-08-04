@@ -68,6 +68,7 @@ public class PerLabelFeatureCounts
 		{
 		}
 		
+		@Override
 		public RankedFeatureVector[] newRankedFeatureVectors (InstanceList ilist)
 		{
 			PerLabelFeatureCounts x = new PerLabelFeatureCounts (ilist);

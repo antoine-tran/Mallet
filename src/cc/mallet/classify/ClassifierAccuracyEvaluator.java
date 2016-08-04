@@ -27,6 +27,7 @@ public class ClassifierAccuracyEvaluator extends ClassifierEvaluator
 	}
 
 
+	@Override
 	public void evaluateInstanceList (ClassifierTrainer trainer,	InstanceList instances, String description) 
 	{
 		Classifier classifier = trainer.getClassifier();

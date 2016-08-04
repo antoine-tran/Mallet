@@ -33,10 +33,8 @@ package cc.mallet.pipe;
 import java.io.*;
 
 import cc.mallet.types.Instance;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.CharSequenceLexer;
-import cc.mallet.util.Lexer;
 
 public class LineGroupString2TokenSequence extends Pipe implements Serializable
 {
@@ -46,6 +44,7 @@ public class LineGroupString2TokenSequence extends Pipe implements Serializable
 	{
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		

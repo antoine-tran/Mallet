@@ -6,7 +6,6 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.grmm.types;
 
-import gnu.trove.TIntArrayList;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.THashMap;
 

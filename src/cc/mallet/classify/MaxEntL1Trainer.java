@@ -23,6 +23,7 @@ public class MaxEntL1Trainer extends MaxEntTrainer {
 		this.gaussianPriorVariance = Double.MAX_VALUE;
 	}
 
+	@Override
 	public Optimizer getOptimizer() {
 		if (optimizer == null && optimizable != null)
 			optimizer = new OrthantWiseLimitedMemoryBFGS(optimizable, l1Weight);
@@ -30,6 +31,7 @@ public class MaxEntL1Trainer extends MaxEntTrainer {
 	}
 
 	// commented by Limin Yao, use L1 regularization instead
+	@Override
 	public Optimizer getOptimizer(InstanceList trainingSet) {
 		if (trainingSet != this.trainingSet || optimizable == null) {
 			getOptimizable(trainingSet);

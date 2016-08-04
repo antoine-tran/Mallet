@@ -67,6 +67,7 @@ public class HashVarSet implements VarSet, Serializable {
 		addAll (Arrays.asList (vars));
 	}
 
+	@Override
 	public Variable get (int idx)
   {
 		return (Variable) vertsList.get (idx);
@@ -79,6 +80,7 @@ public class HashVarSet implements VarSet, Serializable {
 	/**
 	 * Returns the intersection of two cliques.
 	 */
+	@Override
 	public VarSet intersection (VarSet c)
 	{
     return Utils.defaultIntersection (this, c);
@@ -90,7 +92,8 @@ public class HashVarSet implements VarSet, Serializable {
   /* Can't delegate to THashMap, because in early versions of Trove (that we are frozen at)
    *  the THashMap.hashCode() isn't consistent with equals.  This is workaround, which may
    *  be removed when we upgrade Trove. */
-  public int hashCode()
+  @Override
+public int hashCode()
   {
     int ret = 39;
     for (Iterator it = vertsList.iterator (); it.hasNext ();) {
@@ -100,11 +103,13 @@ public class HashVarSet implements VarSet, Serializable {
     return ret;
 	}
 
+	@Override
 	public boolean equals(Object object)
   {
 		return verts.equals(object);
 	}
 
+	@Override
 	public boolean removeAll(Collection collection)
   {
     boolean ret = true;
@@ -115,6 +120,7 @@ public class HashVarSet implements VarSet, Serializable {
     return ret;
   }
  
+	@Override
 	public Variable[] toVariableArray () 
 	{
 		// Cannot just do (Variable[]) vertsList.toArray() because that
@@ -125,6 +131,7 @@ public class HashVarSet implements VarSet, Serializable {
 
 // Code for delegation of java.util.AbstractCollection methods to verts
 
+	@Override
 	public String toString() 
 	{
 		String val = "(C";
@@ -136,6 +143,7 @@ public class HashVarSet implements VarSet, Serializable {
 		return val;
 	}
 
+	@Override
 	public boolean addAll (Collection collection)
   {
     boolean ret = true;
@@ -150,6 +158,7 @@ public class HashVarSet implements VarSet, Serializable {
 	 * clique is not modified, then the ordering will remain consistent
 	 * across calls.
 	 */
+	@Override
 	public Object[] toArray(Object[] objectArray)
   {
 		// Using vertsList here assures that toArray() always returns the
@@ -162,6 +171,7 @@ public class HashVarSet implements VarSet, Serializable {
 	 * clique is not modified, then the ordering will remain consistent
 	 * across calls.
 	 */
+	@Override
 	public Object[] toArray()
   {
 		// Using vertsList here assures that toArray() always returns the
@@ -169,11 +179,13 @@ public class HashVarSet implements VarSet, Serializable {
 		return vertsList.toArray();
 	}
 
+	@Override
 	public boolean containsAll(Collection collection)
   {
 		return verts.containsAll(collection);
 	}
 
+	@Override
 	public boolean retainAll(Collection collection)
   {
 		return verts.retainAll(collection);
@@ -181,11 +193,13 @@ public class HashVarSet implements VarSet, Serializable {
 	
 // Code for delegation of java.util.HashSet methods to verts
 
+	@Override
 	public Object clone()
   {
 		return verts.clone();
 	}
 
+	@Override
 	public boolean add(Object object)
   {
     return add (object, true);
@@ -202,17 +216,20 @@ public class HashVarSet implements VarSet, Serializable {
     } else { return false; }
   }
 
+	@Override
 	public boolean contains(Object object)
   {
 		return verts.contains(object);
 	}
 
+	@Override
 	public int size()
   {
 		return verts.size();
 	}
 
 	// Returns the total size of a dense discrete variable over this clique.
+	@Override
 	public int weight () {
 		int tot = 1;
 		for (int i = 0; i < vertsList.size(); i++) {
@@ -222,29 +239,34 @@ public class HashVarSet implements VarSet, Serializable {
 		return tot;
 	}
 
+	@Override
 	public Iterator iterator()
   {
 		return vertsList.iterator();
 	}
 
+	@Override
 	public boolean remove(Object object)
   {
     vertsList.remove (object);
     return verts.remove (object);
 	}
 
+	@Override
 	public void clear()
   {
     vertsList.clear ();
     verts.clear();
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return verts.isEmpty();
 	}
 
 	// Iterating over assignments
 
+	@Override
 	public AssignmentIterator assignmentIterator ()
 	{
 		return new DenseAssignmentIterator (this);

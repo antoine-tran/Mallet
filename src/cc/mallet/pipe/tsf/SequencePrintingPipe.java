@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 import cc.mallet.util.Maths;
-import cc.mallet.util.PropertyList;
 
 /**
  * Created: Jul 6, 2005
@@ -29,7 +28,8 @@ public class SequencePrintingPipe extends Pipe {
     this.writer = writer;
   }
 
-  public Instance pipe (Instance carrier)
+  @Override
+public Instance pipe (Instance carrier)
   {
     Sequence data = (Sequence) carrier.getData ();
     Sequence target = (Sequence) carrier.getTarget ();

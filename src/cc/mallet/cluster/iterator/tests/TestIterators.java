@@ -48,7 +48,7 @@ public class TestIterators extends TestCase
 																											0.5,
 																											10);
 		while (iter.hasNext()) {
-			Instance instance = (Instance)iter.next();
+			Instance instance = iter.next();
 			System.err.println(instance.getData() + "\n");
 		}
 		
@@ -58,14 +58,14 @@ public class TestIterators extends TestCase
 																	0.5,
 																	10);
 		while (iter.hasNext()) {
-			Instance instance = (Instance)iter.next();
+			Instance instance = iter.next();
 			System.err.println(instance.getData() + "\n");
 		}
 
 		System.err.println("\n\nAllPairsIterator");
 		iter = new AllPairsIterator(clustering);																
 		while (iter.hasNext()) {
-			Instance instance = (Instance)iter.next();
+			Instance instance = iter.next();
 			System.err.println(instance.getData() + "\n");
 		}
 }
@@ -75,6 +75,7 @@ public class TestIterators extends TestCase
 		return new TestSuite (TestIterators.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

@@ -39,6 +39,7 @@ public class TestRankedFeatureVector extends TestCase
 		return new TestSuite (TestRankedFeatureVector.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

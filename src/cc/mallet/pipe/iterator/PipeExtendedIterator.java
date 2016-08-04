@@ -47,16 +47,19 @@ public class PipeExtendedIterator implements Iterator<Instance>
 		// TODO Auto-generated constructor stub
 	//}
 
+	@Override
 	public boolean hasNext ()
 	{
 		return iterator.hasNext();
 	}
 
+	@Override
 	public Instance next ()
 	{
     return pipe.pipe(iterator.next());
 	}
 
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

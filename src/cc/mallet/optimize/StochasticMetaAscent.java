@@ -48,10 +48,12 @@ public class StochasticMetaAscent implements Optimizer.ByBatches {
     useHessian = flag;
   }
   
+	@Override
 	public boolean optimize(int numBatches, int[] batchAssignments) {
 		return optimize(MAX_ITER,numBatches,batchAssignments);
 	}
 
+	@Override
 	public boolean optimize(int numIterations, int numBatches, int[] batchAssignments) {
 		
 		int numParameters = maxable.getNumParameters();

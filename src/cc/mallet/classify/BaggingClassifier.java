@@ -27,6 +27,7 @@ public class BaggingClassifier extends Classifier
 		this.baggedClassifiers = baggedClassifiers;
 	}
 
+	@Override
 	public Classification classify (Instance inst)
 	{
 		int numClasses = getLabelAlphabet().size();

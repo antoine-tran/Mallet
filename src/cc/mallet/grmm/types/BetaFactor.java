@@ -50,12 +50,14 @@ public class BetaFactor extends AbstractFactor {
   }
 
 
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public double value (Assignment assn)
+  @Override
+public double value (Assignment assn)
   {
     double pct = valueToPct (assn.getDouble (var));
     if ((0 < pct) && (pct < 1)) {
@@ -75,12 +77,14 @@ public class BetaFactor extends AbstractFactor {
     return (pct * (max - min)) + min;
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     if (varsToKeep.contains (var)) {
       return duplicate ();
@@ -89,40 +93,47 @@ public class BetaFactor extends AbstractFactor {
     }
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     return this;
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     double pct = r.nextBeta (alpha, beta);
     double val = pctToValue (pct);
     return new Assignment (var, val);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new BetaFactor (var, alpha, beta, min, max);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return Double.isNaN(alpha) || Double.isNaN(beta) || Double.isNaN (min) || Double.isNaN (max)
              || alpha <= 0 || beta <= 0;
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     return toString ();
   }
 
-  public void multiplyBy (Factor f)
+  @Override
+public void multiplyBy (Factor f)
   {
     if (f instanceof ConstantFactor) {
       double val = f.value (new Assignment());
@@ -135,7 +146,8 @@ public class BetaFactor extends AbstractFactor {
     throw new UnsupportedOperationException ("Can't multiply BetaFactor by "+f);
   }
 
-  public void divideBy (Factor f)
+  @Override
+public void divideBy (Factor f)
   {
     if (f instanceof ConstantFactor) {
       double val = f.value (new Assignment());
@@ -148,12 +160,14 @@ public class BetaFactor extends AbstractFactor {
     throw new UnsupportedOperationException ("Can't divide BetaFactor by "+f);
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return "[BetaFactor("+alpha +", "+beta +") "+var+" scale=("+min+" ... " +max+") ]";
   }
 
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     if (assn.containsVar (var)) {
       return new ConstantFactor (value (assn));

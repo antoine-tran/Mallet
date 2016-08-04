@@ -25,9 +25,11 @@ public class FilterEmptyFeatureVectors extends Pipe {
 			} else 
 				doesHaveNext = false;
 		}
+		@Override
 		public boolean hasNext () { 
 			return doesHaveNext;
 		}
+		@Override
 		public Instance next() { 
 			Instance ret = nextInstance;
 			doesHaveNext = false;
@@ -42,12 +44,14 @@ public class FilterEmptyFeatureVectors extends Pipe {
 				nextInstance = null;
 			return ret;
 		}
+		@Override
 		public void remove () { throw new IllegalStateException ("This iterator does not support remove().");	}
 		/** Return the @link{Pipe} that processes @link{Instance}s going through this iterator. */ 
 		public Pipe getPipe () { return null; }
 		public Iterator<Instance> getSourceIterator () { return source; }
 	}
 	
+	@Override
 	public Iterator<Instance> newIteratorFrom (Iterator<Instance> source) 
 	{
 		return new FilteringPipeInstanceIterator (source);

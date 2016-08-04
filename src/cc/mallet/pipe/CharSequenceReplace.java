@@ -38,6 +38,7 @@ public class CharSequenceReplace extends Pipe implements Serializable
 		this.replacement = replacement;
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		String string = ((CharSequence)carrier.getData()).toString();

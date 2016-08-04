@@ -29,7 +29,8 @@ public class FullMessageStrategy extends AbstractMessageStrategy {
   {
   }
 
-  public void sendMessage (RegionEdge edge)
+  @Override
+public void sendMessage (RegionEdge edge)
   {
     if (debugLite) {
       System.err.println ("Sending message "+edge);
@@ -86,7 +87,8 @@ public class FullMessageStrategy extends AbstractMessageStrategy {
     return p2.isNaN ();
   }
 
-  public MessageArray averageMessages (RegionGraph rg, MessageArray a1, MessageArray a2, double inertiaWeight)
+  @Override
+public MessageArray averageMessages (RegionGraph rg, MessageArray a1, MessageArray a2, double inertiaWeight)
   {
     MessageArray arr = new MessageArray (rg);
     for (Iterator it = rg.edgeIterator (); it.hasNext ();) {

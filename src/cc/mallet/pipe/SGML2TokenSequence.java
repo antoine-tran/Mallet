@@ -13,7 +13,6 @@ package cc.mallet.pipe;
 
 
 import java.io.*;
-import java.net.URI;
 import java.util.regex.*;
 import java.util.logging.Logger;
 
@@ -23,7 +22,6 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.CharSequenceLexer;
-import cc.mallet.util.Lexer;
 import cc.mallet.util.MalletLogger;
 /**
 	 Converts a string containing simple SGML tags into a dta TokenSequence of words,
@@ -66,6 +64,7 @@ public class SGML2TokenSequence extends Pipe implements Serializable
 		this (new CharSequenceLexer(), "O");
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
     CharSequence string = (CharSequence) carrier.getData();

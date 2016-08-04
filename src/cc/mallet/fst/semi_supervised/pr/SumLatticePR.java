@@ -207,19 +207,23 @@ public class SumLatticePR implements SumLattice {
 	    return nodes[ip][stateIndex];
 	  }
 
+	@Override
 	public double[][][] getXis() {
 		return xis;
 	}
 
+	@Override
 	public double[][] getGammas() {
 		return gammas;
 	}
 
+	@Override
 	public double getTotalWeight() {
 		assert (!Double.isNaN(totalWeight));
 		return totalWeight;
 	}
 
+	@Override
 	public double getGammaWeight(int inputPosition, State s) {
 		return gammas[inputPosition][s.getIndex()];
 	}
@@ -228,6 +232,7 @@ public class SumLatticePR implements SumLattice {
 		return gammas[inputPosition][stateIndex];
 	}
 
+	@Override
 	public double getGammaProbability(int inputPosition, State s) {
 		return Math.exp(gammas[inputPosition][s.getIndex()]);
 	}
@@ -236,6 +241,7 @@ public class SumLatticePR implements SumLattice {
 		return Math.exp(gammas[inputPosition][stateIndex]);
 	}
 
+	@Override
 	public double getXiProbability(int ip, State s1, State s2) {
 		if (xis == null)
 			throw new IllegalStateException("xis were not saved.");
@@ -244,6 +250,7 @@ public class SumLatticePR implements SumLattice {
 		return Math.exp(xis[ip][i][j]);
 	}
 
+	@Override
 	public double getXiWeight(int ip, State s1, State s2) {
 		if (xis == null)
 			throw new IllegalStateException("xis were not saved.");
@@ -253,26 +260,31 @@ public class SumLatticePR implements SumLattice {
 		return xis[ip][i][j];
 	}
 
+	@Override
 	public int length() {
 		return latticeLength;
 	}
 
+	@Override
 	public double getAlpha(int ip, State s) {
 		LatticeNode node = getLatticeNode(ip, s.getIndex());
 		return node.alpha;
 	}
 
+	@Override
 	public double getBeta(int ip, State s) {
 		LatticeNode node = getLatticeNode(ip, s.getIndex());
 		return node.beta;
 	}
 
+	@Override
 	public LabelVector getLabelingAtPosition(int outputPosition) {
 		if (labelings != null)
 			return labelings[outputPosition];
 		return null;
 	}
 
+	@Override
 	public Transducer getTransducer() {
 		return transducer;
 	}
@@ -291,7 +303,8 @@ public class SumLatticePR implements SumLattice {
 		}
 	}
 	
-  public Sequence getInput() {
+  @Override
+public Sequence getInput() {
     return input;
   }
 }

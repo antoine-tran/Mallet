@@ -33,8 +33,10 @@ public class SegmentationEvaluator extends TransducerEvaluator
 	// is not part of the segment).
 	static Pattern startRegex = Pattern.compile ("^B.*");
 	//static Pattern endRegex = Pattern.compile ("^O.*");
-	Object segmentStartTag = new Object () { public boolean equals (Object o) { return startRegex.matcher(o.toString()).matches(); } };
-	Object segmentEndTag = new Object () { public boolean equals (Object o) { return false; } };
+	Object segmentStartTag = new Object () { @Override
+	public boolean equals (Object o) { return startRegex.matcher(o.toString()).matches(); } };
+	Object segmentEndTag = new Object () { @Override
+	public boolean equals (Object o) { return false; } };
 			
 	public SegmentationEvaluator (InstanceList[] instanceLists, String[] descriptions) {
 		super (instanceLists, descriptions);
@@ -58,7 +60,8 @@ public class SegmentationEvaluator extends TransducerEvaluator
 	public SegmentationEvaluator setSegmentStartTag (Object o) { this.segmentStartTag = o; return this; }
 	public SegmentationEvaluator setSegmentEndTag (Object o) { this.segmentEndTag = o; return this; }
 
-  public void evaluateInstanceList (TransducerTrainer tt, InstanceList data, String description)
+  @Override
+public void evaluateInstanceList (TransducerTrainer tt, InstanceList data, String description)
   {
   	Transducer model = tt.getTransducer();
 		int numCorrectTokens, totalTokens;

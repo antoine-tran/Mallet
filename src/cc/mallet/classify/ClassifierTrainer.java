@@ -11,40 +11,11 @@
 
 package cc.mallet.classify;
 
-import java.io.*;
-import java.util.*;
-
 import cc.mallet.classify.Classifier;
-import cc.mallet.fst.TransducerTrainer;
 import cc.mallet.optimize.Optimizer;
-import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Labeler;
-import cc.mallet.util.BshInterpreter;
-import cc.mallet.util.CommandOption;
-/**
- * Abstract parent of all classifier trainers.
- * <p>
- * All classification techniques in MALLET are implement as two classes:
- * a trainer and a classifier.  The trainer ingests the training data
- * and creates a classifier that holds the parameters set during training.
- * The classifier applies those parameters to an Instance to produce
- * a classification of the Instance.
- * <p>
- * A concrete trainer is required only to be able to train from an InstanceList.
- * Trainers that can incrementally train are subclasses of IncrementalTrainingClassifier.
- * <p>
- * The command line interface tools for document classification are:
- * {@link cc.mallet.classify.tui.Csv2Vectors},
- * {@link cc.mallet.classify.tui.Text2Vectors},
- * {@link cc.mallet.classify.tui.Vectors2Classify},
- * {@link cc.mallet.classify.tui.Vectors2Info}, and
- * {@link cc.mallet.classify.tui.Vectors2Vectors}
- *
- * @see Classifier
- * @author Andrew McCallum <a href="mailto:mccallum@cs.umass.edu">mccallum@cs.umass.edu</a>
- */
 
 /** Each ClassifierTrainer trains one Classifier based on various interfaces for consuming training data.
  * If you want an object that can train be asked to train on multiple different training sets and 
@@ -106,6 +77,7 @@ public abstract class ClassifierTrainer<C extends Classifier>
 		public abstract CT newClassifierTrainer (Classifier initialClassifier);
 		public CT newClassifierTrainer () { return newClassifierTrainer (null); }
 				
+		@Override
 		public String toString() {
 			return this.getClass().getName();
 		}

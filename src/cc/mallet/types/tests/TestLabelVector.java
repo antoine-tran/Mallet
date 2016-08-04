@@ -14,7 +14,6 @@
 
 package cc.mallet.types.tests;
 
-import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.LabelVector;
 import junit.framework.*;
@@ -29,6 +28,7 @@ public class TestLabelVector extends TestCase
 	private LabelAlphabet ld;
 	private LabelVector lv;
 
+	@Override
 	protected void setUp ()
 	{
 		ld = new LabelAlphabet ();

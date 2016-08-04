@@ -62,13 +62,17 @@ public class CRFTrainerByValueGradients extends TransducerTrainer implements Tra
 		this.optimizableByValueGradientObjects = optimizableByValueGradientObjects;
 	}
 	
+	@Override
 	public Transducer getTransducer() { return crf; }
 	public CRF getCRF () { return crf; }
+	@Override
 	public Optimizer getOptimizer() { return opt; }
 	/** Returns true if training converged, false otherwise. */
 	public boolean isConverged() { return converged; }
   /** Returns true if training converged, false otherwise. */
+	@Override
 	public boolean isFinishedTraining() { return converged; }
+	@Override
 	public int getIteration () { return iterationCount; }
 	
 	// gsc
@@ -122,6 +126,7 @@ public class CRFTrainerByValueGradients extends TransducerTrainer implements Tra
 	 * <p>
 	 * Also creates an optimizable CRF and an optmizer if required.
 	 */
+	@Override
 	public boolean train (InstanceList trainingSet, int numIterations) {
 		if (numIterations <= 0)
 			return false;
@@ -253,29 +258,35 @@ public class CRFTrainerByValueGradients extends TransducerTrainer implements Tra
 //		}
 
 		// TODO Move these implementations into CRF.java, and put here stubs that call them!
+		@Override
 		public int getNumParameters () {
 			return crf.parameters.getNumFactors();
 		}
 
+		@Override
 		public void getParameters (double[] buffer) {
 			crf.parameters.getParameters(buffer);
 		}
 
+		@Override
 		public double getParameter (int index) {
 			return crf.parameters.getParameter(index);
 		}
 
+		@Override
 		public void setParameters (double [] buff) {
 			crf.parameters.setParameters(buff);
 			crf.weightsValueChanged();
 		}
 
+		@Override
 		public void setParameter (int index, double value) {
 			crf.parameters.setParameter(index, value);
 			crf.weightsValueChanged();
 		}
 
 		/** Returns the log probability of the training sequence labels and the prior over parameters. */
+		@Override
 		public double getValue ()
 		{
 			if (crf.weightsValueChangeStamp != cachedValueWeightsStamp) {
@@ -293,6 +304,7 @@ public class CRFTrainerByValueGradients extends TransducerTrainer implements Tra
 			return cachedValue;
 		}
 
+		@Override
 		public void getValueGradient (double [] buffer)
 		{
 			// PriorGradient is -parameter/gaussianPriorVariance

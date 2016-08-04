@@ -31,7 +31,8 @@ public class RegexFieldCleaner implements FieldCleaner {
   }
 
 
-  public String cleanFieldValue (String rawFieldValue)
+  @Override
+public String cleanFieldValue (String rawFieldValue)
   {
     String cleanString = badRegex.matcher (rawFieldValue).replaceAll ("");
     return cleanString;

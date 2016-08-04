@@ -53,6 +53,7 @@ public class BruteForceInferencer
 		return joint;
 	}
 
+	@Override
 	public void computeMarginals (FactorGraph mdl)
 	{
 		cachedJoint = joint (mdl);
@@ -63,21 +64,25 @@ public class BruteForceInferencer
 		cachedJoint = joint (jt);
 	}
 
+	@Override
 	public Factor lookupMarginal (Variable var)
 	{
 		return cachedJoint.marginalize (var);
 	}
 
+	@Override
 	public Factor lookupMarginal (VarSet c)
 	{
 		return cachedJoint.marginalize (c);
 	}
 
+	@Override
 	public double lookupJoint (Assignment assn)
 	{
 		return cachedJoint.value (assn);
 	}
 
+	@Override
 	public double lookupLogJoint (Assignment assn)
 	{
 		return Math.log (cachedJoint.value (assn));

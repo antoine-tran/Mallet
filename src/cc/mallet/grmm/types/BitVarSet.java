@@ -63,7 +63,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
     this (vsOld.get(0).getUniverse (), vsOld);
   }
 
-  public boolean add (Object o)
+  @Override
+public boolean add (Object o)
   {
     int idx = universe.getIndex ((Variable) o);
     if (idx == -1)
@@ -72,7 +73,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
     return true;
   }
 
-  public Variable get(int idx)
+  @Override
+public Variable get(int idx)
   {
 	  int i,mapIdx = 0;
 	
@@ -89,7 +91,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
     return universe.get (mapIdx);
   }
 
-  public Variable[] toVariableArray()
+  @Override
+public Variable[] toVariableArray()
   {
     return (Variable[]) toArray (new Variable[0]);
   }
@@ -98,7 +101,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
 // FIXME cache not updated on changes to the clique
 	private int cachedWeight = -1;
 
-  public int weight()
+  @Override
+public int weight()
   {
 		if (cachedWeight == -1) {
 			int weight = 1;
@@ -114,25 +118,29 @@ public class BitVarSet extends AbstractSet implements VarSet {
   }
 
 
-  public AssignmentIterator assignmentIterator()
+  @Override
+public AssignmentIterator assignmentIterator()
   {
     return new DenseAssignmentIterator (this);
   }
 
 
-  public int size()
+  @Override
+public int size()
   {
     return bitset.cardinality();
   }
 
 
-  public boolean isEmpty()
+  @Override
+public boolean isEmpty()
   {
     return bitset.isEmpty();
   }
 
 
-  public boolean contains(Object o)
+  @Override
+public boolean contains(Object o)
   {
     return bitset.get(universe.getIndex ((Variable) o));
   }
@@ -144,36 +152,42 @@ public class BitVarSet extends AbstractSet implements VarSet {
 
     public Iterator () { nextIdx = bitset.nextSetBit (0); }
 
-    public boolean hasNext()
+    @Override
+	public boolean hasNext()
     {
       return (nextIdx >= 0);
     }
 
-    public Object next()
+    @Override
+	public Object next()
     {
       int thisIdx = nextIdx;
       nextIdx = bitset.nextSetBit (thisIdx + 1);
       return universe.get (thisIdx);
     }
 
-    public void remove()
+    @Override
+	public void remove()
     {
       throw new UnsupportedOperationException("Removal from BitSetClique not permitted");
     }
 
   }
 
-  public java.util.Iterator iterator()
+  @Override
+public java.util.Iterator iterator()
   {
     return new Iterator();
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     return bitset.hashCode ();
   }
 
-  public boolean containsAll(Collection c)
+  @Override
+public boolean containsAll(Collection c)
   {
     if (c instanceof BitVarSet) {
       return containsAll ((BitVarSet) c);
@@ -196,7 +210,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
 		return true;
   }
 
-  public VarSet intersection (VarSet c) {
+  @Override
+public VarSet intersection (VarSet c) {
     if (c instanceof BitVarSet) {
       // Efficient implementation
       BitVarSet bsc = (BitVarSet) c;
@@ -225,7 +240,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
 		return size;
   }
 
-  public void clear()
+  @Override
+public void clear()
   {
     bitset.clear();
   }
@@ -242,7 +258,8 @@ public class BitVarSet extends AbstractSet implements VarSet {
     return toString ();
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     String foo = "(C";
     Iterator it = new Iterator ();

@@ -46,95 +46,137 @@ public class CPT implements DiscreteFactor {
     this.subFactor = subFactor;
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return "CPT: Child ["+child+"]\n  Factor: "+subFactor.toString ();
   }
 
-  public String prettyOutputString() { return toString(); }
+  @Override
+public String prettyOutputString() { return toString(); }
 
-  public double value (Assignment assn) {return subFactor.value (assn);}
+  @Override
+public double value (Assignment assn) {return subFactor.value (assn);}
 
-  public double value (AssignmentIterator it) {return subFactor.value (it);}
+  @Override
+public double value (AssignmentIterator it) {return subFactor.value (it);}
 
-  public Factor normalize () { return subFactor.normalize (); }
+  @Override
+public Factor normalize () { return subFactor.normalize (); }
 
-  public Factor marginalize (Variable[] vars) {return subFactor.marginalize (vars);}
+  @Override
+public Factor marginalize (Variable[] vars) {return subFactor.marginalize (vars);}
 
-  public Factor marginalize (Collection vars) {return subFactor.marginalize (vars);}
+  @Override
+public Factor marginalize (Collection vars) {return subFactor.marginalize (vars);}
 
-  public Factor marginalize (Variable var) {return subFactor.marginalize (var);}
+  @Override
+public Factor marginalize (Variable var) {return subFactor.marginalize (var);}
 
-  public Factor marginalizeOut (Variable var) {return subFactor.marginalizeOut (var);}
+  @Override
+public Factor marginalizeOut (Variable var) {return subFactor.marginalizeOut (var);}
 
-  public Factor extractMax (Collection vars) {return subFactor.extractMax (vars);}
+  @Override
+public Factor extractMax (Collection vars) {return subFactor.extractMax (vars);}
 
-  public Factor extractMax (Variable var) {return subFactor.extractMax (var);}
+  @Override
+public Factor extractMax (Variable var) {return subFactor.extractMax (var);}
 
-  public Factor extractMax (Variable[] vars) {return subFactor.extractMax (vars);}
+  @Override
+public Factor extractMax (Variable[] vars) {return subFactor.extractMax (vars);}
 
-  public int argmax () {return subFactor.argmax ();}
+  @Override
+public int argmax () {return subFactor.argmax ();}
 
-  public Assignment sample (Randoms r) {return subFactor.sample (r);}
+  @Override
+public Assignment sample (Randoms r) {return subFactor.sample (r);}
 
-  public double sum () {return subFactor.sum ();}
+  @Override
+public double sum () {return subFactor.sum ();}
 
-  public double entropy () {return subFactor.entropy ();}
+  @Override
+public double entropy () {return subFactor.entropy ();}
 
-  public Factor multiply (Factor dist) {return subFactor.multiply (dist);}
+  @Override
+public Factor multiply (Factor dist) {return subFactor.multiply (dist);}
 
-  public void multiplyBy (Factor pot) {subFactor.multiplyBy (pot);}
+  @Override
+public void multiplyBy (Factor pot) {subFactor.multiplyBy (pot);}
 
-  public void exponentiate (double power) {subFactor.exponentiate (power);}
+  @Override
+public void exponentiate (double power) {subFactor.exponentiate (power);}
 
-  public void divideBy (Factor pot) {subFactor.divideBy (pot);}
+  @Override
+public void divideBy (Factor pot) {subFactor.divideBy (pot);}
 
-  public boolean containsVar (Variable var) {return subFactor.containsVar (var);}
+  @Override
+public boolean containsVar (Variable var) {return subFactor.containsVar (var);}
 
-  public VarSet varSet () {return subFactor.varSet ();}
+  @Override
+public VarSet varSet () {return subFactor.varSet ();}
 
-  public AssignmentIterator assignmentIterator () {return subFactor.assignmentIterator ();}
+  @Override
+public AssignmentIterator assignmentIterator () {return subFactor.assignmentIterator ();}
 
-  public boolean almostEquals (Factor p) {return subFactor.almostEquals (p);}
+  @Override
+public boolean almostEquals (Factor p) {return subFactor.almostEquals (p);}
 
-  public boolean almostEquals (Factor p, double epsilon) {return subFactor.almostEquals (p, epsilon);}
+  @Override
+public boolean almostEquals (Factor p, double epsilon) {return subFactor.almostEquals (p, epsilon);}
 
-  public Factor duplicate () {return subFactor.duplicate ();}
+  @Override
+public Factor duplicate () {return subFactor.duplicate ();}
 
-  public boolean isNaN () {return subFactor.isNaN ();}
+  @Override
+public boolean isNaN () {return subFactor.isNaN ();}
 
-  public double logValue (AssignmentIterator it) {return subFactor.logValue (it);}
+  @Override
+public double logValue (AssignmentIterator it) {return subFactor.logValue (it);}
 
-  public double logValue (Assignment assn) {return subFactor.logValue (assn);}
+  @Override
+public double logValue (Assignment assn) {return subFactor.logValue (assn);}
 
-  public double logValue (int loc) {return subFactor.logValue (loc);}
+  @Override
+public double logValue (int loc) {return subFactor.logValue (loc);}
 
-  public Variable getVariable (int i) {return subFactor.getVariable (i);}
+  @Override
+public Variable getVariable (int i) {return subFactor.getVariable (i);}
 
-  public int sampleLocation (Randoms r) {return subFactor.sampleLocation (r);}
+  @Override
+public int sampleLocation (Randoms r) {return subFactor.sampleLocation (r);}
 
-  public double value (int index) {return subFactor.value (index);}
+  @Override
+public double value (int index) {return subFactor.value (index);}
 
-  public int numLocations () {return subFactor.numLocations ();}
+  @Override
+public int numLocations () {return subFactor.numLocations ();}
 
-  public double valueAtLocation (int loc) {return subFactor.valueAtLocation (loc);}
+  @Override
+public double valueAtLocation (int loc) {return subFactor.valueAtLocation (loc);}
 
-  public int indexAtLocation (int loc) {return subFactor.indexAtLocation (loc);}
+  @Override
+public int indexAtLocation (int loc) {return subFactor.indexAtLocation (loc);}
 
-  public double[] toValueArray () {return subFactor.toValueArray ();}
+  @Override
+public double[] toValueArray () {return subFactor.toValueArray ();}
 
-  public int singleIndex (int[] smallDims) {return subFactor.singleIndex (smallDims);}
+  @Override
+public int singleIndex (int[] smallDims) {return subFactor.singleIndex (smallDims);}
 
-  public String dumpToString () { return subFactor.dumpToString (); }
+  @Override
+public String dumpToString () { return subFactor.dumpToString (); }
 
-  public Factor slice (Assignment assn) { return subFactor.slice (assn); }
+  @Override
+public Factor slice (Assignment assn) { return subFactor.slice (assn); }
 
-  public AbstractTableFactor asTable ()
+  @Override
+public AbstractTableFactor asTable ()
   {
     return subFactor.asTable ();
   }
 
-  public Factor marginalizeOut (VarSet varset)
+  @Override
+public Factor marginalizeOut (VarSet varset)
   {
     return subFactor.marginalizeOut (varset);
   }

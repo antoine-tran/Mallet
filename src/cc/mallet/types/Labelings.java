@@ -11,8 +11,6 @@
 
 package cc.mallet.types;
 
-import cc.mallet.types.Label;
-
 /**
 	 A collection of labelings, either for a multi-label problem (all
 	 labels are part of the same label dictionary), or a factorized
@@ -33,7 +31,9 @@ public class Labelings implements AlphabetCarrying
 		System.arraycopy (labels, 0, this.labels, 0, labels.length);
 	}
 
+	@Override
 	public Alphabet getAlphabet () { return labels[0].getAlphabet(); }
+	@Override
 	public Alphabet[] getAlphabets () { return labels[0].getAlphabets(); }
 
 	int size () { return labels.length; }

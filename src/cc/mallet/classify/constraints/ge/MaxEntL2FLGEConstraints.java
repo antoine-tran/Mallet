@@ -26,7 +26,8 @@ public class MaxEntL2FLGEConstraints extends MaxEntFLGEConstraints {
     this.normalize = normalize;
   }
   
-  public double getValue() {
+  @Override
+public double getValue() {
     double value = 0.0;
     for (int fi : constraints.keys()) {
       MaxEntFLGEConstraint constraint = constraints.get(fi);

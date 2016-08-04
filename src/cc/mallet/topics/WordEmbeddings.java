@@ -146,7 +146,7 @@ public class WordEmbeddings {
 		
 		for (int word = 0; word < numWords; word++) {
 			// Word2Vec style sampling weight
-			double frequencyScore = (double) wordCounts[word] / (samplingFactor * totalWords);
+			double frequencyScore = wordCounts[word] / (samplingFactor * totalWords);
 			retentionProbability[word] = Math.min((Math.sqrt(frequencyScore) + 1) / frequencyScore, 1.0);
 		}
 

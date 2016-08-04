@@ -18,7 +18,6 @@
 package cc.mallet.pipe.tsf;
 
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.io.*;
 
 import cc.mallet.pipe.*;
@@ -42,6 +41,7 @@ public class RegexMatches extends Pipe implements Serializable
   //}
 	
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

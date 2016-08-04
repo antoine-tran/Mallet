@@ -42,14 +42,17 @@ public class CRFTrainerByStochasticGradient extends ByInstanceIncrements {
 		this.constraints = new CRF.Factors(crf);
 	}
 
+	@Override
 	public int getIteration() {
 		return iterationCount;
 	}
 
+	@Override
 	public Transducer getTransducer() {
 		return crf;
 	}
 
+	@Override
 	public boolean isFinishedTraining() {
 		return converged;
 	}
@@ -136,6 +139,7 @@ public class CRFTrainerByStochasticGradient extends ByInstanceIncrements {
 		return this.learningRate;
 	}
 
+	@Override
 	public boolean train(InstanceList trainingSet, int numIterations) {
 		return train(trainingSet, numIterations, 1);
 	}
@@ -188,11 +192,13 @@ public class CRFTrainerByStochasticGradient extends ByInstanceIncrements {
 	// TODO Add some way to train by batches of instances, where the batch
 	// memberships are determined externally? Or provide some easy interface for
 	// creating batches.
+	@Override
 	public boolean trainIncremental(InstanceList trainingSet) {
 		this.train(trainingSet, 1);
 		return false;
 	}
 
+	@Override
 	public boolean trainIncremental(Instance trainingInstance) {
 		assert (expectations.structureMatches(crf.parameters));
 		trainIncrementalLikelihood(trainingInstance);

@@ -7,8 +7,6 @@
 package cc.mallet.extract.pipe;
 
 
-import java.util.ArrayList;
-
 import cc.mallet.extract.StringSpan;
 import cc.mallet.extract.StringTokenization;
 import cc.mallet.extract.Tokenization;
@@ -31,7 +29,8 @@ import cc.mallet.types.TokenSequence;
  */
 public class TokenSequence2Tokenization extends Pipe {
 
-  public Instance pipe (Instance carrier)
+  @Override
+public Instance pipe (Instance carrier)
   {
     Object data = carrier.getData ();
     if (data instanceof Tokenization) {

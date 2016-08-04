@@ -160,11 +160,11 @@ public class TestCRF extends TestCase {
 
 		FeatureVectorSequence fvs = new FeatureVectorSequence(
 				new FeatureVector[] {
-						new FeatureVector((Alphabet) crf.getInputAlphabet(),
+						new FeatureVector(crf.getInputAlphabet(),
 								new double[] { 1 }),
-						new FeatureVector((Alphabet) crf.getInputAlphabet(),
+						new FeatureVector(crf.getInputAlphabet(),
 								new double[] { 1 }),
-						new FeatureVector((Alphabet) crf.getInputAlphabet(),
+						new FeatureVector(crf.getInputAlphabet(),
 								new double[] { 1 }), });
 
 		SumLattice lattice = new SumLatticeDefault(crf, fvs, true);
@@ -232,11 +232,11 @@ public class TestCRF extends TestCase {
 
 		FeatureVectorSequence fvs = new FeatureVectorSequence(
 				new FeatureVector[] {
-						new FeatureVector((Alphabet) crf.getInputAlphabet(),
+						new FeatureVector(crf.getInputAlphabet(),
 								new double[] { 1 }),
-						new FeatureVector((Alphabet) crf.getInputAlphabet(),
+						new FeatureVector(crf.getInputAlphabet(),
 								new double[] { 1 }),
-						new FeatureVector((Alphabet) crf.getInputAlphabet(),
+						new FeatureVector(crf.getInputAlphabet(),
 								new double[] { 1 }), });
 
 		MaxLattice lattice = new MaxLatticeDefault(crf, fvs);
@@ -388,6 +388,7 @@ public class TestCRF extends TestCase {
 			super(null, new Alphabet());
 		}
 
+		@Override
 		public Instance pipe(Instance carrier) {
 			TokenSequence ts = (TokenSequence) carrier.getData();
 			TokenSequence newTs = new TokenSequence();
@@ -432,6 +433,7 @@ public class TestCRF extends TestCase {
 			super();
 		}
 
+		@Override
 		public Instance pipe(Instance carrier) {
 			StringBuffer sb = new StringBuffer();
 			String source = (String) carrier.getSource();

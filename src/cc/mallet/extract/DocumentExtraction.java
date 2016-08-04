@@ -174,7 +174,8 @@ public class DocumentExtraction implements Serializable {
    {
      ArrayList orderedByStart = new ArrayList (extractedSpans);
      Collections.sort (orderedByStart, new Comparator () {
-       public int compare (Object o, Object o1)
+       @Override
+	public int compare (Object o, Object o1)
        {
          int start1 = ((Span)o).getStartIdx ();
          int start2 = ((Span)o1).getStartIdx ();

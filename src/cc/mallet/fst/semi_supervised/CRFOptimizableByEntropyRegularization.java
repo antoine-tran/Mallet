@@ -115,7 +115,8 @@ public class CRFOptimizableByEntropyRegularization implements Optimizable.ByGrad
     }
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
 		if (crf.getWeightsValueChangeStamp() != cachedValueWeightsStamp) {
 		  // The cached value is not up to date; it was calculated for a different set of CRF weights.
 		  cachedValueWeightsStamp = crf.getWeightsValueChangeStamp(); 
@@ -131,7 +132,8 @@ public class CRFOptimizableByEntropyRegularization implements Optimizable.ByGrad
   	return cachedValue;
   }
 
-  public void getValueGradient(double[] buffer) {
+  @Override
+public void getValueGradient(double[] buffer) {
 		if (cachedGradientWeightsStamp != crf.getWeightsValueChangeStamp()) {
 			cachedGradientWeightsStamp = crf.getWeightsValueChangeStamp(); // cachedGradient will soon no longer be stale
   	
@@ -146,24 +148,29 @@ public class CRFOptimizableByEntropyRegularization implements Optimizable.ByGrad
   }
 
   // some get/set methods that have to be implemented
-  public int getNumParameters() {
+  @Override
+public int getNumParameters() {
     return crf.getParameters().getNumFactors();
   }
 
-  public void getParameters(double[] buffer) {
+  @Override
+public void getParameters(double[] buffer) {
     crf.getParameters().getParameters(buffer);
 	}
 
-  public void setParameters(double[] buffer) {
+  @Override
+public void setParameters(double[] buffer) {
     crf.getParameters().setParameters(buffer);
     crf.weightsValueChanged();
 	}
 
-  public double getParameter(int index) {
+  @Override
+public double getParameter(int index) {
     return crf.getParameters().getParameter(index);
   }
 
-  public void setParameter(int index, double value) {
+  @Override
+public void setParameter(int index, double value) {
     crf.getParameters().setParameter(index, value);
     crf.weightsValueChanged();
 	}

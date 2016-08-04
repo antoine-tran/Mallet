@@ -430,15 +430,15 @@ public class PAM4L {
 			// Calculate each of the super-only factors first
 
 			for (superTopic = 0; superTopic < numSuperTopics; superTopic++) {
-				superWeights[superTopic] = ((double) superCounts[superTopic] + alpha[superTopic]) /
-				((double) superCounts[superTopic] + subAlphaSums[superTopic]);
+				superWeights[superTopic] = (superCounts[superTopic] + alpha[superTopic]) /
+				(superCounts[superTopic] + subAlphaSums[superTopic]);
 			}
 
 			// Next calculate the sub-only factors
 
 			for (subTopic = 0; subTopic < numSubTopics; subTopic++) {
-				subWeights[subTopic] = ((double) currentTypeSubTopicCounts[subTopic] + beta) / 
-				((double) tokensPerSubTopic[subTopic] + vBeta);
+				subWeights[subTopic] = (currentTypeSubTopicCounts[subTopic] + beta) / 
+				(tokensPerSubTopic[subTopic] + vBeta);
 			}
 
 			// Finally, put them together
@@ -455,7 +455,7 @@ public class PAM4L {
 					currentSuperSubWeights[subTopic] =
 						currentSuperWeight *
 						subWeights[subTopic] * 
-						((double) currentSuperSubCounts[subTopic] + currentSubAlpha[subTopic]);
+						(currentSuperSubCounts[subTopic] + currentSubAlpha[subTopic]);
 					cumulativeWeight += currentSuperSubWeights[subTopic];
 				}
 
@@ -757,6 +757,7 @@ for (int ti = 0; ti < numTopics; ti++)
 	class IDSorter implements Comparable {
 		int wi; double p;
 		public IDSorter (int wi, double p) { this.wi = wi; this.p = p; }
+		@Override
 		public final int compareTo (Object o2) {
 			if (p > ((IDSorter) o2).p)
 				return -1;

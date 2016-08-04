@@ -121,7 +121,7 @@ public abstract class Transducer implements Serializable
 	 */
 	public Sequence transduce (Sequence input)
 	{
-		return maxLatticeFactory.newMaxLattice(this, (Sequence)input).bestOutputSequence();
+		return maxLatticeFactory.newMaxLattice(this, input).bestOutputSequence();
 	}
 
 	public abstract int numStates ();
@@ -281,12 +281,15 @@ public abstract class Transducer implements Serializable
 	 */
 	public abstract static class TransitionIterator implements Iterator<State>, Serializable
 	{
+		@Override
 		public abstract boolean hasNext ();
 		@Deprecated // What is this method for?  I've forgotten. -akm 11/2007
 		public int numberNext() { return -1;}
 		@Deprecated
 		public abstract State nextState ();	// returns the destination state
+		@Override
 		public State next () { return nextState(); }
+		@Override
 		public void remove () {
 			throw new UnsupportedOperationException (); }
 		/** An implementation-specific index for this transition object,

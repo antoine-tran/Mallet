@@ -192,11 +192,11 @@ public final class Maths {
   }
 
   public static double sigmod(double beta){
-	return (double)1.0/(1.0+Math.exp(-beta));
+	return 1.0/(1.0+Math.exp(-beta));
   }
 
   public static double sigmod_rev(double sig){
-	return (double)Math.log(sig/(1-sig));
+	return Math.log(sig/(1-sig));
   }
 
   public static double logit (double p)

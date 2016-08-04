@@ -7,8 +7,6 @@
 package cc.mallet.grmm.inference;
 
 
-import java.util.List;
-
 import cc.mallet.grmm.types.Assignment;
 import cc.mallet.grmm.types.FactorGraph;
 import cc.mallet.util.Randoms;

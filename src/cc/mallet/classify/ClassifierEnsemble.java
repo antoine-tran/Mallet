@@ -34,10 +34,11 @@ public class ClassifierEnsemble extends Classifier
       ensemble[i] = classifiers[i];
     }
     System.arraycopy (classifiers, 0, ensemble, 0, classifiers.length);
-    this.weights = (double[]) weights.clone();
+    this.weights = weights.clone();
   }
 
-  public Classification classify (Instance instance)
+  @Override
+public Classification classify (Instance instance)
   {
     int numLabels = ensemble[0].getLabelAlphabet().size();
     double[] scores = new double[numLabels];

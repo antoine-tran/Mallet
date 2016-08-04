@@ -8,8 +8,6 @@ package cc.mallet.fst;
 
 
 import java.util.logging.Logger;
-import java.util.Arrays;
-import java.io.PrintStream;
 import java.text.DecimalFormat;
 
 import cc.mallet.types.*;
@@ -37,7 +35,8 @@ public class PerClassAccuracyEvaluator extends TransducerEvaluator {
   	this (new InstanceList[] {i1, i2}, new String[] {d1, d2});
   }
 
-  public void evaluateInstanceList (TransducerTrainer tt, InstanceList data, String description)
+  @Override
+public void evaluateInstanceList (TransducerTrainer tt, InstanceList data, String description)
   {
   	Transducer model = tt.getTransducer();
     Alphabet dict = model.getInputPipe().getTargetAlphabet();

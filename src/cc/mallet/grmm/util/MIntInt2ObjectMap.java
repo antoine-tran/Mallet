@@ -76,7 +76,8 @@ public class MIntInt2ObjectMap implements Serializable {
   {
     final int[] N = new int[]{0};
     backing.forEachValue (new TObjectProcedure() {
-      public boolean execute (Object object)
+      @Override
+	public boolean execute (Object object)
       {
         TIntObjectHashMap inner = (TIntObjectHashMap) object;
         N[0] += inner.size ();

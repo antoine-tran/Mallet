@@ -197,18 +197,21 @@ public class MessageArray {
       }
     }
 
-    public boolean hasNext ()
+    @Override
+	public boolean hasNext ()
     {
       return (idx1+1 < keys1.length) || (idx2+1 < keys2.length);
     }
 
-    public Object next ()
+    @Override
+	public Object next ()
     {
       increment ();
       return messages.get (keys1[idx1], keys2[idx2]);
     }
 
-    public void remove ()
+    @Override
+	public void remove ()
     {
       throw new UnsupportedOperationException ();
     }

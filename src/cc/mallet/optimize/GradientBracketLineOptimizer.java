@@ -17,7 +17,6 @@ package cc.mallet.optimize;
 import java.util.logging.*;
 
 import cc.mallet.optimize.Optimizable;
-import cc.mallet.types.Matrix;
 import cc.mallet.types.MatrixOps;
 import cc.mallet.util.MalletLogger;
 
@@ -45,6 +44,7 @@ public class GradientBracketLineOptimizer implements LineOptimizer {
 	// Return the last step size used.
 	// "line" should point in the direction we want to move the parameters to get
 	// higher value.
+	@Override
 	public double optimize (double[] line, double initialStep)
 	{
 		

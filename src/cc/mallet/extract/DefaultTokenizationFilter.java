@@ -20,7 +20,8 @@ import cc.mallet.types.Sequence;
  */
 public class DefaultTokenizationFilter implements TokenizationFilter, Serializable {
 
-  public LabeledSpans constructLabeledSpans (LabelAlphabet dict, Object document, Label backgroundTag,
+  @Override
+public LabeledSpans constructLabeledSpans (LabelAlphabet dict, Object document, Label backgroundTag,
                                                     Tokenization input, Sequence seq)
   {
     LabeledSpans labeled = new LabeledSpans (document);

@@ -26,6 +26,7 @@ public class Target2FeatureSequence extends Pipe implements Serializable
 		super (null, new Alphabet());
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		//Object in = carrier.getData();

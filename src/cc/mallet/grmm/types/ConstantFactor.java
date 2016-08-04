@@ -22,69 +22,82 @@ public class ConstantFactor extends AbstractFactor {
     this.c = c;
   }
 
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     return this;
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     return c;
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     return this;
   }
 
-  public double value (AssignmentIterator it)
+  @Override
+public double value (AssignmentIterator it)
   {
     return c;
   }
 
   // I can't imagine why anyone whould want to call this method.
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     c = 1.0;
     return this;
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     return new Assignment ();
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     return "[ConstantFactor : "+c+" ]";
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return dumpToString ();
   }
 
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     return this;
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new ConstantFactor (c);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return (p instanceof ConstantFactor && Maths.almostEquals (c, ((ConstantFactor)p).c, epsilon));
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return Double.isNaN (c);
   }
 
-  public Factor multiply (Factor other)
+  @Override
+public Factor multiply (Factor other)
   {
     // special handling of identity factor
     if (Maths.almostEquals (c, 1.0)) {
@@ -96,7 +109,8 @@ public class ConstantFactor extends AbstractFactor {
     }
   }
 
-  public void multiplyBy (Factor other)
+  @Override
+public void multiplyBy (Factor other)
   {
     if (!(other instanceof ConstantFactor)) {
       throw new UnsupportedOperationException ("Can't multiply a constant factor by "+other);

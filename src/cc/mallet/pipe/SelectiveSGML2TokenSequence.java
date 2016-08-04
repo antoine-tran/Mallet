@@ -12,7 +12,6 @@
 package cc.mallet.pipe;
 
 import java.io.*;
-import java.net.URI;
 import java.util.regex.*;
 import java.util.Set;
 
@@ -20,7 +19,6 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.CharSequenceLexer;
-import cc.mallet.util.Lexer;
 /**
 	 Similar to {@link SGML2TokenSequence}, except that only the tags
 	 listed in <code>allowedTags</code> are converted to {@link Label}s.
@@ -63,6 +61,7 @@ public class SelectiveSGML2TokenSequence extends Pipe implements Serializable
 		this (lex, "O", allowed);
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		if (!(carrier.getData() instanceof CharSequence))
@@ -134,6 +133,7 @@ public class SelectiveSGML2TokenSequence extends Pipe implements Serializable
 		else return findNextValidMatch (m);
 	}
 
+	@Override
 	public String toString () {
 		String ret = "sgml pattern: " + sgmlPattern.toString();
 		ret += "\nlexer: " + lexer.getPattern().toString();

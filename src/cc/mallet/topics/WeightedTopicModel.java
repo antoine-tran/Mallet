@@ -228,7 +228,7 @@ public class WeightedTopicModel implements Serializable {
 				FeatureSequence tokenSequence =
 					(FeatureSequence) data.get(doc).instance.getData();
 				LabelSequence topicSequence =
-					(LabelSequence) data.get(doc).topicSequence;
+					data.get(doc).topicSequence;
 				
 				// Run the sampler in initialization mode for 
 				//  the first iteration, and show debugging info 
@@ -592,7 +592,7 @@ public class WeightedTopicModel implements Serializable {
 		for (int doc = 0; doc < data.size(); doc++) {
 		//for (int doc = 0; doc < 5000; doc++) {
 			FeatureSequence tokenSequence =	(FeatureSequence) data.get(doc).instance.getData();
-			LabelSequence topicSequence =	(LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence =	data.get(doc).topicSequence;
 
 			String source = "NA";
 

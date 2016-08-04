@@ -13,7 +13,6 @@
 
 package cc.mallet.classify;
 
-import cc.mallet.classify.Classifier;
 import cc.mallet.classify.Winnow;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
@@ -21,7 +20,6 @@ import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.LabelVector;
 import cc.mallet.types.Labeling;
 
 /**
@@ -100,6 +98,7 @@ public class WinnowTrainer extends ClassifierTrainer<Winnow>
 		this.nfactor = nfact;
 	}
 	
+	@Override
 	public Winnow getClassifier () { return classifier; }
 	
 	/**
@@ -108,6 +107,7 @@ public class WinnowTrainer extends ClassifierTrainer<Winnow>
 	 * @param ilist Instance list to be trained on
 	 * @return Classifier object containing learned weights
 	 */
+	@Override
 	public Winnow train (InstanceList trainingList)
 	{
 		FeatureSelection selectedFeatures = trainingList.getFeatureSelection();
@@ -120,7 +120,7 @@ public class WinnowTrainer extends ClassifierTrainer<Winnow>
 		trainingList.getDataAlphabet().stopGrowth();
 		trainingList.getTargetAlphabet().stopGrowth();
 		Pipe dataPipe = trainingList.getPipe ();
-		Alphabet dict = (Alphabet) trainingList.getDataAlphabet ();
+		Alphabet dict = trainingList.getDataAlphabet ();
 		int numLabels = trainingList.getTargetAlphabet().size();
 		int numFeats = dict.size(); 
 		this.theta =  numFeats * this.nfactor;
@@ -132,7 +132,7 @@ public class WinnowTrainer extends ClassifierTrainer<Winnow>
 		//System.out.println("Init weights to 1.  Theta= "+theta);
 		// loop through all instances
 		for (int ii = 0; ii < trainingList.size(); ii++){
-			Instance inst = (Instance) trainingList.get(ii);
+			Instance inst = trainingList.get(ii);
 			Labeling labeling = inst.getLabeling ();
 			FeatureVector fv = (FeatureVector) inst.getData ();
 			double[] results = new double [numLabels]; 

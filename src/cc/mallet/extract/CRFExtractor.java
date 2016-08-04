@@ -50,7 +50,7 @@ public class CRFExtractor implements Extractor {
   public CRFExtractor (CRF crf, Pipe tokpipe, TokenizationFilter filter, String backgroundTag) {
     this.crf = crf;
     tokenizationPipe = tokpipe;
-    featurePipe = (Pipe) crf.getInputPipe ();
+    featurePipe = crf.getInputPipe ();
     this.filter = filter;
     this.backgroundTag = backgroundTag;
    }
@@ -76,7 +76,8 @@ public class CRFExtractor implements Extractor {
 
 
 
-  public Extraction extract (Object o)
+  @Override
+public Extraction extract (Object o)
   {
     // I don't think there's a polymorphic way to do this. b/c Java sucks. -cas
     if (o instanceof Tokenization) {
@@ -99,7 +100,8 @@ public class CRFExtractor implements Extractor {
   }
 
 
-  public Extraction extract (Tokenization spans)
+  @Override
+public Extraction extract (Tokenization spans)
   {
     // We assume the input is unpiped.
     Instance carrier = featurePipe.pipe (new Instance (spans, null, null, null));
@@ -143,7 +145,8 @@ public class CRFExtractor implements Extractor {
     return extraction;
 	}
 	
-  public Extraction extract (Iterator<Instance> source)
+  @Override
+public Extraction extract (Iterator<Instance> source)
   {
     Extraction extraction = new Extraction (this, getTargetAlphabet ());
     // Put all the instances through both pipes, then get viterbi path
@@ -181,19 +184,22 @@ public class CRFExtractor implements Extractor {
     return backgroundTag;
   }
 
-  public Pipe getTokenizationPipe ()
+  @Override
+public Pipe getTokenizationPipe ()
   {
     return tokenizationPipe;
   }
 
 
-  public void setTokenizationPipe (Pipe tokenizationPipe)
+  @Override
+public void setTokenizationPipe (Pipe tokenizationPipe)
   {
     this.tokenizationPipe = tokenizationPipe;
   }
 
 
-  public Pipe getFeaturePipe ()
+  @Override
+public Pipe getFeaturePipe ()
   {
     return featurePipe;
   }
@@ -204,13 +210,15 @@ public class CRFExtractor implements Extractor {
     this.featurePipe = featurePipe;
   }
 
-  public Alphabet getInputAlphabet ()
+  @Override
+public Alphabet getInputAlphabet ()
   {
     return crf.getInputAlphabet ();
   }
 
 
-  public LabelAlphabet getTargetAlphabet ()
+  @Override
+public LabelAlphabet getTargetAlphabet ()
   {
     return (LabelAlphabet) crf.getOutputAlphabet ();
   }
@@ -255,7 +263,7 @@ public class CRFExtractor implements Extractor {
     in.defaultReadObject ();
     int version = in.readInt ();
     if ((version == 0) || (featurePipe == null)) {
-      featurePipe = (Pipe) crf.getInputPipe ();
+      featurePipe = crf.getInputPipe ();
     }
     if (version < 2) {
       filter = new BIOTokenizationFilter ();

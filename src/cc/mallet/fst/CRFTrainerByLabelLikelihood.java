@@ -74,11 +74,15 @@ public class CRFTrainerByLabelLikelihood extends TransducerTrainer implements Tr
 		this.crf = crf;
 	}
 	
+	@Override
 	public Transducer getTransducer() { return crf; }
 	public CRF getCRF () { return crf; }
+	@Override
 	public Optimizer getOptimizer() { return opt; }
 	public boolean isConverged() { return converged; }
+	@Override
 	public boolean isFinishedTraining() { return converged; }
+	@Override
 	public int getIteration () { return iterationCount; }
 	
 
@@ -139,6 +143,7 @@ public class CRFTrainerByLabelLikelihood extends TransducerTrainer implements Tr
 	}
 
 
+	@Override
 	public boolean train (InstanceList trainingSet, int numIterations) {
 		if (numIterations <= 0)
 			return false;
@@ -332,7 +337,7 @@ public class CRFTrainerByLabelLikelihood extends TransducerTrainer implements Tr
 							(LabelAlphabet)theTrainingData.getTargetAlphabet());
 				int prevLabelIndex = 0;					// This will put extra error instances in this cluster
 				for (int j = 0; j < trueOutput.size(); j++) {
-					Label label = (Label) ((LabelSequence)trueOutput).getLabelAtPosition(j);
+					Label label = ((LabelSequence)trueOutput).getLabelAtPosition(j);
 					assert (label != null);
 					//System.out.println ("Instance="+i+" position="+j+" fv="+lattice.getLabelingAtPosition(j).toString(true));
 					LabelVector latticeLabeling = lattice.getLabelingAtPosition(j);

@@ -13,7 +13,6 @@ import junit.framework.TestSuite;
 import java.io.IOException;
 import java.io.Serializable;
 
-import cc.mallet.types.Alphabet;
 import cc.mallet.types.Label;
 import cc.mallet.types.LabelAlphabet;
 

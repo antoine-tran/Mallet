@@ -17,6 +17,7 @@ import cc.mallet.types.SparseVector;
 
 public class InfiniteDistance implements Metric {
 
+	@Override
 	public double distance(SparseVector a, SparseVector b)    {
 		double maxDiff = 0.0;
 		double diff;

@@ -40,6 +40,7 @@ public class InstanceWithConfidence implements Comparable{
 		this.correct = correct;
 	}
 
+	@Override
 	public int compareTo (Object o) {
 		InstanceWithConfidence inst = (InstanceWithConfidence) o;
 		if (this.confidence > inst.confidence)

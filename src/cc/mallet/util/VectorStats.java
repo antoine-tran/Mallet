@@ -45,7 +45,7 @@ public class VectorStats {
 		TIntHashSet hIndices = new TIntHashSet(instances.getDataAlphabet().size());
 
 		while (instanceItr.hasNext()) {
-			instance = (Instance) instanceItr.next();
+			instance = instanceItr.next();
 			v = (SparseVector) (instance.getData());
 			indices = v.getIndices();
 
@@ -129,10 +129,10 @@ public class VectorStats {
 
 		Iterator<Instance> instanceItr = instances.iterator();
 
-		double factor = 1.0 / (double) instances.size();
+		double factor = 1.0 / instances.size();
 
 		while (instanceItr.hasNext()) {
-			instance = (Instance) instanceItr.next();
+			instance = instanceItr.next();
 			v = (SparseVector) (instance.getData());
 
 			meanVector.plusEqualsSparse(v, factor);
@@ -171,7 +171,7 @@ public class VectorStats {
 		if (instances == null || instances.size() == 0)
 			return null;
 
-		double factor = 1.0 / (double) (instances.size() - (unbiased ? 1.0 : 0.0));
+		double factor = 1.0 / (instances.size() - (unbiased ? 1.0 : 0.0));
 
 		System.out.println("factor = " + factor);
 
@@ -187,7 +187,7 @@ public class VectorStats {
 		Instance instance;
 
 		while (instanceItr.hasNext()) {
-			instance = (Instance) instanceItr.next();
+			instance = instanceItr.next();
 			v = (SparseVector) ((SparseVector) (instance.getData())).cloneMatrix();
 			v.timesEqualsSparse(v);
 

@@ -43,6 +43,7 @@ public class Neighbor implements Serializable {
 		return modified;
 	}
 
+	@Override
 	public String toString() {
 		return "original=" + original + "\nmodified=" + modified;
 	}

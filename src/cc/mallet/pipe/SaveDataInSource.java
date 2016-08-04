@@ -26,6 +26,7 @@ public class SaveDataInSource extends Pipe implements Serializable
 	{
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		carrier.setSource (carrier.getData());

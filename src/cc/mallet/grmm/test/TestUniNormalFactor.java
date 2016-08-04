@@ -82,7 +82,7 @@ public class TestUniNormalFactor extends TestCase {
         theSuite.addTest (new TestUniNormalFactor (args[i]));
       }
     } else {
-      theSuite = (TestSuite) suite ();
+      theSuite = suite ();
     }
 
     junit.textui.TestRunner.run (theSuite);

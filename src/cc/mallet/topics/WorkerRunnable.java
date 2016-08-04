@@ -10,11 +10,6 @@ package cc.mallet.topics;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-import java.util.zip.*;
-
-import java.io.*;
-import java.text.NumberFormat;
-
 import cc.mallet.types.*;
 import cc.mallet.util.Randoms;
 
@@ -167,7 +162,7 @@ public class WorkerRunnable implements Runnable {
 			TopicAssignment document = data.get(doc);
 
             FeatureSequence tokens = (FeatureSequence) document.instance.getData();
-            FeatureSequence topicSequence =  (FeatureSequence) document.topicSequence;
+            FeatureSequence topicSequence =  document.topicSequence;
 
             int[] topics = topicSequence.getFeatures();
             for (int position = 0; position < tokens.size(); position++) {
@@ -237,6 +232,7 @@ public class WorkerRunnable implements Runnable {
 	}
 
 
+	@Override
 	public void run () {
 
 		try {
@@ -270,7 +266,7 @@ public class WorkerRunnable implements Runnable {
 				FeatureSequence tokenSequence =
 					(FeatureSequence) data.get(doc).instance.getData();
 				LabelSequence topicSequence =
-					(LabelSequence) data.get(doc).topicSequence;
+					data.get(doc).topicSequence;
 				
 				sampleTopicsForOneDoc (tokenSequence, topicSequence,
 									   true);

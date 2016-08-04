@@ -19,7 +19,6 @@ import java.util.regex.*;
 import java.util.HashMap;
 import gnu.trove.TObjectIntHashMap;
 import java.util.Set;
-import java.util.Iterator;
 
 // xxx A not very space-efficient version.  I'll compress it later.
 
@@ -59,7 +58,7 @@ public class StringEditFeatureVectorSequence extends FeatureVectorSequence imple
       Set keys = lexic.keySet();
       java.util.Iterator iter = keys.iterator();
       while (iter.hasNext())
-        this.lexicon.put((String) iter.next(), 1);
+        this.lexicon.put(iter.next(), 1);
     }
 
     this.string1 = s1;
@@ -205,7 +204,8 @@ public class StringEditFeatureVectorSequence extends FeatureVectorSequence imple
     return lexicon.containsKey(str);
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     StringBuffer sb = new StringBuffer ();
     sb.append (super.toString());

@@ -212,10 +212,12 @@ public abstract class Pipe implements Serializable, AlphabetCarrying
 		return targetAlphabet;
 	}
 	
+	@Override
 	public Alphabet getAlphabet () {
 		return getDataAlphabet();
 	}
 	
+	@Override
 	public Alphabet[] getAlphabets()
 	{
 		return new Alphabet[] {getDataAlphabet(), getTargetAlphabet()};
@@ -286,7 +288,9 @@ public abstract class Pipe implements Serializable, AlphabetCarrying
 		public SimplePipeInstanceIterator (Iterator<Instance> source) {
 			this.source = source;
 		}
+		@Override
 		public boolean hasNext () { return source.hasNext(); }
+		@Override
 		public Instance next() { 
 			Instance input = source.next();
 			if (!precondition(input))
@@ -297,6 +301,7 @@ public abstract class Pipe implements Serializable, AlphabetCarrying
 		/** Return the @link{Pipe} that processes @link{Instance}s going through this iterator. */ 
 		public Pipe getPipe () { return null; }
 		public Iterator<Instance> getSourceIterator () { return source; }
+		@Override
 		public void remove() { throw new IllegalStateException ("Not supported."); }
 	}
 

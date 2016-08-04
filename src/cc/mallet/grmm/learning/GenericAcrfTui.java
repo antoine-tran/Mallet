@@ -28,10 +28,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import cc.mallet.grmm.inference.Inferencer;
-import cc.mallet.optimize.Optimizer;
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.LineGroupIterator;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Instance;
 import cc.mallet.util.*;

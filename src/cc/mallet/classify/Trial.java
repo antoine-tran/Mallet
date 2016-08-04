@@ -12,12 +12,8 @@ package cc.mallet.classify;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Logger;
 
-import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
-import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Label;
@@ -50,6 +46,7 @@ public class Trial extends ArrayList<Classification>
 			this.add (c.classify (instance));
 	}
 	
+	@Override
 	public boolean add (Classification c)
 	{
 		if (c.getClassifier() != this.classifier)
@@ -57,6 +54,7 @@ public class Trial extends ArrayList<Classification>
 		return super.add (c);
 	}
 	
+	@Override
 	public void add (int index, Classification c) 
 	{
 		if (c.getClassifier() != this.classifier)
@@ -64,6 +62,7 @@ public class Trial extends ArrayList<Classification>
 		super.add (index, c);
 	}
 	
+	@Override
 	public boolean addAll(Collection<? extends Classification> collection) {
 		boolean ret = true;
 		for (Classification c : collection)
@@ -72,6 +71,7 @@ public class Trial extends ArrayList<Classification>
 		return ret;
 	}
 	
+	@Override
 	public boolean addAll (int index, Collection<? extends Classification> collection) {
 		throw new IllegalStateException ("Not implemented.");
 	}

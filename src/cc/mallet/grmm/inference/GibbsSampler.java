@@ -9,7 +9,6 @@ package cc.mallet.grmm.inference;
 //import edu.umass.cs.mallet.users.casutton.util.Timing;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
@@ -49,12 +48,14 @@ public class GibbsSampler implements Sampler {
     this.burnin = burnin;
   }
 
-  public void setRandom (Randoms r)
+  @Override
+public void setRandom (Randoms r)
   {
     this.r = r;
   }
 
-  public Assignment sample (FactorGraph mdl, int N)
+  @Override
+public Assignment sample (FactorGraph mdl, int N)
   {
 //    initForGraph (mdl);
     Assignment assn = initialAssignment (mdl);

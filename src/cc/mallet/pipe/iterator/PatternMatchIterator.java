@@ -11,11 +11,9 @@
 
 package cc.mallet.pipe.iterator;
 
-import java.io.*;
 import java.util.Iterator;
 import java.util.regex.*;
 
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 
 /** Iterates over matching regular expresions. E.g. 
@@ -50,7 +48,8 @@ public class PatternMatchIterator implements Iterator<Instance>
   
   // The PipeInputIterator interface
   
-  public Instance next ()
+  @Override
+public Instance next ()
   {
     assert (nextElement != null);
     Instance carrier = new Instance (nextElement, null, "element"+elementIndex++,
@@ -59,8 +58,10 @@ public class PatternMatchIterator implements Iterator<Instance>
     return carrier;
   }
   
-  public boolean hasNext () { return nextElement != null; }
+  @Override
+public boolean hasNext () { return nextElement != null; }
  
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

@@ -30,7 +30,8 @@ public class TestPipeUtils extends TestCase {
 
   private static class StupidPipe extends Pipe {
 
-    public Instance pipe (Instance carrier)
+    @Override
+	public Instance pipe (Instance carrier)
     {
       System.out.println ("StupidPipe says hi.");
       return carrier;

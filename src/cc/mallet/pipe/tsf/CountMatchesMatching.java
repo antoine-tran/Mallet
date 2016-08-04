@@ -50,6 +50,7 @@ public class CountMatchesMatching extends Pipe
 	}
 	
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

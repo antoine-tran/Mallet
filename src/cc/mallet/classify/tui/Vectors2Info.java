@@ -14,9 +14,6 @@ package cc.mallet.classify.tui;
 import java.util.logging.*;
 import java.io.*;
 
-import cc.mallet.classify.*;
-import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
 /**
@@ -49,6 +46,7 @@ public class Vectors2Info
 	static CommandOption.String printMatrix = new CommandOption.String(Vectors2Info.class, "print-matrix", "STRING", false, "sic",
 	 "Print word/document matrix in the specified format (a|s)(b|i)(n|w|c|e), for (all vs. sparse), (binary vs. integer), (number vs. word vs. combined vs. empty)", null)
 	{
+		@Override
 		public void parseArg(java.lang.String arg) {
 
 			if (arg == null) arg = this.defaultValue;

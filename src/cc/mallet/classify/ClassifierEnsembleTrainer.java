@@ -16,14 +16,16 @@ public class ClassifierEnsembleTrainer extends ClassifierTrainer<ClassifierEnsem
 {
   Classifier[] classifiers;
 	ClassifierEnsemble classifier;
+	@Override
 	public ClassifierEnsemble getClassifier () { return classifier; }
 
   public ClassifierEnsembleTrainer (Classifier[] classifiers)
   {
-    this.classifiers = (Classifier[]) classifiers.clone();
+    this.classifiers = classifiers.clone();
   }
 
-  public ClassifierEnsemble train (InstanceList trainingSet)
+  @Override
+public ClassifierEnsemble train (InstanceList trainingSet)
   {
     //if (initialClassifier != null) throw new IllegalArgumentException("initialClassifier not yet supported");
     // Make an instance list, with features being the outputs of the ensemble classifiers

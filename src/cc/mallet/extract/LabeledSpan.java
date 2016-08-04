@@ -46,12 +46,14 @@ public class LabeledSpan implements Span, Serializable {
   public Label getLabel () { return label; }
 
 
-  public String getText ()
+  @Override
+public String getText ()
   {
     return span.getText ();
   }
 
-  public Object getDocument ()
+  @Override
+public Object getDocument ()
   {
     return span.getDocument ();
   }
@@ -66,31 +68,36 @@ public class LabeledSpan implements Span, Serializable {
     this.confidence = c;
   }
 
-  public boolean intersects (Span r)
+  @Override
+public boolean intersects (Span r)
   {
     return span.intersects (r);
   }
 
 
-  public boolean isSubspan (Span r)
+  @Override
+public boolean isSubspan (Span r)
   {
     return span.isSubspan (r);
   }
 
-  public Span intersection (Span r)
+  @Override
+public Span intersection (Span r)
   {
     LabeledSpan other = (LabeledSpan) r;
     Span newSpan = getSpan ().intersection (other.getSpan ());
     return new LabeledSpan (newSpan, label, isBackground, confidence);
   }
 
-  public int getEndIdx ()
+  @Override
+public int getEndIdx ()
   {
     return span.getEndIdx ();
   }
 
 
-  public int getStartIdx ()
+  @Override
+public int getStartIdx ()
   {
     return span.getStartIdx ();
   }
@@ -101,7 +108,8 @@ public class LabeledSpan implements Span, Serializable {
     return isBackground;
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return label.toString ()+" [span "+getStartIdx ()+".."+getEndIdx ()+" confidence="+confidence+"]";
   }

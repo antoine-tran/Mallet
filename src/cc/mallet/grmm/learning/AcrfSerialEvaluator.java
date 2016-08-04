@@ -30,7 +30,8 @@ public class AcrfSerialEvaluator extends ACRFEvaluator {
     this.evals = evals;
   }
 
-  public boolean evaluate (ACRF acrf, int iter, InstanceList training, InstanceList validation, InstanceList testing)
+  @Override
+public boolean evaluate (ACRF acrf, int iter, InstanceList training, InstanceList validation, InstanceList testing)
   {
     boolean ret = true;
     for (Iterator it = evals.iterator (); it.hasNext ();) {
@@ -41,7 +42,8 @@ public class AcrfSerialEvaluator extends ACRFEvaluator {
     return ret;
   }
 
-  public void test (InstanceList gold, List returned, String description)
+  @Override
+public void test (InstanceList gold, List returned, String description)
   {
     for (Iterator it = evals.iterator (); it.hasNext ();) {
       ACRFEvaluator eval =  (ACRFEvaluator) it.next ();

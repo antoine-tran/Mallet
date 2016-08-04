@@ -15,7 +15,6 @@
 package cc.mallet.pipe.tests;
 
 import junit.framework.*;
-import java.util.ArrayList;
 import java.util.regex.*;
 import java.io.IOException;
 
@@ -39,6 +38,7 @@ public class TestInstancePipe extends TestCase
 
 	public static class Array2ArrayIterator extends Pipe
 	{
+		@Override
 		public Instance pipe (Instance carrier) {
 			carrier.setData(new ArrayIterator ((Object[])carrier.getData()));
 			return carrier;
@@ -95,6 +95,7 @@ public class TestInstancePipe extends TestCase
 		return new TestSuite (TestInstancePipe.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

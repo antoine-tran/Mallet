@@ -16,7 +16,6 @@ package cc.mallet.pipe.iterator;
 
 import java.util.Iterator;
 
-import cc.mallet.pipe.*;
 import cc.mallet.types.Instance;
 
 public class ConcatenatedInstanceIterator implements Iterator<Instance>
@@ -37,21 +36,24 @@ public class ConcatenatedInstanceIterator implements Iterator<Instance>
 		for (; iteratorIndex < iterators.length &&
 					 !iterators[iteratorIndex].hasNext(); iteratorIndex++);			
 		if (iteratorIndex < iterators.length)
-			next = (Instance)iterators[iteratorIndex].next();		
+			next = iterators[iteratorIndex].next();		
 	}
 	
+	@Override
 	public boolean hasNext ()
 	{
 		return next != null;
 	}
 
+	@Override
 	public Instance next ()
 	{
-		Instance ret = (Instance)next;
+		Instance ret = next;
 		setNext();		
 		return ret;
 	}
 	
+	@Override
 	public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not support remove()."); }
 }
 

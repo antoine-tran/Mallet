@@ -36,12 +36,14 @@ public class UniformFactor extends AbstractFactor {
 
 
   //
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public double value (Assignment assn)
+  @Override
+public double value (Assignment assn)
   {
     double x = assn.getDouble (var);
     if ((min < x) && (x < max)) {
@@ -51,12 +53,14 @@ public class UniformFactor extends AbstractFactor {
     }
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     if (varsToKeep.contains (var)) {
       return duplicate ();
@@ -65,39 +69,46 @@ public class UniformFactor extends AbstractFactor {
     }
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     val = 1.0 / (max - min);
     return this;
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     double val = r.nextUniform (min, max);
     return new Assignment (var, val);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new UniformFactor (var, min, max);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return Double.isNaN (min) || Double.isNaN (max);
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     return toString ();
   }
 
-  public void multiplyBy (Factor other)
+  @Override
+public void multiplyBy (Factor other)
   {
     if (other instanceof ConstantFactor) {
       val *= other.value (new Assignment ());
@@ -106,7 +117,8 @@ public class UniformFactor extends AbstractFactor {
     }
   }
 
-  public void divideBy (Factor other)
+  @Override
+public void divideBy (Factor other)
   {
     if (other instanceof ConstantFactor) {
       val /= other.value (new Assignment ());
@@ -115,12 +127,14 @@ public class UniformFactor extends AbstractFactor {
     }
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return "[UniformFactor "+var+" "+min+" ... " +max+" ]";
   }
 
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     if (assn.containsVar (var)) {
       return new ConstantFactor (value (assn));

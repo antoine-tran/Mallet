@@ -284,7 +284,7 @@ public class HierarchicalLDA {
 							  NCRPNode node, double weight) {
 		for (NCRPNode child: node.children) {
 			calculateNCRP(nodeWeights, child,
-						  weight + Math.log((double) child.customers / (node.customers + gamma)));
+						  weight + Math.log(child.customers / (node.customers + gamma)));
 		}
 
 		nodeWeights.put(node, weight + Math.log(gamma / (node.customers + gamma)));
@@ -657,7 +657,7 @@ public class HierarchicalLDA {
 	    
 			int i = 0;
 			for (NCRPNode child: children) {
-				weights[i] = (double) child.customers / (gamma + customers);
+				weights[i] = child.customers / (gamma + customers);
 				i++;
 			}
 
@@ -672,7 +672,7 @@ public class HierarchicalLDA {
 
 			int i = 1;
 			for (NCRPNode child: children) {
-				weights[i] = (double) child.customers / (gamma + customers);
+				weights[i] = child.customers / (gamma + customers);
 				i++;
 			}
 

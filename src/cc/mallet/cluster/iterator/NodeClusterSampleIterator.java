@@ -36,6 +36,7 @@ public class NodeClusterSampleIterator extends ClusterSampleIterator {
 		this.numberSamples=numberSamples;
 	}
 	
+	@Override
 	public Instance next () {
 		AgglomerativeNeighbor neighbor = null;
 		

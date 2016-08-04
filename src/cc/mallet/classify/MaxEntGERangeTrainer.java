@@ -13,8 +13,6 @@ import java.util.HashMap;
 import java.util.logging.Logger;
 
 import cc.mallet.classify.constraints.ge.MaxEntGEConstraint;
-import cc.mallet.classify.constraints.ge.MaxEntKLFLGEConstraints;
-import cc.mallet.classify.constraints.ge.MaxEntL2FLGEConstraints;
 import cc.mallet.classify.constraints.ge.MaxEntRangeL2FLGEConstraints;
 import cc.mallet.optimize.LimitedMemoryBFGS;
 import cc.mallet.optimize.Optimizable;
@@ -82,7 +80,8 @@ public class MaxEntGERangeTrainer extends ClassifierTrainer<MaxEnt> implements C
     this.gaussianPriorVariance = variance;
   }
   
-  public MaxEnt getClassifier () {
+  @Override
+public MaxEnt getClassifier () {
     return classifier;
   }
 
@@ -103,7 +102,8 @@ public class MaxEntGERangeTrainer extends ClassifierTrainer<MaxEnt> implements C
     return ge;
   }
 
-  public Optimizer getOptimizer () {
+  @Override
+public Optimizer getOptimizer () {
     getOptimizable(trainingList);
     if (opt == null) {
       opt = new LimitedMemoryBFGS(ge);
@@ -124,15 +124,18 @@ public class MaxEntGERangeTrainer extends ClassifierTrainer<MaxEnt> implements C
     maxIterations = iter;
   }
   
-  public int getIteration () {
+  @Override
+public int getIteration () {
     return numIterations;
   }
 
-  public MaxEnt train (InstanceList trainingList) {
+  @Override
+public MaxEnt train (InstanceList trainingList) {
     return train (trainingList, maxIterations);
   }
 
-  public MaxEnt train (InstanceList train, int maxIterations) {
+  @Override
+public MaxEnt train (InstanceList train, int maxIterations) {
     trainingList = train;
 
     if (constraints == null && constraintsFile != null) {

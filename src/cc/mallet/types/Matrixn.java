@@ -34,7 +34,7 @@ public class Matrixn extends DenseMatrix implements Cloneable {
 		numDimensions = 1;
 		sizes = new int[1];
 		sizes [0] = vals.length;
-		values = (double[]) vals.clone();
+		values = vals.clone();
 	} 
 	
 	/**
@@ -65,12 +65,14 @@ public class Matrixn extends DenseMatrix implements Cloneable {
 	 */
 	public Matrixn (int[] szs, double[] vals) {
 		numDimensions = szs.length;
-		sizes = (int[])szs.clone();
-		values = (double[])vals.clone();
+		sizes = szs.clone();
+		values = vals.clone();
 	}
 	
+	@Override
 	public int getNumDimensions () { return numDimensions; };
 	
+	@Override
 	public int getDimensions (int [] szs) {
 		for ( int i = 0; i < numDimensions; i++ ) {
 	    szs [i] = this.sizes [i];
@@ -78,23 +80,28 @@ public class Matrixn extends DenseMatrix implements Cloneable {
 		return numDimensions;
 	}
 	
+	@Override
 	public double value (int[] indices) {
 		return values [singleIndex (indices)];
 	}
 	
+	@Override
 	public void setValue (int[] indices, double value) {
 		values [singleIndex (indices)] = value;
 	}
 
+	@Override
 	public ConstantMatrix cloneMatrix () {
 		/* The Matrixn constructor will clone the arrays. */
 		return new Matrixn (sizes, values);
 	}
 
+	@Override
 	public Object clone () {
 		return cloneMatrix(); 
 	}
 
+	@Override
 	public int singleIndex (int[] indices) 
 	{
 		return singleIndex (sizes, indices);
@@ -112,6 +119,7 @@ public class Matrixn extends DenseMatrix implements Cloneable {
 	}
 
 	// NOTE: Cut-n-pasted to other singleToIndices method!!
+	@Override
 	public void singleToIndices (int single, int[] indices) {
 		/* must be a better way to do this... */
 		int size = 1;
@@ -144,6 +152,7 @@ public class Matrixn extends DenseMatrix implements Cloneable {
 		} 
 	}
 
+	@Override
 	public boolean equals (Object o) {
 		if (o instanceof Matrixn) {
 			/* This could be extended to work for all Matrixes. */

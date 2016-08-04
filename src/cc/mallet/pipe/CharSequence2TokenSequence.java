@@ -16,17 +16,14 @@ package cc.mallet.pipe;
 
 
 import java.io.*;
-import java.net.URI;
 import java.util.regex.Pattern;
 
 import cc.mallet.extract.StringSpan;
 import cc.mallet.extract.StringTokenization;
 import cc.mallet.types.Instance;
 import cc.mallet.types.SingleInstanceIterator;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.CharSequenceLexer;
-import cc.mallet.util.Lexer;
 
 /**
  *  Pipe that tokenizes a character sequence.  Expects a CharSequence
@@ -58,6 +55,7 @@ public class CharSequence2TokenSequence extends Pipe implements Serializable
 		this (new CharSequenceLexer());
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		CharSequence string = (CharSequence) carrier.getData();

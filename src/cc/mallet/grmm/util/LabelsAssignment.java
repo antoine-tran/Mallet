@@ -139,7 +139,9 @@ public class LabelsAssignment extends Assignment implements AlphabetCarrying {
     return idx2var[0][lvl].getLabelAlphabet ();
   }
 
+	@Override
 	public Alphabet getAlphabet() { return getOutputAlphabet(0); }
+	@Override
 	public Alphabet[] getAlphabets() { return new Alphabet[] { getAlphabet() }; } //hack
 
 }

@@ -27,11 +27,14 @@ public interface Lexer extends Iterator
 
 	// Iterator interface methods
 
+	@Override
 	public boolean hasNext ();
 
 	// Returns token text as a String
+	@Override
 	public Object next ();
 
+	@Override
 	public void remove ();
 
 }

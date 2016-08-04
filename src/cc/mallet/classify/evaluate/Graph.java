@@ -40,8 +40,6 @@ package cc.mallet.classify.evaluate;
 
 import java.awt.*;
 import java.util.*;
-
-import cc.mallet.classify.evaluate.*;
 /**
  * Framework for standard graph. Can hold up to N data series
  */
@@ -90,6 +88,7 @@ public class Graph extends Canvas
 	/**
 	 * Set bounds of canvas
 	 */
+	@Override
 	public void setBounds(int x, int y, int width, int height) 
 	{
 		super.setBounds(x, y, width, height);
@@ -109,7 +108,8 @@ public class Graph extends Canvas
 	/**
      * Paint the graph outline
      */
-    public void paint(Graphics g) 
+    @Override
+	public void paint(Graphics g) 
 	{
 	// set xmin, xmax based on item vector
 		// TODO: make this user defined
@@ -150,6 +150,7 @@ public class Graph extends Canvas
 		}
 	}   
 	
+	@Override
 	public Dimension getPreferredSize() 
 	{
 		return(new Dimension(500, 400));

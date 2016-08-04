@@ -27,6 +27,7 @@ public class Target2LabelSequence extends Pipe implements Serializable
 		super (null, new LabelAlphabet());
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		

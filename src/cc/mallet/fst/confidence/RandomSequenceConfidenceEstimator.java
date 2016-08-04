@@ -11,13 +11,10 @@
 
 package cc.mallet.fst.confidence;
 
-import java.util.logging.*;
 import java.util.*;
 
 import cc.mallet.fst.*;
-import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
-import cc.mallet.util.MalletLogger;
 
 /**
 	 Estimates the confidence of an entire sequence randomly.
@@ -39,6 +36,7 @@ public class RandomSequenceConfidenceEstimator extends TransducerSequenceConfide
 	/**
 		 Calculates the confidence in the tagging of an {@link Instance}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Instance instance,
 																			 Object[] startTags,
 																			 Object[] inTags) {

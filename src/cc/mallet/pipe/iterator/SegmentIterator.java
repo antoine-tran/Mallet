@@ -16,12 +16,8 @@ package cc.mallet.pipe.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.net.URI;
-import java.io.*;
-
 import cc.mallet.fst.*;
 import cc.mallet.pipe.Noop;
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 
 /**
@@ -116,7 +112,7 @@ public class SegmentIterator implements Iterator<Instance>
 		segments = new ArrayList (); // stores predicted <code>Segment</code>s
 		Iterator iter = ilist.iterator ();
 		for (int i=0; i < ilist.size(); i++) {
-			Instance instance = (Instance) ilist.get (i);
+			Instance instance = ilist.get (i);
 			Sequence input = (Sequence) instance.getData ();
 			Sequence trueOutput = (Sequence) instance.getTarget ();
 			Sequence predOutput = (Sequence) predictions.get (i);
@@ -170,6 +166,7 @@ public class SegmentIterator implements Iterator<Instance>
 		this.subIterator = segments.iterator ();
 	}
   // The PipeInputIterator interface
+	@Override
 	public Instance next ()
 	{
 		Segment nextSegment = (Segment) subIterator.next();
@@ -179,10 +176,12 @@ public class SegmentIterator implements Iterator<Instance>
 	public Segment nextSegment () {
 		return (Segment) subIterator.next ();
 	}
+	@Override
 	public boolean hasNext ()	{	return subIterator.hasNext();	}
 
 	public ArrayList toArrayList () { return this.segments; }
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

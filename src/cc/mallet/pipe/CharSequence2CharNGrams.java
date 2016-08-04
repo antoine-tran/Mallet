@@ -48,6 +48,7 @@ public class CharSequence2CharNGrams extends Pipe implements Serializable
 		return ngrams;
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		if (carrier.getData() instanceof CharSequence)

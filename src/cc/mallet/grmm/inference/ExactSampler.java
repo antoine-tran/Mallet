@@ -7,8 +7,6 @@
 package cc.mallet.grmm.inference;
 
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import cc.mallet.grmm.types.*;
@@ -37,7 +35,8 @@ public class ExactSampler implements Sampler {
     this.r = r;
   }
 
-  public Assignment sample (FactorGraph mdl, int N)
+  @Override
+public Assignment sample (FactorGraph mdl, int N)
   {
     JunctionTreeInferencer jti = new JunctionTreeInferencer ();
     jti.computeMarginals (mdl);
@@ -82,7 +81,8 @@ public class ExactSampler implements Sampler {
     return assn;
   }
 
-  public void setRandom (Randoms r)
+  @Override
+public void setRandom (Randoms r)
   {
     this.r = r;
   }

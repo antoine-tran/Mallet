@@ -15,7 +15,6 @@ import java.util.logging.*;
 import java.util.*;
 
 import cc.mallet.fst.*;
-import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
 import cc.mallet.util.MalletLogger;
 

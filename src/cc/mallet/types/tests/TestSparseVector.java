@@ -234,6 +234,7 @@ public class TestSparseVector extends TestCase
 		return new TestSuite (TestSparseVector.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

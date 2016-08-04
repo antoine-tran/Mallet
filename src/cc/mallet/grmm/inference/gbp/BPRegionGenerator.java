@@ -21,7 +21,8 @@ import cc.mallet.grmm.types.Variable;
  */
 public class BPRegionGenerator implements RegionGraphGenerator {
 
-  public RegionGraph constructRegionGraph (FactorGraph mdl)
+  @Override
+public RegionGraph constructRegionGraph (FactorGraph mdl)
   {
     RegionGraph rg = new RegionGraph ();
     for (Iterator it = mdl.factorsIterator (); it.hasNext();) {

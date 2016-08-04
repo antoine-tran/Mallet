@@ -11,8 +11,6 @@ import cc.mallet.types.*;
 import cc.mallet.util.Randoms;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.zip.*;
 
 import java.io.*;

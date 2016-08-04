@@ -7,7 +7,6 @@
 package cc.mallet.extract;
 
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 /**
  * Created: Nov 23, 2004
@@ -24,7 +23,8 @@ public class PunctuationIgnoringComparator implements FieldComparator {
     this.punctuationPattern = punctuationPattern;
   }
 
-  public boolean matches (String fieldVal1, String fieldVal2)
+  @Override
+public boolean matches (String fieldVal1, String fieldVal2)
   {
     String trim1 = doTrim (fieldVal1);
     String trim2 = doTrim (fieldVal2);

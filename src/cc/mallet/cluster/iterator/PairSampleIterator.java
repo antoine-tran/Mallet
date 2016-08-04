@@ -60,10 +60,12 @@ public class PairSampleIterator extends NeighborIterator {
 				nonsingletonClusters[c++] = i;				
 	}
 	
+	@Override
 	public boolean hasNext () {
 	    return totalCount < numberSamples;
 	}
 
+	@Override
 	public Instance next () {
 		AgglomerativeNeighbor neighbor = null;
 		

@@ -215,7 +215,7 @@ public class JunctionTreeInferencer extends AbstractInferencer {
     }
 
     while (!vars.isEmpty()) {
-      Variable v = (Variable) pickVertexToRemove (mdl2, vars);
+      Variable v = pickVertexToRemove (mdl2, vars);
       logger.finer("Triangulating vertex " + v);
 
       VarSet varSet = new BitVarSet (v.getUniverse (), GraphHelper.neighborListOf (mdl2, v));
@@ -281,7 +281,8 @@ public class JunctionTreeInferencer extends AbstractInferencer {
   // mass (number of vertices in common) to ensure that the clique
   // tree satifies the running intersection property.
   private static Comparator sepsetChooser = new Comparator() {
-    public int compare(Object o1, Object o2)
+    @Override
+	public int compare(Object o1, Object o2)
     {
       if (o1 == o2) return 0;
       BitVarSet[] pair1 = (BitVarSet[]) o1;
@@ -413,7 +414,8 @@ public class JunctionTreeInferencer extends AbstractInferencer {
   }
 
 
-  public void computeMarginals (FactorGraph mdl)
+  @Override
+public void computeMarginals (FactorGraph mdl)
   {
     inLogSpace = mdl.getFactor (0) instanceof LogTableFactor;
     buildJunctionTree(mdl);
@@ -467,19 +469,22 @@ public class JunctionTreeInferencer extends AbstractInferencer {
   }
 
 
-  public Factor lookupMarginal(Variable var)
+  @Override
+public Factor lookupMarginal(Variable var)
   {
     return propagator.lookupMarginal (jtCurrent, var);
   }
 
 
-  public Factor lookupMarginal(VarSet varSet)
+  @Override
+public Factor lookupMarginal(VarSet varSet)
   {
     return propagator.lookupMarginal (jtCurrent, varSet);
   }
 
 
-  public double lookupLogJoint(Assignment assn)
+  @Override
+public double lookupLogJoint(Assignment assn)
   {
     return jtCurrent.lookupLogJoint(assn);
   }
@@ -504,7 +509,8 @@ public class JunctionTreeInferencer extends AbstractInferencer {
     return GraphHelper.neighborListOf (g, v).iterator ();
   }
 
-  public void dump ()
+  @Override
+public void dump ()
   {
     if (jtCurrent != null) {
       System.out.println("Current junction tree");

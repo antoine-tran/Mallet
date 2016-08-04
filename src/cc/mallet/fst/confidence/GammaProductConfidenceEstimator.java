@@ -35,6 +35,7 @@ public class GammaProductConfidenceEstimator extends TransducerConfidenceEstimat
 		 Calculates the confidence in the tagging of a {@link Segment}.
 		 @return 0-1 confidence value. higher = more confident.
 	 */
+	@Override
 	public double estimateConfidenceFor (Segment segment, SumLatticeDefault cachedLattice) {
 		Sequence predSequence = segment.getPredicted ();
 		Sequence input = segment.getInput ();

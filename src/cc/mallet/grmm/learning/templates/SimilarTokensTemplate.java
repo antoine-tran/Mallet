@@ -88,7 +88,8 @@ public class SimilarTokensTemplate extends ACRF.SequenceTemplate {
     this.binner = binner;
   }
 
-  public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
+  @Override
+public void addInstantiatedCliques (ACRF.UnrolledGraph graph,
                                       FeatureVectorSequence fvs,
                                       LabelsAssignment lblseq)
   {
@@ -201,7 +202,8 @@ public class SimilarTokensTemplate extends ACRF.SequenceTemplate {
       this.wordIncludePattern = wordIncludePattern;
     }
 
-    public String computeBin (FeatureVector fv)
+    @Override
+	public String computeBin (FeatureVector fv)
     {
       String text = intuitTokenText (fv);
       if (text != null) {

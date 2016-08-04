@@ -43,6 +43,7 @@ public class PrintInput extends Pipe implements Serializable
 		stream = out;
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		if (prefix != null)

@@ -26,7 +26,8 @@ public class SparseMessageSender extends AbstractMessageStrategy {
     this.epsilon = epsilon;
   }
 
-  public void sendMessage (RegionEdge edge)
+  @Override
+public void sendMessage (RegionEdge edge)
   {
     Factor product = msgProduct (edge);
     for (Iterator it = edge.factorsToSend.iterator (); it.hasNext ();) {
@@ -53,7 +54,8 @@ public class SparseMessageSender extends AbstractMessageStrategy {
     newMessages.setMessage (edge.from, edge.to, pruned);
   }
 
-  public MessageArray averageMessages (RegionGraph rg, MessageArray a1, MessageArray a2, double inertiaWeight)
+  @Override
+public MessageArray averageMessages (RegionGraph rg, MessageArray a1, MessageArray a2, double inertiaWeight)
   {
     MessageArray arr = new MessageArray (rg);
     for (Iterator it = rg.edgeIterator (); it.hasNext ();) {

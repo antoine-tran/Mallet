@@ -28,6 +28,7 @@ public class TokenFirstPosition extends Pipe implements Serializable {
 	public TokenFirstPosition () {
 	}
 
+	@Override
 	public Instance pipe (Instance instance) {
 
 		TokenSequence sequence = (TokenSequence) instance.getData();

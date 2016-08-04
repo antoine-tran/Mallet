@@ -49,11 +49,13 @@ public class AStar implements Iterator<AStarNode> {
       needNext = false;
     }
   }
-  public boolean hasNext() {
+  @Override
+public boolean hasNext() {
     lookAhead();
     return answer != null;
   }
-  public AStarNode next() { return nextAnswer(); }
+  @Override
+public AStarNode next() { return nextAnswer(); }
   /**
    * Get the next search node for a final state.
    * @return a final search node
@@ -63,7 +65,8 @@ public class AStar implements Iterator<AStarNode> {
     needNext = true;
     return answer;
   }
-  public void remove() {
+  @Override
+public void remove() {
     throw new UnsupportedOperationException();
   }
   private AStarNode search() {

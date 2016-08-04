@@ -14,13 +14,9 @@
 
 package cc.mallet.pipe.iterator;
 
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.io.*;
-import java.net.URI;
 import java.util.regex.*;
 
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Instance;
 
 public class FileUriIterator extends FileIterator
@@ -45,6 +41,7 @@ public class FileUriIterator extends FileIterator
 		super (directory, null, targetPattern);
 	}
 
+	@Override
 	public Instance next ()
 	{
 		Instance carrier = super.next();

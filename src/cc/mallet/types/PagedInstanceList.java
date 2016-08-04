@@ -18,8 +18,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.rmi.dgc.VMID;
 import java.util.BitSet;
-import java.util.Map;
-
 import cc.mallet.pipe.Noop;
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.FeatureVector;
@@ -161,7 +159,8 @@ public class PagedInstanceList extends InstanceList
      * @param r The source of randomness to use in shuffling.
      * @return one <code>InstanceList</code> for each element of <code>proportions</code>
      */
-    public InstanceList[] split (java.util.Random r, double[] proportions) {
+    @Override
+	public InstanceList[] split (java.util.Random r, double[] proportions) {
         InstanceList[] ret = new InstanceList[proportions.length];
         double maxind[] = proportions.clone();
         int size = size();
@@ -316,7 +315,8 @@ public class PagedInstanceList extends InstanceList
      * catch OutOfMemoryError.
      * @return <code>true</code> if successful
      */
-    public boolean add (Instance instance) {
+    @Override
+	public boolean add (Instance instance) {
         InstanceList page;
         if (this.size % this.instancesPerPage == 0) {
             // this is the start of a new page, swap out the one in this pages
@@ -340,7 +340,8 @@ public class PagedInstanceList extends InstanceList
     /** Returns the <code>Instance</code> at the specified index. If
      * this Instance is not in memory, swap a block of instances back
      * into memory. */
-    public Instance get (int index) {
+    @Override
+	public Instance get (int index) {
         InstanceList page = getPageForIndex (index, false);
         return page.get (index % this.instancesPerPage);
     }
@@ -348,7 +349,8 @@ public class PagedInstanceList extends InstanceList
     /** Replaces the <code>Instance</code> at position
      * <code>index</code> with a new one. Note that this is the only
      * sanctioned way of changing an Instance. */
-    public Instance set (int index, Instance instance) {
+    @Override
+	public Instance set (int index, Instance instance) {
         InstanceList page = getPageForIndex (index, true);
         return page.set (index % this.instancesPerPage, instance);
     }
@@ -362,7 +364,8 @@ public class PagedInstanceList extends InstanceList
     
     }
 
-    public InstanceList shallowClone () {
+    @Override
+	public InstanceList shallowClone () {
         InstanceList ret = this.cloneEmpty ();
         for (int i = 0; i < this.size (); i++) {
             ret.add (get (i));
@@ -370,7 +373,8 @@ public class PagedInstanceList extends InstanceList
         return ret;
     }
 
-    public InstanceList cloneEmpty () {
+    @Override
+	public InstanceList cloneEmpty () {
         return super.cloneEmptyInto (new PagedInstanceList (
                 this.pipe,
                 this.inMemoryPages.length,
@@ -378,7 +382,8 @@ public class PagedInstanceList extends InstanceList
                 this.swapDir)); 
     }
 
-    public void clear () {
+    @Override
+	public void clear () {
         int numPages = this.size / this.instancesPerPage;
         for (int i = 0; i <= numPages; i++) {
             getFileForPage (i).delete ();
@@ -412,7 +417,8 @@ public class PagedInstanceList extends InstanceList
         return this.swapOutTime;
     }
 
-    public int size () {
+    @Override
+	public int size () {
         return this.size;
     }
     

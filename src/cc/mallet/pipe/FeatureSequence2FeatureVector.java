@@ -40,6 +40,7 @@ public class FeatureSequence2FeatureVector extends Pipe implements Serializable
 	}
 	
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		FeatureSequence fs = (FeatureSequence) carrier.getData();

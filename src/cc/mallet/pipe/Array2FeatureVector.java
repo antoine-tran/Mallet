@@ -57,6 +57,7 @@ public class Array2FeatureVector extends Pipe {
 	@throws IllegalStateException If <CODE>Instance.getTarget()</CODE> is
 	not a Labeling
 	 */
+	@Override
 	public Instance pipe(  Instance carrier )
 	throws IllegalStateException
 	{

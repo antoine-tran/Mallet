@@ -13,11 +13,7 @@ package cc.mallet.pipe.iterator;
 
 import java.io.*;
 import java.util.Iterator;
-import java.util.regex.*;
 import java.net.URI;
-import java.net.URISyntaxException;
-
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 
 public class SimpleFileLineIterator implements Iterator<Instance> {
@@ -55,6 +51,7 @@ public class SimpleFileLineIterator implements Iterator<Instance> {
 		progressDisplayInterval = interval;
 	}
 
+	@Override
 	public Instance next () {
 
 		URI uri = null;
@@ -82,6 +79,7 @@ public class SimpleFileLineIterator implements Iterator<Instance> {
 		return new Instance (currentLine, null, uri, null);
 	}
 
+	@Override
 	public boolean hasNext ()	{	
 		hasNextUsed = true; 
 		try {
@@ -93,6 +91,7 @@ public class SimpleFileLineIterator implements Iterator<Instance> {
 		return (currentLine != null);	
 	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

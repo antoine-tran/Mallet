@@ -51,13 +51,17 @@ public class AGIS implements Optimizer
 		this.backTrack = backTrack;
 	}
 	
+	@Override
 	public Optimizable getOptimizable () { return maxable; }
+	@Override
 	public boolean isConverged () { return converged; }
 
+	@Override
 	public boolean optimize () {
 		return optimize (maxIterations);
 	}
 	
+	@Override
 	public boolean optimize (int numIterations)
 	{
 		int iterations;

@@ -23,7 +23,8 @@ public class LongRegexMatches extends Pipe implements java.io.Serializable {
         this.max = max;
 	}
 
-    public Instance pipe (Instance carrier) {
+    @Override
+	public Instance pipe (Instance carrier) {
         TokenSequence ts = (TokenSequence) carrier.getData();
         boolean[] marked = new boolean[ts.size()]; // avoid setting features twice
 

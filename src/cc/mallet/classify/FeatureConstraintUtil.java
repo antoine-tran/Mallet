@@ -621,7 +621,8 @@ public class FeatureConstraintUtil {
       this.value = value;
     }
     
-    public int compareTo(Element element) {
+    @Override
+	public int compareTo(Element element) {
       return Double.compare(this.value, element.value);
     }
   }

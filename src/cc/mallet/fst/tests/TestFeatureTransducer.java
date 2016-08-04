@@ -40,6 +40,7 @@ public class TestFeatureTransducer extends TestCase
 	ArrayListSequence seq;
 	double seqWeight;
 
+	@Override
 	public void setUp ()
 	{
 		System.out.println ("Setup");

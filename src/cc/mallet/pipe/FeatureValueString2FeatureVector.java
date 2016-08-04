@@ -39,6 +39,7 @@ public class FeatureValueString2FeatureVector extends Pipe implements Serializab
 		super(new Alphabet(), null);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier) {
 
 		String[] fields = carrier.getData().toString().split("\\s+");

@@ -7,17 +7,12 @@ information, see the file `LICENSE' included with this distribution. */
 
 package cc.mallet.classify.tui;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.*;
-import java.util.regex.*;
 import java.io.*;
 import java.nio.charset.Charset;
 
 import cc.mallet.classify.*;
-import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.SerialPipes;
-import cc.mallet.pipe.SvmLight2FeatureVectorAndLabel;
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.*;
 import cc.mallet.util.*;

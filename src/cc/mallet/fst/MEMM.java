@@ -55,6 +55,7 @@ public class MEMM extends CRF implements Serializable
 		super (crf);
 	}
 
+	@Override
 	protected CRF.State newState (String name, int index,
 			double initialWeight, double finalWeight,
 			String[] destinationNames,
@@ -81,6 +82,7 @@ public class MEMM extends CRF implements Serializable
 		}
 
 		// Necessary because the CRF4 implementation will return CRF4.TransitionIterator
+		@Override
 		public Transducer.TransitionIterator transitionIterator (
 				Sequence inputSequence, int inputPosition,
 				Sequence outputSequence, int outputPosition)
@@ -127,6 +129,7 @@ public class MEMM extends CRF implements Serializable
 			}
 		}
 
+		@Override
 		public String describeTransition (double cutoff)
 		{
 			DecimalFormat f = new DecimalFormat ("0.###");

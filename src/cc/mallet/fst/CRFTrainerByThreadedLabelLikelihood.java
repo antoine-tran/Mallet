@@ -44,11 +44,15 @@ public class CRFTrainerByThreadedLabelLikelihood extends TransducerTrainer imple
 		this.cachedWeightsStructureStamp = -1;
 	}
 	
+	@Override
 	public Transducer getTransducer() { return crf; }
 	public CRF getCRF () { return crf; }
+	@Override
 	public Optimizer getOptimizer() { return optimizer; }
 	public boolean isConverged() { return converged; }
+	@Override
 	public boolean isFinishedTraining() { return converged; }
+	@Override
 	public int getIteration () { return iterationCount; }
 	public void setGaussianPriorVariance (double p) { gaussianPriorVariance = p; }
 	public double getGaussianPriorVariance () { return gaussianPriorVariance; }
@@ -116,6 +120,7 @@ public class CRFTrainerByThreadedLabelLikelihood extends TransducerTrainer imple
 		return train (training, Integer.MAX_VALUE);
 	}
 
+	@Override
 	public boolean train (InstanceList trainingSet, int numIterations) {
 		if (numIterations <= 0) {
 			return false;

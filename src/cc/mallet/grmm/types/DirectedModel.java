@@ -50,7 +50,8 @@ public class DirectedModel extends FactorGraph {
     super (capacity);
   }
 
-  protected void beforeFactorAdd (Factor factor)
+  @Override
+protected void beforeFactorAdd (Factor factor)
   {
     super.beforeFactorAdd (factor);
     if (!(factor instanceof CPT)) {
@@ -76,7 +77,8 @@ public class DirectedModel extends FactorGraph {
     }
   }
 
-  protected void afterFactorAdd (Factor factor)
+  @Override
+protected void afterFactorAdd (Factor factor)
   {
     super.afterFactorAdd (factor);
     CPT cpt = (CPT) factor;

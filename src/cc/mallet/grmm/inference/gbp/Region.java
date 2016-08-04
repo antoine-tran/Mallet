@@ -108,7 +108,8 @@ class Region {
   }
   */
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     // No display of factors
     StringBuffer buf = new StringBuffer ();

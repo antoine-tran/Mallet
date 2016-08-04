@@ -44,6 +44,7 @@ public class TokenSequence2FeatureSequenceWithBigrams extends Pipe
 		return biDictionary;
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

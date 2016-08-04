@@ -563,7 +563,7 @@ public class LDAStream extends LDAHyper {
 			pw.println(dataset.get(di).instance.getName());
 			// n(t|d)+alpha(t) / docLen + alphaSum
 			for (int topic = 0; topic < numTopics; topic++) {
-				double prob = (double) (topicCounts[topic]+alpha[topic]) / (docLen + alphaSum);
+				double prob = (topicCounts[topic]+alpha[topic]) / (docLen + alphaSum);
 				pw.println("topic"+ topic + "\t" + prob);
 			}
 
@@ -597,7 +597,7 @@ public class LDAStream extends LDAHyper {
 				String word = (String) alphabet.lookupObject(fi);
 				int count = (int) fv.valueAtLocation(pos);
 				double prob;
-				prob = (double) (count+beta)/(tokensPerTopic[ti] + betaSum);
+				prob = (count+beta)/(tokensPerTopic[ti] + betaSum);
 				pw.println(word + "\t" + prob);
 			}
 			pw.println();
@@ -665,7 +665,7 @@ public class LDAStream extends LDAHyper {
 			
 			// And normalize and smooth by Dirichlet prior alpha
 			for (int topic = 0; topic < numTopics; topic++) {
-				sortedTopics[topic].set(topic, (double) (topicCounts[topic]+alpha[topic]) / (docLen + alphaSum));
+				sortedTopics[topic].set(topic, (topicCounts[topic]+alpha[topic]) / (docLen + alphaSum));
 			}
      
 			Arrays.sort(sortedTopics);

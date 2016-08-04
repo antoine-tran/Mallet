@@ -47,15 +47,20 @@ public class LabelsSequence implements Sequence, AlphabetCarrying, Serializable
     }
   }
 
+	@Override
 	public Alphabet getAlphabet () { return seq[0].getAlphabet(); }
+	@Override
 	public Alphabet[] getAlphabets () { return seq[0].getAlphabets(); }
 
-  public int size () { return seq.length; }
+  @Override
+public int size () { return seq.length; }
 
+	@Override
 	public Object get (int i) { return seq[i]; }
 
 	public Labels getLabels (int i) { return seq[i]; }
 
+	@Override
 	public String toString ()
 	{
 		String ret = "LabelsSequence:\n";

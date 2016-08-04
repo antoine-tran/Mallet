@@ -45,7 +45,8 @@ public class PrintUtilities implements Printable {
       }
   }
 
-  public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
+  @Override
+public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
     if (pageIndex > 0) {
       return(NO_SUCH_PAGE);
     } else {

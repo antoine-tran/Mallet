@@ -7,11 +7,9 @@
 
 package cc.mallet.pipe;
 
-import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.io.*;
 
 import cc.mallet.pipe.Pipe;
@@ -81,6 +79,7 @@ public class SerialPipes extends Pipe implements Serializable
 	// This method removed because pipes should be immutable to be safe.
 	// If you need an augmented pipe, you can make a new SerialPipes containing this one.
 
+	@Override
 	public void setTargetProcessing (boolean lookForAndProcessTarget)
 	{
 		super.setTargetProcessing (lookForAndProcessTarget);
@@ -88,6 +87,7 @@ public class SerialPipes extends Pipe implements Serializable
 			p.setTargetProcessing (lookForAndProcessTarget);
 	}
 	
+	@Override
 	public Iterator<Instance> newIteratorFrom (Iterator<Instance> source)
 	{
 		if (pipes.size() == 0)
@@ -119,6 +119,7 @@ public class SerialPipes extends Pipe implements Serializable
 		return pipes;
 	}
 	
+	@Override
 	public String toString ()
 	{
 		StringBuffer sb = new StringBuffer();

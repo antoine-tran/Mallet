@@ -15,7 +15,6 @@
 package cc.mallet.types;
 
 import java.util.logging.*;
-import java.util.BitSet;
 import java.io.*;
 
 import cc.mallet.util.MalletLogger;

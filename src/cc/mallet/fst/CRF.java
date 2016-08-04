@@ -349,12 +349,15 @@ public class CRF extends Transducer implements Serializable
 		/** Instances of this inner class can be passed to various inference methods, which can then 
 		 * gather/increment sufficient statistics counts into the containing Factor instance. */
 		public class Incrementor implements Transducer.Incrementor {
+			@Override
 			public void incrementFinalState(Transducer.State s, double count) {
 				finalWeights[s.getIndex()] += count;
 			}
+			@Override
 			public void incrementInitialState(Transducer.State s, double count) {
 				initialWeights[s.getIndex()] += count;
 			}
+			@Override
 			public void incrementTransition(Transducer.TransitionIterator ti, double count) {
 				int index = ti.getIndex();
 				CRF.State source = (CRF.State)ti.getSourceState(); 
@@ -394,12 +397,15 @@ public class CRF extends Transducer implements Serializable
 			public WeightedIncrementor (double instanceWeight) { 
 				this.instanceWeight = instanceWeight; 
 			}
+			@Override
 			public void incrementFinalState(Transducer.State s, double count) {
 				finalWeights[s.getIndex()] += count * instanceWeight;
 			}
+			@Override
 			public void incrementInitialState(Transducer.State s, double count) {
 				initialWeights[s.getIndex()] += count * instanceWeight;
 			}
+			@Override
 			public void incrementTransition(Transducer.TransitionIterator ti, double count) {
 				int index = ti.getIndex();
 				CRF.State source = (CRF.State)ti.getSourceState(); 
@@ -1262,6 +1268,7 @@ public class CRF extends Transducer implements Serializable
 			if (output != null && output.size() > 0) {
 				// Do it for the paths consistent with the labels...
 				sumLatticeFactory.newSumLattice (this, input, output, new Transducer.Incrementor() {
+					@Override
 					public void incrementTransition (Transducer.TransitionIterator ti, double count) {
 						State source = (CRF.State)ti.getSourceState();
 						FeatureVector input = (FeatureVector)ti.getInput();
@@ -1279,7 +1286,9 @@ public class CRF extends Transducer implements Serializable
 							}
 						}
 					}
+					@Override
 					public void incrementInitialState (Transducer.State s, double count) {	}
+					@Override
 					public void incrementFinalState (Transducer.State s, double count) {	}
 				});
 			}
@@ -1289,6 +1298,7 @@ public class CRF extends Transducer implements Serializable
 					logger.fine ("CRF: Incremental training detected.  Adding weights for some unsupported features...");
 				// (do this once some training is done)
 				sumLatticeFactory.newSumLattice (this, input, null, new Transducer.Incrementor() {
+					@Override
 					public void incrementTransition (Transducer.TransitionIterator ti, double count) {
 						if (count < 0.2) // Only create features for transitions with probability above 0.2 
 							return;  // This 0.2 is somewhat arbitrary -akm
@@ -1308,7 +1318,9 @@ public class CRF extends Transducer implements Serializable
 							}
 						}
 					}
+					@Override
 					public void incrementInitialState (Transducer.State s, double count) {	}
+					@Override
 					public void incrementFinalState (Transducer.State s, double count) {	}
 				});
 			}
@@ -1415,11 +1427,14 @@ public class CRF extends Transducer implements Serializable
 		}
 	}
 
+	@Override
 	public int numStates () { return states.size(); }
 
+	@Override
 	public Transducer.State getState (int index) {
 		return states.get(index); }
 
+	@Override
 	public Iterator initialStateIterator () {
 		return initialStates.iterator (); }
 
@@ -1517,7 +1532,7 @@ public class CRF extends Transducer implements Serializable
 	public Sequence[] predict (InstanceList testing) {
 		testing.setFeatureSelection(this.globalFeatureSelection);
 		for (int i = 0; i < featureInducers.size(); i++) {
-			FeatureInducer klfi = (FeatureInducer)featureInducers.get(i);
+			FeatureInducer klfi = featureInducers.get(i);
 			klfi.induceFeaturesFor (testing, false, false);
 		}
 		Sequence[] ret = new Sequence[testing.size()];
@@ -1560,6 +1575,7 @@ public class CRF extends Transducer implements Serializable
 
 	// TODO Put support to Optimizable here, including getValue(InstanceList)??
 
+	@Override
 	public void print ()
 	{
 		print (new PrintWriter (new OutputStreamWriter (System.out), true));
@@ -1719,10 +1735,15 @@ public class CRF extends Transducer implements Serializable
 			crf.weightsStructureChanged();
 		}
 
+		@Override
 		public Transducer getTransducer () { return crf; }
+		@Override
 		public double getInitialWeight () { return crf.parameters.initialWeights[index]; }
+		@Override
 		public void setInitialWeight (double c) { crf.parameters.initialWeights[index]= c; }
+		@Override
 		public double getFinalWeight () { return crf.parameters.finalWeights[index]; }
+		@Override
 		public void setFinalWeight (double c) { crf.parameters.finalWeights[index] = c; }
 
 
@@ -1766,6 +1787,7 @@ public class CRF extends Transducer implements Serializable
 		}
 
 
+		@Override
 		public Transducer.TransitionIterator transitionIterator (Sequence inputSequence, int inputPosition,
 				Sequence outputSequence, int outputPosition)
 		{
@@ -1782,9 +1804,11 @@ public class CRF extends Transducer implements Serializable
 			return new TransitionIterator (this, fv, output, crf);
 		}
 
+		@Override
 		public String getName () { return name; }
 
 		// "final" to make it efficient inside incrementTransition
+		@Override
 		public final int getIndex () { return index; }
 
 		// Serialization
@@ -1869,8 +1893,10 @@ public class CRF extends Transducer implements Serializable
 				nextIndex++;
 		}
 
+		@Override
 		public boolean hasNext ()	{ return nextIndex < source.destinations.length; }
 
+		@Override
 		public Transducer.State nextState ()
 		{
 			assert (nextIndex < source.destinations.length);
@@ -1882,11 +1908,17 @@ public class CRF extends Transducer implements Serializable
 		}
 
 		// These "final"s are just to try to make this more efficient.  Perhaps some of them will have to go away
+		@Override
 		public final int getIndex () { return index; }
+		@Override
 		public final Object getInput () { return input; }
+		@Override
 		public final Object getOutput () { return source.labels[index]; }
+		@Override
 		public final double getWeight () { return weights[index]; }
+		@Override
 		public final Transducer.State getSourceState () { return source; }
+		@Override
 		public final Transducer.State getDestinationState () { return source.getDestinationState (index);	}
 
 		// Serialization
@@ -1917,6 +1949,7 @@ public class CRF extends Transducer implements Serializable
 		}
 
 
+		@Override
 		public String describeTransition (double cutoff)
 		{
 			DecimalFormat f = new DecimalFormat ("0.###");

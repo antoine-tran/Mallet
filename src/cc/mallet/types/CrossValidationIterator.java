@@ -84,7 +84,8 @@ implements java.util.Iterator<InstanceList[]>, Serializable {
     }
     
     
-    public boolean hasNext () {
+    @Override
+	public boolean hasNext () {
         return this.index < this.nfolds;
     }
 
@@ -164,11 +165,13 @@ implements java.util.Iterator<InstanceList[]>, Serializable {
      *         <code>InstanceList[0]</code> contains n-1 folds for training and
      *         <code>InstanceList[1]</code> contains 1 fold for testing.
      */
-    public InstanceList[] next () {
+    @Override
+	public InstanceList[] next () {
         return nextSplit();
     }
     
-    public void remove () {
+    @Override
+	public void remove () {
         throw new UnsupportedOperationException ();
     }
     

@@ -8,39 +8,18 @@
 package cc.mallet.classify;
 
 import java.util.logging.*;
-import java.util.*;
 import java.io.*;
 
-import cc.mallet.classify.Classifier;
 import cc.mallet.optimize.ConjugateGradient;
 import cc.mallet.optimize.InvalidOptimizableException;
 import cc.mallet.optimize.LimitedMemoryBFGS;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.optimize.OptimizationException;
 import cc.mallet.optimize.Optimizer;
-import cc.mallet.optimize.OrthantWiseLimitedMemoryBFGS;
-import cc.mallet.optimize.tests.*;
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.ExpGain;
-import cc.mallet.types.FeatureInducer;
-import cc.mallet.types.FeatureSelection;
-import cc.mallet.types.FeatureVector;
-import cc.mallet.types.GradientGain;
-import cc.mallet.types.InfoGain;
-import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
-import cc.mallet.types.Label;
-import cc.mallet.types.LabelAlphabet;
-import cc.mallet.types.LabelVector;
-import cc.mallet.types.Labeling;
-import cc.mallet.types.MatrixOps;
-import cc.mallet.types.RankedFeatureVector;
-import cc.mallet.types.Vector;
-import cc.mallet.util.CommandOption;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.MalletProgressMessageLogger;
-import cc.mallet.util.Maths;
 
 //Does not currently handle instances that are labeled with distributions
 //instead of a single label.
@@ -100,6 +79,7 @@ public class MaxEntTrainer extends ClassifierTrainer<MaxEnt>
 	//  CLASSIFIER OBJECT: stores parameters
 	// 
 
+	@Override
 	public MaxEnt getClassifier () {
 		if (optimizable != null)
 			return optimizable.getClassifier();
@@ -163,6 +143,7 @@ public class MaxEntTrainer extends ClassifierTrainer<MaxEnt>
 	//  OPTIMIZER OBJECT: maximizes value function
 	//
 
+	@Override
 	public Optimizer getOptimizer () {
 		if (optimizer == null && optimizable != null) {
 			optimizer = new ConjugateGradient(optimizable);
@@ -210,6 +191,7 @@ public class MaxEntTrainer extends ClassifierTrainer<MaxEnt>
 		return this;
 	}
 
+	@Override
 	public int getIteration () {
 		if (optimizable == null)
 			return 0;
@@ -238,10 +220,12 @@ public class MaxEntTrainer extends ClassifierTrainer<MaxEnt>
 		return this;
 	}
 
+	@Override
 	public MaxEnt train (InstanceList trainingSet) {
 		return train (trainingSet, numIterations);
 	}
 
+	@Override
 	public MaxEnt train (InstanceList trainingSet, int numIterations)
 	{
 		logger.fine ("trainingSet.size() = "+trainingSet.size());
@@ -480,6 +464,7 @@ public class MaxEntTrainer extends ClassifierTrainer<MaxEnt>
 */
 
 
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 

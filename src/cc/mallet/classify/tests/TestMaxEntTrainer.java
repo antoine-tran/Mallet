@@ -15,13 +15,9 @@
 package cc.mallet.classify.tests;
 
 import junit.framework.*;
-import java.net.URI;
-
 import cc.mallet.classify.*;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.optimize.tests.TestOptimizable;
-import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.ArrayIterator;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
 
@@ -67,7 +63,7 @@ public class TestMaxEntTrainer extends TestCase
 		Alphabet fd = dictOfSize (6);
 		String[] classNames = new String[] {"class0", "class1"};
 		InstanceList ilist = new InstanceList (new Randoms(1), fd, classNames, 20);
-		MaxEnt me = (MaxEnt)trainer.train(ilist);
+		MaxEnt me = trainer.train(ilist);
 		Optimizable.ByGradientValue maxable = trainer.getOptimizable (ilist, me);
 		TestOptimizable.testValueAndGradientCurrentParameters (maxable);
 	}
@@ -77,6 +73,7 @@ public class TestMaxEntTrainer extends TestCase
 		return new TestSuite (TestMaxEntTrainer.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

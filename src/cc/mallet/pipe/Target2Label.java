@@ -40,6 +40,7 @@ public class Target2Label extends Pipe
 	  this(null, labelAlphabet);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		if (carrier.getTarget() != null) {

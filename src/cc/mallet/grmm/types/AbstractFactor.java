@@ -40,12 +40,14 @@ public abstract class AbstractFactor implements Factor {
 
   protected abstract Factor marginalizeInternal (VarSet varsToKeep);
 
-  public double value (Assignment assn)
+  @Override
+public double value (Assignment assn)
   {
     return lookupValueInternal (assn.singleIndex ());
   }
 
-  public double value (AssignmentIterator it)
+  @Override
+public double value (AssignmentIterator it)
   {
     return lookupValueInternal (it.indexOfCurrentAssn ());
   }
@@ -55,90 +57,106 @@ public abstract class AbstractFactor implements Factor {
     return lookupValueInternal (it.indexOfCurrentAssn ());
   }
 
-  public Factor marginalize (Variable vars[])
+  @Override
+public Factor marginalize (Variable vars[])
   {
     return marginalizeInternal (new HashVarSet (vars));
   }
 
-  public Factor marginalize (Collection vars)
+  @Override
+public Factor marginalize (Collection vars)
   {
     return marginalizeInternal (new HashVarSet (vars));
   }
 
-  public Factor marginalize (Variable var)
+  @Override
+public Factor marginalize (Variable var)
   {
     return marginalizeInternal (new HashVarSet (new Variable[] { var }));
   }
 
-  public Factor marginalizeOut (Variable var)
+  @Override
+public Factor marginalizeOut (Variable var)
   {
     HashVarSet vars = new HashVarSet (this.vars);
     vars.remove (var);
     return marginalizeInternal (vars);
   }
 
-  public Factor marginalizeOut (VarSet varset)
+  @Override
+public Factor marginalizeOut (VarSet varset)
   {
     HashVarSet vars = new HashVarSet (this.vars);
     vars.remove (varset);
     return marginalizeInternal (vars);
   }
 
-  public Factor extractMax (Variable vars[])
+  @Override
+public Factor extractMax (Variable vars[])
   {
     return extractMaxInternal (new HashVarSet (vars));
   }
 
-  public Factor extractMax (Collection vars)
+  @Override
+public Factor extractMax (Collection vars)
   {
     return extractMaxInternal (new HashVarSet (vars));
   }
 
-  public Factor extractMax (Variable var)
+  @Override
+public Factor extractMax (Variable var)
   {
     return extractMaxInternal (new HashVarSet (new Variable[] { var }));
   }
 
 
   // xxx should return an Assignment
-  public int argmax ()
+  @Override
+public int argmax ()
   {
     throw new UnsupportedOperationException (toString());
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     throw new UnsupportedOperationException (toString());
   }
 
-  public double sum ()
+  @Override
+public double sum ()
   {
     throw new UnsupportedOperationException (toString());
   }
 
-  public double entropy ()
+  @Override
+public double entropy ()
   {
     throw new UnsupportedOperationException (toString());
   }
 
-  public Factor multiply (Factor dist)
+  @Override
+public Factor multiply (Factor dist)
   {
     Factor dup = duplicate ();
     dup.multiplyBy (dist);
     return dup;
   }
 
-  public void multiplyBy (Factor pot)
+  @Override
+public void multiplyBy (Factor pot)
   {
     throw new UnsupportedOperationException ("Cannot multiply "+this+" by "+pot);
   }
 
-  public void exponentiate (double power)
+  @Override
+public void exponentiate (double power)
   {
     throw new UnsupportedOperationException ("Cannot exponentiate "+this+" by "+power);
   }
 
-  public void divideBy (Factor pot)
+  @Override
+public void divideBy (Factor pot)
   {
     throw new UnsupportedOperationException ("Cannot divide "+this+ " by "+pot);
   }
@@ -163,55 +181,65 @@ public abstract class AbstractFactor implements Factor {
     throw new UnsupportedOperationException (toString());
   }
 
-  public boolean containsVar (Variable var)
+  @Override
+public boolean containsVar (Variable var)
   {
     return vars.contains (var);
   }
 
-  public VarSet varSet ()
+  @Override
+public VarSet varSet ()
   {
     return vars;
   }
 
-  public AssignmentIterator assignmentIterator ()
+  @Override
+public AssignmentIterator assignmentIterator ()
   {
     throw new UnsupportedOperationException (toString());
   }
 
-  public boolean almostEquals (Factor p)
+  @Override
+public boolean almostEquals (Factor p)
   {
     return almostEquals (p, 1e-5);
   }
 
 
-  public double logValue (Assignment assn)
+  @Override
+public double logValue (Assignment assn)
   {
     return Math.log (value (assn));
   }
 
-  public double logValue (AssignmentIterator it)
+  @Override
+public double logValue (AssignmentIterator it)
   {
     return Math.log (value (it));
   }
 
-  public double logValue (int loc)
+  @Override
+public double logValue (int loc)
   {
     throw new UnsupportedOperationException (toString());
   }
 
-  public Variable getVariable (int i)
+  @Override
+public Variable getVariable (int i)
   {
     return vars.get (i);
   }
 
-  public AbstractTableFactor asTable ()
+  @Override
+public AbstractTableFactor asTable ()
   {
     throw new UnsupportedOperationException (toString());
   }
 
   protected void setVarSet (VarSet vars) { this.vars = vars; }
 
-    public String prettyOutputString () {
+    @Override
+	public String prettyOutputString () {
 	StringBuffer buf = new StringBuffer();
 	for (Iterator it = vars.iterator(); it.hasNext();) {
 	    Variable var = (Variable) it.next();

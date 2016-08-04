@@ -92,6 +92,7 @@ public class GradientGain extends RankedFeatureVector
 			this.classifications = classifications;
 		}
 
+		@Override
 		public RankedFeatureVector newRankedFeatureVector (InstanceList ilist)
 		{
 			return new GradientGain (ilist, classifications);

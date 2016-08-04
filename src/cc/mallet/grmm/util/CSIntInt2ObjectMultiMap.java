@@ -6,11 +6,9 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.grmm.util;
 
-import gnu.trove.THashMap;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TObjectProcedure;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -58,7 +56,8 @@ public class CSIntInt2ObjectMultiMap {
   {
     final int[] N = new int[]{0};
     backing.forEachValue (new TObjectProcedure() {
-      public boolean execute (Object object)
+      @Override
+	public boolean execute (Object object)
       {
         TIntObjectHashMap inner = (TIntObjectHashMap) object;
         N[0] += inner.size ();

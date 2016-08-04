@@ -30,6 +30,7 @@ public class WordVectors extends Pipe implements Serializable {
 		in.close();
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier) {
 		
 		TokenSequence tokens = (TokenSequence) carrier.getData();

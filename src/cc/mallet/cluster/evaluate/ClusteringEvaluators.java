@@ -23,6 +23,7 @@ public class ClusteringEvaluators extends ClusteringEvaluator {
 	 * @param predicted
 	 * @return A String summarizing the evaluation metric.
 	 */
+	@Override
 	public String evaluate (Clustering truth, Clustering predicted) {
 		String results = "";
 		for (int i = 0; i < evaluators.length; i++) {
@@ -39,6 +40,7 @@ public class ClusteringEvaluators extends ClusteringEvaluator {
 	 * to evaluate, this method will return the total evaluation metric
 	 * since the first evaluation.
 	 */
+	@Override
 	public String evaluateTotals () {
 		String results = "";
 		for (int i = 0; i < evaluators.length; i++) {

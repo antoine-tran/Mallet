@@ -87,21 +87,26 @@ public class CRFOptimizableByLabelLikelihood implements Optimizable.ByGradientVa
 
 
 	// TODO Move these implementations into CRF.java, and put here stubs that call them!
+	@Override
 	public int getNumParameters () {return crf.parameters.getNumFactors();}
 
+	@Override
 	public void getParameters (double[] buffer) {
 		crf.parameters.getParameters(buffer);
 	}
 
+	@Override
 	public double getParameter (int index) {
 		return crf.parameters.getParameter(index);
 	}
 
+	@Override
 	public void setParameters (double [] buff) {
 		crf.parameters.setParameters(buff);
 		crf.weightsValueChanged();
 	}
 
+	@Override
 	public void setParameter (int index, double value) {
 		crf.parameters.setParameter(index, value);
 		crf.weightsValueChanged();
@@ -180,6 +185,7 @@ public class CRFOptimizableByLabelLikelihood implements Optimizable.ByGradientVa
 	}
 
 	/** Returns the log probability of the training sequence labels and the prior over parameters. */
+	@Override
 	public double getValue ()
 	{
 		if (crf.weightsValueChangeStamp != cachedValueWeightsStamp) {
@@ -216,6 +222,7 @@ public class CRFOptimizableByLabelLikelihood implements Optimizable.ByGradientVa
 		constraints.assertNotNaNOrInfinite();
 	}
 
+	@Override
 	public void getValueGradient (double [] buffer)
 	{
 		// PriorGradient is -parameter/gaussianPriorVariance

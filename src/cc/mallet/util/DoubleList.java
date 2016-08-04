@@ -65,6 +65,7 @@ public class DoubleList implements Serializable
 		return new DoubleList (data, size);
 	}
 
+	@Override
 	public Object clone ()
 	{
 		return cloneDoubleList ();

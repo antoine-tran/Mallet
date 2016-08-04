@@ -59,15 +59,18 @@ public abstract class TwoLabelGEConstraints implements GEConstraint {
    */
   public abstract void addConstraint(int fi, double[][] target, double weight);
   
-  public boolean isOneStateConstraint() {
+  @Override
+public boolean isOneStateConstraint() {
     return false;
   }
   
-  public void setStateLabelMap(StateLabelMap map) {
+  @Override
+public void setStateLabelMap(StateLabelMap map) {
     this.map = map;
   }
   
-  public void preProcess(FeatureVector fv) {
+  @Override
+public void preProcess(FeatureVector fv) {
     cache.resetQuick();
     int fi;
     for (int loc = 0; loc < fv.numLocations(); loc++) {
@@ -78,7 +81,8 @@ public abstract class TwoLabelGEConstraints implements GEConstraint {
     }
   }
   
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count
     BitSet bitSet = new BitSet(data.size());
     int ii = 0;
@@ -98,7 +102,8 @@ public abstract class TwoLabelGEConstraints implements GEConstraint {
     return bitSet;
   }    
   
-  public double getCompositeConstraintFeatureValue(FeatureVector fv, int ip, int si1, int si2) {
+  @Override
+public double getCompositeConstraintFeatureValue(FeatureVector fv, int ip, int si1, int si2) {
     // to avoid complications with the start state,
     // only consider transitions into states at 
     // position >= 1
@@ -119,15 +124,18 @@ public abstract class TwoLabelGEConstraints implements GEConstraint {
     return value;
   }
 
-  public abstract double getValue();
+  @Override
+public abstract double getValue();
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     for (TwoLabelGEConstraint constraint : constraintsList) {
       constraint.expectation = new double[map.getNumLabels()][map.getNumLabels()];
     }
   }
   
-  public void computeExpectations(ArrayList<SumLattice> lattices) {
+  @Override
+public void computeExpectations(ArrayList<SumLattice> lattices) {
     double[][][] xis;
     TIntArrayList cache = new TIntArrayList();
     for (int i = 0; i < lattices.size(); i++) {

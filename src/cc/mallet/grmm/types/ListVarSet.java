@@ -6,13 +6,10 @@
    information, see the file `LICENSE' included with this distribution. */
 package cc.mallet.grmm.types;
 
-import gnu.trove.THashSet;
 import gnu.trove.TIntArrayList;
 
 import java.util.AbstractSet;
-import java.util.BitSet;
 import java.util.Collection;
-import java.util.Set;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -53,7 +50,8 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
     this (vsOld.get(0).getUniverse (), vsOld);
   }
 
-  public boolean add (Object o)
+  @Override
+public boolean add (Object o)
   {
     int idx = universe.getIndex ((Variable) o);
     if (idx == -1)
@@ -63,13 +61,15 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
     return true;
   }
 
-  public Variable get(int idx)
+  @Override
+public Variable get(int idx)
   {
     int gidx = included.get (idx);
     return universe.get (gidx);
   }
 
-  public Variable[] toVariableArray()
+  @Override
+public Variable[] toVariableArray()
   {
     return (Variable[]) toArray (new Variable[0]);
   }
@@ -78,7 +78,8 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
 // FIXME cache not updated on changes to the clique
 	private int cachedWeight = -1;
 
-  public int weight()
+  @Override
+public int weight()
   {
 		if (cachedWeight == -1) {
 			int weight = 1;
@@ -94,25 +95,29 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
   }
 
 
-  public AssignmentIterator assignmentIterator()
+  @Override
+public AssignmentIterator assignmentIterator()
   {
     return new DenseAssignmentIterator (this);
   }
 
 
-  public int size()
+  @Override
+public int size()
   {
     return included.size ();
   }
 
 
-  public boolean isEmpty()
+  @Override
+public boolean isEmpty()
   {
     return included.isEmpty();
   }
 
 
-  public boolean contains(Object o)
+  @Override
+public boolean contains(Object o)
   {
     return included.contains (universe.getIndex ((Variable) o));
   }
@@ -124,32 +129,37 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
 
     public Iterator () { nextIdx = 0; }
 
-    public boolean hasNext()
+    @Override
+	public boolean hasNext()
     {
       return (nextIdx < included.size ());
     }
 
-    public Object next()
+    @Override
+	public Object next()
     {
       int thisIdx = nextIdx;
       nextIdx++;
       return universe.get (included.get (thisIdx));
     }
 
-    public void remove()
+    @Override
+	public void remove()
     {
       throw new UnsupportedOperationException("Removal from BitSetClique not permitted");
     }
 
   }
 
-  public java.util.Iterator iterator()
+  @Override
+public java.util.Iterator iterator()
   {
     return new ListVarSet.Iterator ();
   }
 
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     if (this == o) return true;
     if (!(o instanceof VarSet)) return false;
@@ -158,7 +168,8 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
     return (vs.size () == size()) && containsAll (vs);
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     int result = 39;
     for (int vi = 0; vi < size(); vi++) {
@@ -168,17 +179,20 @@ public class ListVarSet extends AbstractSet implements VarSet, Serializable {
     return result;
   }
 
-  public VarSet intersection (VarSet c)
+  @Override
+public VarSet intersection (VarSet c)
   {
     return Utils.defaultIntersection (this, c);
   }
 
-  public void clear()
+  @Override
+public void clear()
   {
     included.clear();
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     String foo = "(C";
     ListVarSet.Iterator it = new ListVarSet.Iterator ();

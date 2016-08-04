@@ -12,8 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.logging.Logger;
 
-import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
 import cc.mallet.types.Instance;
 import cc.mallet.types.InstanceList;
 import cc.mallet.types.Multinomial;
@@ -79,15 +77,18 @@ public class NaiveBayesEMTrainer extends ClassifierTrainer<NaiveBayes> {
 	}
 	
 	public int getIteration() { return iteration; }
+	@Override
 	public boolean isFinishedTraining() { return false; }
+	@Override
 	public NaiveBayes getClassifier() { return classifier; }
 	
 
-  public NaiveBayes train (InstanceList trainingSet)
+  @Override
+public NaiveBayes train (InstanceList trainingSet)
   {
 
     // Get a classifier trained on the labeled examples only
-    NaiveBayes c = (NaiveBayes) nbTrainer.newClassifierTrainer().train (trainingSet);
+    NaiveBayes c = nbTrainer.newClassifierTrainer().train (trainingSet);
     double prevLogLikelihood = 0, logLikelihood = 0;
     boolean converged = false;
 
@@ -107,7 +108,7 @@ public class NaiveBayesEMTrainer extends ClassifierTrainer<NaiveBayes> {
           trainingSet2.add(inst2, unlabeledDataWeight);
         }
       }
-      c = (NaiveBayes) nbTrainer.newClassifierTrainer().train (trainingSet2);
+      c = nbTrainer.newClassifierTrainer().train (trainingSet2);
       logLikelihood = c.dataLogLikelihood (trainingSet2);
       System.err.println ("Loglikelihood = "+logLikelihood);
       // Wait for a change in log-likelihood of less than 0.01% and at least 10 iterations
@@ -119,7 +120,8 @@ public class NaiveBayesEMTrainer extends ClassifierTrainer<NaiveBayes> {
     return c;    
   }
 
-  public String toString()
+  @Override
+public String toString()
   {
   	String ret = "NaiveBayesEMTrainer";
   	if (docLengthNormalization != 1.0) ret += ",docLengthNormalization="+docLengthNormalization;

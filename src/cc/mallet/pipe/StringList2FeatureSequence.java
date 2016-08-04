@@ -1,6 +1,5 @@
 package cc.mallet.pipe;
 
-import java.io.*;
 import java.util.ArrayList;
 
 import cc.mallet.types.Alphabet;
@@ -23,6 +22,7 @@ public class StringList2FeatureSequence extends Pipe {
 		super(new Alphabet(), null);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier) {
 
 		long start = System.nanoTime();
@@ -30,7 +30,7 @@ public class StringList2FeatureSequence extends Pipe {
 		try {
 			ArrayList<String> tokens = (ArrayList<String>) carrier.getData();
 			FeatureSequence featureSequence =
-				new FeatureSequence ((Alphabet) getDataAlphabet(), tokens.size());
+				new FeatureSequence (getDataAlphabet(), tokens.size());
 			for (int i = 0; i < tokens.size(); i++) {
 				featureSequence.add (tokens.get(i));
 			}

@@ -39,6 +39,7 @@ public class Noop extends Pipe implements Serializable
 		super (dataDict, targetDict);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		return carrier;

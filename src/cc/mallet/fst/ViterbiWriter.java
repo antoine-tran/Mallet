@@ -47,6 +47,7 @@ public class ViterbiWriter extends TransducerEvaluator {
 				new String[] {description1, description2, description3});
 	}
 
+	@Override
 	protected void preamble (TransducerTrainer tt) {
 		// We don't want to print iteration number and cost, so here we override this behavior in the superclass.
 	}

@@ -21,7 +21,6 @@ import java.io.*;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.PropertyList;
 
@@ -52,6 +51,7 @@ public class OffsetPropertyConjunctions extends Pipe implements Serializable
 		this (true, conjunctions);
 	}
 	
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

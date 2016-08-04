@@ -37,18 +37,21 @@ public class SamplingInferencer extends AbstractInferencer {
     N = n;
   }
 
-  public void computeMarginals (FactorGraph mdl)
+  @Override
+public void computeMarginals (FactorGraph mdl)
   {
     samples = sampler.sample (mdl, N);
   }
 
-  public Factor lookupMarginal (Variable var)
+  @Override
+public Factor lookupMarginal (Variable var)
   {
     return lookupMarginal (new HashVarSet (new Variable[] { var }));
   }
 
   // don't try this for large cliques
-  public Factor lookupMarginal (VarSet varSet)
+  @Override
+public Factor lookupMarginal (VarSet varSet)
   {
     Factor mrgl = samples.marginalize (varSet);
     AbstractTableFactor tbl = mrgl.asTable ();
@@ -76,7 +79,8 @@ public class SamplingInferencer extends AbstractInferencer {
     sampler = (Sampler) in.readObject ();
   }
 
-  public String toString ()
+  @Override
+public String toString ()
   {
     return "(SamplingInferencer: "+sampler+" )";
   }

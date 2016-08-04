@@ -35,6 +35,7 @@ public class GammaAverageConfidenceEstimator extends TransducerConfidenceEstimat
 		 Calculates the confidence in the tagging of a {@link Segment}.
 		 @return 0-1 confidence value. higher = more confident.
 	 */
+	@Override
 	public double estimateConfidenceFor (Segment segment, SumLatticeDefault cachedLattice) {
 		Sequence predSequence = segment.getPredicted ();
 		Sequence input = segment.getInput ();
@@ -47,7 +48,7 @@ public class GammaAverageConfidenceEstimator extends TransducerConfidenceEstimat
 				return 0.0;
 			confidence += lattice.getGammaProbability(i+1, model.getState(stateIndex));
 		}
-		return confidence/(double)segment.size();
+		return confidence/segment.size();
 	}
 	
 	private int stateIndexOfString (String s)

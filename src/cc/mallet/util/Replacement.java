@@ -1,7 +1,6 @@
 package cc.mallet.util;
 
 import java.io.*;
-import java.util.regex.*;
 
 public class Replacement implements Serializable {
 	String target;

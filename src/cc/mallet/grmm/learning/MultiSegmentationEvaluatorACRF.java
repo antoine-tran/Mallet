@@ -70,6 +70,7 @@ public class MultiSegmentationEvaluatorACRF extends ACRFEvaluator
 		return new LabelSequence (arr);
 	}
 
+	@Override
 	public boolean evaluate (ACRF acrf, int iter,
 												InstanceList training,
 												InstanceList validation,
@@ -89,7 +90,8 @@ public class MultiSegmentationEvaluatorACRF extends ACRFEvaluator
     return true;
   }
 	
-  public void test(InstanceList gold, List returned, String description)
+  @Override
+public void test(InstanceList gold, List returned, String description)
   {
     TestResults results = new TestResults (segmentStartTags, segmentContinueTags);
 

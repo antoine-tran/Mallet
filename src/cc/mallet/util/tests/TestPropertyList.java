@@ -43,6 +43,7 @@ public class TestPropertyList extends TestCase
 		return new TestSuite (TestPropertyList.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

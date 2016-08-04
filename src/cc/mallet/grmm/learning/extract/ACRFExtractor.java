@@ -12,7 +12,6 @@ import cc.mallet.extract.*;
 import cc.mallet.grmm.learning.ACRF;
 import cc.mallet.grmm.util.SliceLabelsSequence;
 import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.*;
 
 /**
@@ -39,17 +38,20 @@ public class ACRFExtractor implements Extractor {
     this.filter = new BIOTokenizationFilter ();
   }
 
-  public Extraction extract (Object o)
+  @Override
+public Extraction extract (Object o)
   {
     throw new UnsupportedOperationException ("Not yet implemented");
   }
 
-  public Extraction extract (Tokenization toks)
+  @Override
+public Extraction extract (Tokenization toks)
   {
     throw new UnsupportedOperationException ("Not yet implemented");
   }
 
-  public Extraction extract (Iterator<Instance> source)
+  @Override
+public Extraction extract (Iterator<Instance> source)
   {
     Extraction extraction = new Extraction (this, getTargetAlphabet ());
      // Put all the instances through both pipes, then get viterbi path
@@ -101,27 +103,32 @@ public class ACRFExtractor implements Extractor {
     return extraction;
   }
 
-  public Pipe getFeaturePipe ()
+  @Override
+public Pipe getFeaturePipe ()
   {
     return featurePipe;
   }
 
-  public Pipe getTokenizationPipe ()
+  @Override
+public Pipe getTokenizationPipe ()
   {
     return tokPipe;
   }
 
-  public void setTokenizationPipe (Pipe pipe)
+  @Override
+public void setTokenizationPipe (Pipe pipe)
   {
     tokPipe = pipe;
   }
 
-  public Alphabet getInputAlphabet ()
+  @Override
+public Alphabet getInputAlphabet ()
   {
     return acrf.getInputAlphabet ();
   }
 
-  public LabelAlphabet getTargetAlphabet ()
+  @Override
+public LabelAlphabet getTargetAlphabet ()
   {
     return (LabelAlphabet) acrf.getInputPipe ().getTargetAlphabet ();
   }

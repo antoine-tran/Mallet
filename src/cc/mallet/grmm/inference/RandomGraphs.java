@@ -282,7 +282,8 @@ public class RandomGraphs {
   }
 
   public static class UniformFactorGenerator implements FactorGenerator {
-      public Factor nextFactor (VarSet vars)
+      @Override
+	public Factor nextFactor (VarSet vars)
       {
         double[] probs = new double [vars.weight ()];
         Arrays.fill (probs, 1.0);

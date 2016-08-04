@@ -18,13 +18,9 @@ import java.net.URI;
 import java.util.Iterator;
 import java.util.logging.*;
 
-import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.Dirichlet;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Label;
-import cc.mallet.types.Multinomial;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.MalletLogger;
 import cc.mallet.util.Randoms;
@@ -122,6 +118,7 @@ public class RandomTokenSequenceIterator implements Iterator<Instance>
 		this.currentInstanceIndex = numInstancesPerClass[currentClassIndex] - 1;
 	}
 
+	@Override
 	public Instance next ()
 	{
 		if (currentInstanceIndex < 0) {
@@ -141,8 +138,10 @@ public class RandomTokenSequenceIterator implements Iterator<Instance>
 		return new Instance (ts, classNames[currentClassIndex], uri, null);
 	}
 
+	@Override
 	public boolean hasNext ()	{	return ! (currentClassIndex <= 0 && currentInstanceIndex <= 0);	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

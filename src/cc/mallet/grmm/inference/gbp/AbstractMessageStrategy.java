@@ -11,7 +11,6 @@ import java.util.Iterator;
 
 import cc.mallet.grmm.types.Factor;
 import cc.mallet.grmm.types.LogTableFactor;
-import cc.mallet.grmm.types.TableFactor;
 
 /**
  * Created: May 29, 2005
@@ -24,18 +23,21 @@ public abstract class AbstractMessageStrategy implements MessageStrategy {
   protected MessageArray oldMessages;
   protected MessageArray newMessages;
 
-  public void setMessageArray (MessageArray oldMessages, MessageArray newMessages)
+  @Override
+public void setMessageArray (MessageArray oldMessages, MessageArray newMessages)
   {
     this.oldMessages = oldMessages;
     this.newMessages = newMessages;
   }
 
-  public MessageArray getOldMessages ()
+  @Override
+public MessageArray getOldMessages ()
   {
     return oldMessages;
   }
 
-  public MessageArray getNewMessages ()
+  @Override
+public MessageArray getNewMessages ()
   {
     return newMessages;
   }

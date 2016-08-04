@@ -1,8 +1,6 @@
 package cc.mallet.pipe;
 
 import cc.mallet.types.*;
-import cc.mallet.pipe.*;
-
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -11,6 +9,7 @@ public class TargetStringToFeatures extends Pipe implements Serializable {
 		super(null, new Alphabet());
 	}
 
+	@Override
 	public Instance pipe(Instance carrier) {
 		if (! (carrier.getTarget() instanceof String)) {
 			throw new IllegalArgumentException("Target must be of type String");

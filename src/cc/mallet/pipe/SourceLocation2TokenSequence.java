@@ -17,7 +17,6 @@ import cc.mallet.types.Instance;
 import cc.mallet.types.Token;
 import cc.mallet.types.TokenSequence;
 import cc.mallet.util.CharSequenceLexer;
-import cc.mallet.util.Lexer;
 /**
  * Read from File or BufferedRead in the data field and produce a TokenSequence.
    @author Andrew McCallum <a href="mailto:mccallum@cs.umass.edu">mccallum@cs.umass.edu</a>
@@ -31,6 +30,7 @@ public class SourceLocation2TokenSequence extends Pipe implements Serializable
 		this.lexer = lexer;
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		try {
@@ -63,7 +63,7 @@ public class SourceLocation2TokenSequence extends Pipe implements Serializable
 			count = br.read (buf, 0, BUFSIZE);
 			sb.append (buf);
 		} while (count == BUFSIZE);
-		lexer.setCharSequence ((CharSequence)sb);
+		lexer.setCharSequence (sb);
 		TokenSequence ts = new TokenSequence ();
 		while (lexer.hasNext())
 			ts.add (new Token ((String) lexer.next()));

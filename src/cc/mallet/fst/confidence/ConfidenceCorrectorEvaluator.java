@@ -99,7 +99,7 @@ public class ConfidenceCorrectorEvaluator
 			Instance instance = ilist.get (i);
 			Sequence input = (Sequence) instance.getData ();
 			Sequence trueSequence = (Sequence) instance.getTarget ();
-			Sequence predSequence = (Sequence) new MaxLatticeDefault (model, input).bestOutputSequence();
+			Sequence predSequence = new MaxLatticeDefault (model, input).bestOutputSequence();
 			Sequence correctedSequence = (Sequence) predictions.get (i);
 			Segment correctedSegment = (Segment) correctedSegments.get (i);
 			// if any condition is true, do not evaluate this sequence

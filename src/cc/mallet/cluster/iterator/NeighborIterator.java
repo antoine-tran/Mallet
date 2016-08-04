@@ -29,5 +29,6 @@ public abstract class NeighborIterator implements Iterator<Instance> {
 
 	protected Clustering getClustering () { return clustering; }
 	
+	@Override
 	public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not support remove()."); }
 }

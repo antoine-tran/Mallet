@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.regex.*;
 import java.io.*;
 
-import cc.mallet.types.*;
 import cc.mallet.util.MalletLogger;
 
 public class FeatureConjunction implements Serializable
@@ -423,7 +422,7 @@ public class FeatureConjunction implements Serializable
 			else {
 				conjunctions = new ArrayList();
 				for (int i = 0; i < size; i++) {
-					conjunctions.add((FeatureConjunction)in.readObject());
+					conjunctions.add(in.readObject());
 				}
 			}
 		}

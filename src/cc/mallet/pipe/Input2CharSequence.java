@@ -18,7 +18,6 @@ import java.io.*;
 import java.net.URI;
 
 import cc.mallet.types.Instance;
-import cc.mallet.util.CharSequenceLexer;
 
 /**
  *  Pipe that can read from various kinds of text sources
@@ -38,6 +37,7 @@ public class Input2CharSequence extends Pipe implements Serializable
 		this.encoding = encoding;
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		try {

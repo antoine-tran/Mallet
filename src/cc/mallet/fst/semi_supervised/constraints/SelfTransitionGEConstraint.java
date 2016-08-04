@@ -48,20 +48,25 @@ public class SelfTransitionGEConstraint implements GEConstraint {
     this.expectation = expectation;
   }
   
-  public GEConstraint copy() {
+  @Override
+public GEConstraint copy() {
     return new SelfTransitionGEConstraint(selfTransProb, weight, numTokens, expectation);
   }
   
-  public boolean isOneStateConstraint() {
+  @Override
+public boolean isOneStateConstraint() {
     return false;
   }
   
-  public void setStateLabelMap(StateLabelMap map) {}
+  @Override
+public void setStateLabelMap(StateLabelMap map) {}
   
   // no pre-processing possible here
-  public void preProcess(FeatureVector fv) {}
+  @Override
+public void preProcess(FeatureVector fv) {}
   
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count number of tokens
     BitSet bitSet = new BitSet(data.size());
     bitSet.set(0, data.size(), true);
@@ -72,7 +77,8 @@ public class SelfTransitionGEConstraint implements GEConstraint {
     return bitSet;
   }    
   
-  public double getCompositeConstraintFeatureValue(FeatureVector fv, int ip, int si1, int si2) {
+  @Override
+public double getCompositeConstraintFeatureValue(FeatureVector fv, int ip, int si1, int si2) {
     if (si1 == si2) {
       return this.weight * (selfTransProb / expectation);
     }
@@ -81,7 +87,8 @@ public class SelfTransitionGEConstraint implements GEConstraint {
     }
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     double selfTransEx = this.expectation / this.numTokens;
     if (selfTransProb == 1) {
       return weight * Math.log(selfTransEx);
@@ -94,11 +101,13 @@ public class SelfTransitionGEConstraint implements GEConstraint {
       + ((1-selfTransProb) * (Math.log(1-selfTransEx)-Math.log(1-selfTransProb))));
   }
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     this.expectation = 0;
   }
   
-  public void computeExpectations(ArrayList<SumLattice> lattices) {
+  @Override
+public void computeExpectations(ArrayList<SumLattice> lattices) {
     double[][][] xis;
     for (int i = 0; i < lattices.size(); i++) {
       SumLattice lattice = lattices.get(i);

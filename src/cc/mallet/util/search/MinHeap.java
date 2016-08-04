@@ -58,19 +58,22 @@ public class MinHeap implements PriorityQueue {
     }
   }
 
-  public int size ()
+  @Override
+public int size ()
   {
     return size;
   }
 
-  public QueueElement min ()
+  @Override
+public QueueElement min ()
   {
     if (size == 0)
       throw new IndexOutOfBoundsException ("queue empty");
     return elts[0];
   }
 
-  public QueueElement extractMin ()
+  @Override
+public QueueElement extractMin ()
   {
     if (size == 0)
       throw new IndexOutOfBoundsException ("queue empty");
@@ -82,7 +85,8 @@ public class MinHeap implements PriorityQueue {
     return min;
   }
 
-  public void changePriority (QueueElement e, double priority)
+  @Override
+public void changePriority (QueueElement e, double priority)
   {
     if (!contains (e))
       throw new IllegalArgumentException ("Element not in queue");
@@ -114,7 +118,8 @@ public class MinHeap implements PriorityQueue {
     }
   }
 
-  public void insert (QueueElement e)
+  @Override
+public void insert (QueueElement e)
   {
     if (size == elts.length) {
       QueueElement[] newElts = new QueueElement[size + size / 2];
@@ -127,13 +132,15 @@ public class MinHeap implements PriorityQueue {
     changePriority (e, e.getPriority ());
   }
 
-  public boolean contains (QueueElement e)
+  @Override
+public boolean contains (QueueElement e)
   {
     int pos = e.getPosition ();
     return pos >= 0 && pos < size && e == elts[pos];
   }
 
-  public QueueElement[] toArray ()
+  @Override
+public QueueElement[] toArray ()
   {
     QueueElement[] arr = new QueueElement[size ()];
     System.arraycopy (elts, 0, arr, 0, size ());

@@ -35,7 +35,8 @@ public class LengthBins extends Pipe implements java.io.Serializable {
         binNames[bins.length] = "["+min+"+]";
 	}
 
-    public Instance pipe (Instance carrier) {
+    @Override
+	public Instance pipe (Instance carrier) {
         TokenSequence ts = (TokenSequence) carrier.getData();
         tokens:
         for (int i=0; i < ts.size(); i++) {

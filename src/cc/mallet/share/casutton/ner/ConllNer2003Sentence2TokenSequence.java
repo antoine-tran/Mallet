@@ -104,6 +104,7 @@ public class ConllNer2003Sentence2TokenSequence extends Pipe
 		 ...
 	*/
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		String sentenceLines = (String) carrier.getData();

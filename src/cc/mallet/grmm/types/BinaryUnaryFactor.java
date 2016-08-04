@@ -46,23 +46,27 @@ public class BinaryUnaryFactor extends AbstractFactor implements ParameterizedFa
     return ret;
   }
 
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     throw new UnsupportedOperationException ();
   }
 
   /* Inefficient, but this will seldom be called. */
-  public double value (AssignmentIterator it)
+  @Override
+public double value (AssignmentIterator it)
   {
     Assignment assn = it.assignment();
     Factor tbl = sliceForAlpha (assn);
@@ -77,29 +81,34 @@ public class BinaryUnaryFactor extends AbstractFactor implements ParameterizedFa
     return new TableFactor (var, vals);
   }
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     throw new UnsupportedOperationException ();
   }
 
-  public Assignment sample (Randoms r)
+  @Override
+public Assignment sample (Randoms r)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public double logValue (AssignmentIterator it)
+  @Override
+public double logValue (AssignmentIterator it)
   {
     return Math.log (value (it));
   }
 
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     Factor alphSlice = sliceForAlpha (assn);
     // recursively slice, in case assn includes some of the xs
     return alphSlice.slice (assn);
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     StringBuffer buf = new StringBuffer ();
     buf.append ("[BinaryUnary : var=");
@@ -112,7 +121,8 @@ public class BinaryUnaryFactor extends AbstractFactor implements ParameterizedFa
     return buf.toString ();
   }
 
-  public double sumGradLog (Factor q, Variable param, Assignment paramAssn)
+  @Override
+public double sumGradLog (Factor q, Variable param, Assignment paramAssn)
   {
     Factor q_xs = q.marginalize (var);
     Assignment assn;
@@ -129,22 +139,26 @@ public class BinaryUnaryFactor extends AbstractFactor implements ParameterizedFa
     return q_xs.value (assn);
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     return new BinaryUnaryFactor (var, theta1, theta2);
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     return equals (p);
   }
 
-  public boolean isNaN ()
+  @Override
+public boolean isNaN ()
   {
     return false;
   }
 
-  public boolean equals (Object o)
+  @Override
+public boolean equals (Object o)
   {
     if (this == o) return true;
     if (o == null || getClass () != o.getClass ()) return false;
@@ -158,7 +172,8 @@ public class BinaryUnaryFactor extends AbstractFactor implements ParameterizedFa
     return true;
   }
 
-  public int hashCode ()
+  @Override
+public int hashCode ()
   {
     int result;
     result = (theta1 != null ? theta1.hashCode () : 0);

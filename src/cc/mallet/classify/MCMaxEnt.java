@@ -18,7 +18,6 @@ import java.io.Serializable;
 
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.FeatureSelection;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
@@ -146,7 +145,8 @@ public class MCMaxEnt extends Classifier implements Serializable
         }
     }
 
-    public Classification classify (Instance instance)
+    @Override
+	public Classification classify (Instance instance)
     {
         int numClasses = getLabelAlphabet().size();
         double[] scores = new double[numClasses];
@@ -157,6 +157,7 @@ public class MCMaxEnt extends Classifier implements Serializable
                         scores));
     }
 
+	@Override
 	public void print () 
 	{		
 		final Alphabet dict = getAlphabet();

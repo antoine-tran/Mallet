@@ -2,11 +2,7 @@ package cc.mallet.topics;
 
 import java.io.*;
 import java.util.*;
-import java.text.*;
-
 import cc.mallet.types.*;
-import cc.mallet.util.*;
-
 import gnu.trove.*;
 
 public class TopicModelDiagnostics {
@@ -136,7 +132,7 @@ public class TopicModelDiagnostics {
 		for (TopicAssignment document: model.getData()) {
 
 			FeatureSequence tokens = (FeatureSequence) document.instance.getData();
-			FeatureSequence topics =  (FeatureSequence) document.topicSequence;
+			FeatureSequence topics =  document.topicSequence;
 			
 			for (int position = 0; position < tokens.size(); position++) {
 				int type = tokens.getIndexAtPosition(position);
@@ -565,7 +561,7 @@ public class TopicModelDiagnostics {
 					// We've already accounted for the smoothing parameter,
 					//  now we need to add the actual count for the non-zero
 					//  topics.
-					sumTypeProbs += ((double) otherCount) / (model.betaSum + tokensPerTopic[otherTopic]);
+					sumTypeProbs += (otherCount) / (model.betaSum + tokensPerTopic[otherTopic]);
 
 					index++;
 				}
@@ -588,6 +584,7 @@ public class TopicModelDiagnostics {
 	}
 	
 
+	@Override
 	public String toString() {
 
 		StringBuilder out = new StringBuilder();

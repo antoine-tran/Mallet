@@ -55,7 +55,8 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
     this.structureType = structureType;
   }
 
-  public Optimizable.ByGradientValue createOptimizable (ACRF acrf, InstanceList training)
+  @Override
+public Optimizable.ByGradientValue createOptimizable (ACRF acrf, InstanceList training)
   {
     return new Maxable (acrf, training);
   }
@@ -95,12 +96,14 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
       }
     }
 
-    public boolean hasNext ()
+    @Override
+	public boolean hasNext ()
     {
       return vidx < graph.numVariables () - 1;
     }
 
-    public void advance ()
+    @Override
+	public void advance ()
     {
       vidx++;
       Variable var = graph.get (vidx);
@@ -122,12 +125,14 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
       }
     }
 
-    public Factor localConditional ()
+    @Override
+	public Factor localConditional ()
     {
       return ptl;
     }
 
-    public ACRF.UnrolledVarSet[] cliques ()
+    @Override
+	public ACRF.UnrolledVarSet[] cliques ()
     {
       List cliques = cliquesByVar[vidx];
       return (ACRF.UnrolledVarSet[]) cliques.toArray (new ACRF.UnrolledVarSet [cliques.size()]);
@@ -168,12 +173,14 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
       cursor = cliquesByEdge.keySet().iterator ();
     }
 
-    public boolean hasNext ()
+    @Override
+	public boolean hasNext ()
     {
       return cursor.hasNext();
     }
 
-    public void advance ()
+    @Override
+	public void advance ()
     {
       Factor pairFactor  = (Factor) cursor.next ();
       VarSet pairVarSet = pairFactor.varSet ();
@@ -220,12 +227,14 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
       }
     }
 
-    public Factor localConditional ()
+    @Override
+	public Factor localConditional ()
     {
       return ptl;
     }
 
-    public ACRF.UnrolledVarSet[] cliques ()
+    @Override
+	public ACRF.UnrolledVarSet[] cliques ()
     {
       List cliques = currentCliqueList;
       return (ACRF.UnrolledVarSet[]) cliques.toArray (new ACRF.UnrolledVarSet [cliques.size()]);
@@ -373,12 +382,14 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
       logger.info ("Using gaussian prior with variance "+gaussianPriorVariance);
     }
 
-    public int getNumParameters () { return numParameters; }
+    @Override
+	public int getNumParameters () { return numParameters; }
 
     /* Negate initialValue and finalValue because the parameters are in
      * terms of "weights", not "values".
      */
-    public void getParameters (double[] buf) {
+    @Override
+	public void getParameters (double[] buf) {
 
       if ( buf.length != numParameters )
         throw new IllegalArgumentException("Argument is not of the " +
@@ -405,7 +416,8 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
     }
 
 
-    protected void setParametersInternal (double[] params)
+    @Override
+	protected void setParametersInternal (double[] params)
     {
       cachedValueStale = cachedGradientStale = true;
 
@@ -449,7 +461,8 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
     }
 
 
-    protected double computeValue () {
+    @Override
+	protected double computeValue () {
       double retval = 0.0;
       int numInstances = trainData.size();
 
@@ -563,7 +576,8 @@ public class PseudolikelihoodACRFTrainer extends DefaultAcrfTrainer {
      * Gradient is
      *   constraint - expectation - parameters/gaussianPriorVariance
      */
-    protected void computeValueGradient (double[] grad)
+    @Override
+	protected void computeValueGradient (double[] grad)
     {
       /* Index into current element of cachedGradient[] array. */
       int gidx = 0;

@@ -292,6 +292,7 @@ public class TopicalNGrams {
 		class WordProb implements Comparable {
 			int wi; double p;
 			public WordProb (int wi, double p) { this.wi = wi; this.p = p; }
+			@Override
 			public final int compareTo (Object o2) {
 				if (p > ((WordProb)o2).p)
 					return -1;
@@ -305,7 +306,7 @@ public class TopicalNGrams {
 			// Unigrams
 			WordProb[] wp = new WordProb[numTypes];
 			for (int wi = 0; wi < numTypes; wi++)
-				wp[wi] = new WordProb (wi, (double)unitypeTopicCounts[wi][ti]);
+				wp[wi] = new WordProb (wi, unitypeTopicCounts[wi][ti]);
 			Arrays.sort (wp);
 			int numToPrint = Math.min(wp.length, numWords);
 			if (useNewLines) {

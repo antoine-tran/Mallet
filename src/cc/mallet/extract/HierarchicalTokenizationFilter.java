@@ -47,7 +47,8 @@ public class HierarchicalTokenizationFilter implements TokenizationFilter {
   }
 
 
-  public LabeledSpans constructLabeledSpans (LabelAlphabet dict, Object document, Label backgroundTag,
+  @Override
+public LabeledSpans constructLabeledSpans (LabelAlphabet dict, Object document, Label backgroundTag,
                                                     Tokenization input, Sequence seq)
   {
     LabeledSpans labeled = new LabeledSpans (document);

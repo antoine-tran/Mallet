@@ -39,7 +39,7 @@ public class Record implements Serializable {
 	}
 
 	public FeatureVector values (int field) {
-		return (FeatureVector) field2values.get(field);
+		return field2values.get(field);
 	}
 	
 	public int value (String field) {
@@ -57,6 +57,7 @@ public class Record implements Serializable {
 	
 	public Alphabet valueAlphabet () { return this.valueAlph; }
 
+	@Override
 	public String toString () { return toString(true); }
 	
 	public String toString (boolean oneLine) {
@@ -64,7 +65,7 @@ public class Record implements Serializable {
 		int[] keys = field2values.keys();
 		for (int i = 0; i < keys.length; i++) {
 			b.append(fieldAlph.lookupObject(keys[i]) + "=");
-			FeatureVector v = (FeatureVector) field2values.get(keys[i]);
+			FeatureVector v = field2values.get(keys[i]);
 			for (int j = 0; j < v.numLocations(); j++)
 				b.append(valueAlph.lookupObject(v.indexAtLocation(j)) + ",");
 			if (!oneLine) b.append("\n");

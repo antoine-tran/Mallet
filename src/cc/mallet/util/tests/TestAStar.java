@@ -24,21 +24,28 @@ public class TestAStar extends TestCase {
       this.to = to;
       this.sink = sink;
     }
-    public boolean isFinal() { return sink; }
-    public double completionCost() { return to; }
+    @Override
+	public boolean isFinal() { return sink; }
+    @Override
+	public double completionCost() { return to; }
     private class NextStates extends SearchState.NextStateIterator {
       private int i;
       private NextStates() {
         i = 0;
       }
-      public boolean hasNext() { return i < next.length; }
-      public SearchState nextState() { return next[i++]; }
-      public double cost() { return cost[i-1]; }
+      @Override
+	public boolean hasNext() { return i < next.length; }
+      @Override
+	public SearchState nextState() { return next[i++]; }
+      @Override
+	public double cost() { return cost[i-1]; }
     }
-    public SearchState.NextStateIterator getNextStates() {
+    @Override
+	public SearchState.NextStateIterator getNextStates() {
       return new NextStates();
     }
-    public String toString() { return "node " + id; }
+    @Override
+	public String toString() { return "node " + id; }
   }
   public TestAStar(String name) {
     super(name);
@@ -86,7 +93,7 @@ public class TestAStar extends TestCase {
         assertTrue("path[" + i + "][" + j + "] != " + n,
                 paths[i][j] == n.getState());
         j++;
-        n = (SearchNode)n.getParent();
+        n = n.getParent();
       }
       assertTrue("path length != " + j, j == 3);
       i++;

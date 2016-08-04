@@ -10,7 +10,6 @@ package cc.mallet.grmm.types;
 import java.util.*;
 
 import cc.mallet.grmm.inference.Inferencer;
-import cc.mallet.grmm.util.Flops;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
 
@@ -69,7 +68,7 @@ public class Factors {
     // complete hack
     TableFactor mptl1 = (TableFactor) ptl1;
     TableFactor mptl2 = (TableFactor) ptl2;
-    return TableFactor.hackyMixture (mptl1, mptl2, weight);
+    return AbstractTableFactor.hackyMixture (mptl1, mptl2, weight);
   }
 
   public static double oneDistance (Factor bel1, Factor bel2)
@@ -223,37 +222,44 @@ public class Factors {
   public static Factor asFactor (final Inferencer inf)
   {
     return new SkeletonFactor () {
-      public double value (Assignment assn)
+      @Override
+	public double value (Assignment assn)
       {
         Factor factor = inf.lookupMarginal (assn.varSet ());
         return factor.value (assn);
       }
 
-      public Factor marginalize (Variable vars[])
+      @Override
+	public Factor marginalize (Variable vars[])
       {
         return inf.lookupMarginal (new HashVarSet (vars));
       }
 
-      public Factor marginalize (Collection vars)
+      @Override
+	public Factor marginalize (Collection vars)
       {
         return inf.lookupMarginal (new HashVarSet (vars));
       }
 
-      public Factor marginalize (Variable var)
+      @Override
+	public Factor marginalize (Variable var)
       {
         return inf.lookupMarginal (new HashVarSet (new Variable[] { var }));
       }
 
-      public Factor marginalizeOut (Variable var)
+      @Override
+	public Factor marginalizeOut (Variable var)
       {
         throw new UnsupportedOperationException ();
       }
 
-      public Factor marginalizeOut (VarSet varset)
+      @Override
+	public Factor marginalizeOut (VarSet varset)
       {
         throw new UnsupportedOperationException ();
       }
-      public VarSet varSet ()
+      @Override
+	public VarSet varSet ()
       {
         throw new UnsupportedOperationException ();
       }

@@ -149,6 +149,7 @@ public class UnlabeledFileIterator implements Iterator<Instance>
 	}
 
 	// The PipeInputIterator interface
+	@Override
 	public Instance next ()
 	{
 		File nextFile = subIterator.next();
@@ -156,6 +157,7 @@ public class UnlabeledFileIterator implements Iterator<Instance>
 		return new Instance (nextFile, null, nextFile.toURI(), null);
 	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}
@@ -166,6 +168,7 @@ public class UnlabeledFileIterator implements Iterator<Instance>
 		return subIterator.next();		
 	}
 
+	@Override
 	public boolean hasNext ()	{	return subIterator.hasNext();	}
 	
 }

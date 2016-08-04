@@ -28,6 +28,7 @@ public class MakeAmpersandXMLFriendly extends Pipe implements Serializable
 	{
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		TokenSequence ts = (TokenSequence) carrier.getData();

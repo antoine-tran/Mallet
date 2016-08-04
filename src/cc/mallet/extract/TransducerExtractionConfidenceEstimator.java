@@ -16,8 +16,6 @@ package cc.mallet.extract;
 
 
 import java.io.*;
-import java.util.*;
-
 import cc.mallet.fst.*;
 import cc.mallet.fst.confidence.*;
 import cc.mallet.pipe.*;
@@ -41,7 +39,8 @@ public class TransducerExtractionConfidenceEstimator extends ExtractionConfidenc
     this.featurePipe = featurePipe;
   }
 
-  public void estimateConfidence (DocumentExtraction documentExtraction) {
+  @Override
+public void estimateConfidence (DocumentExtraction documentExtraction) {
     Tokenization input = documentExtraction.getInput();
     // WARNING: input Tokenization will likely already have many
     // features appended from the last time it was passed through a

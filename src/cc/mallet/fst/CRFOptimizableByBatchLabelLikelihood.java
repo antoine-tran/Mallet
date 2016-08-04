@@ -167,6 +167,7 @@ public class CRFOptimizableByBatchLabelLikelihood implements Optimizable.ByCombi
 	 * Returns the log probability of a batch of training sequence labels and the prior over
 	 * parameters, if last batch then incorporate the prior on parameters as well.
 	 */
+	@Override
 	public double getBatchValue(int batchIndex, int[] batchAssignments) {
 		assert(batchIndex < this.numBatches) : "Incorrect batch index: " + batchIndex + ", range(0, " +
 		this.numBatches + ")";
@@ -190,6 +191,7 @@ public class CRFOptimizableByBatchLabelLikelihood implements Optimizable.ByCombi
 		return value;
 	}
 
+	@Override
 	public void getBatchValueGradient(double[] buffer, int batchIndex, int[] batchAssignments) {
 		assert(batchIndex < this.numBatches) : "Incorrect batch index: " + batchIndex + ", range(0, " +
 		this.numBatches + ")";
@@ -223,6 +225,7 @@ public class CRFOptimizableByBatchLabelLikelihood implements Optimizable.ByCombi
 	 * Adds gradients from all batches. <p>
 	 * <b>Note:</b> assumes buffer is already initialized.
 	 */
+	@Override
 	public void combineGradients(Collection<double[]> batchGradients, double[] buffer) {
 		assert(buffer.length == crf.parameters.getNumFactors())
 			: "Incorrect buffer length: " + buffer.length + ", expected: " + crf.parameters.getNumFactors();
@@ -235,6 +238,7 @@ public class CRFOptimizableByBatchLabelLikelihood implements Optimizable.ByCombi
 		MatrixOps.timesEquals(buffer, -1.0);
 	}
 
+	@Override
 	public int getNumBatches() { return numBatches; }
 
 	public void setUseHyperbolicPrior (boolean f) { usingHyperbolicPrior = f; }
@@ -244,21 +248,26 @@ public class CRFOptimizableByBatchLabelLikelihood implements Optimizable.ByCombi
 	public double getUseHyperbolicPriorSharpness () { return hyperbolicPriorSharpness; }
 	public void setGaussianPriorVariance (double p) { gaussianPriorVariance = p; }
 	public double getGaussianPriorVariance () { return gaussianPriorVariance; }
+	@Override
 	public int getNumParameters () {return crf.parameters.getNumFactors();}
 
+	@Override
 	public void getParameters (double[] buffer) {
 		crf.parameters.getParameters(buffer);
 	}
 
+	@Override
 	public double getParameter (int index) {
 		return crf.parameters.getParameter(index);
 	}
 
+	@Override
 	public void setParameters (double [] buff) {
 		crf.parameters.setParameters(buff);
 		crf.weightsValueChanged();
 	}
 
+	@Override
 	public void setParameter (int index, double value) {
 		crf.parameters.setParameter(index, value);
 		crf.weightsValueChanged();

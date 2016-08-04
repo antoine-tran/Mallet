@@ -32,7 +32,8 @@ public class TestAssignment extends TestCase {
     super (name);
   }
 
-  protected void setUp () throws Exception
+  @Override
+protected void setUp () throws Exception
   {
     vars = new Variable[] {
       new Variable (2),

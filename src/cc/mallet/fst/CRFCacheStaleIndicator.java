@@ -22,6 +22,7 @@ public class CRFCacheStaleIndicator implements CacheStaleIndicator {
 	/**
 	 * Returns true if the value is stale, also updates the cacheValueStamp.
 	 */
+	@Override
 	public boolean isValueStale() {
 		if (crf.weightsValueChangeStamp != cachedValueChangeStamp) {
 			cachedValueChangeStamp = crf.weightsValueChangeStamp;
@@ -33,6 +34,7 @@ public class CRFCacheStaleIndicator implements CacheStaleIndicator {
 	/**
 	 * Returns true if the gradient is stale, also updates the cacheGradientStamp.
 	 */
+	@Override
 	public boolean isGradientStale() {
 		if (crf.weightsValueChangeStamp != cachedGradientChangeStamp) {
 			cachedGradientChangeStamp = crf.weightsValueChangeStamp;

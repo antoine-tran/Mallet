@@ -47,6 +47,7 @@ public class MEMMTrainer extends TransducerTrainer
 	/**
 	 * Trains a MEMM until convergence.
 	 */
+	@Override
 	public boolean train (InstanceList training) {
 		return train (training, Integer.MAX_VALUE);
 	}
@@ -55,6 +56,7 @@ public class MEMMTrainer extends TransducerTrainer
 	 * Trains a MEMM for specified number of iterations or until convergence whichever
 	 * occurs first; returns true if training converged within specified iterations.
 	 */
+	@Override
 	public boolean train (InstanceList training, int numIterations)
 	{
 		if (numIterations <= 0)
@@ -153,8 +155,11 @@ public class MEMMTrainer extends TransducerTrainer
 			FeatureSequence output = (FeatureSequence) instance.getTarget();
 			// Do it for the paths consistent with the labels...
 			new SumLatticeDefault (memm, input, output, new Transducer.Incrementor() {
+				@Override
 				public void incrementFinalState(Transducer.State s, double count) { }
+				@Override
 				public void incrementInitialState(Transducer.State s, double count) { }
+				@Override
 				public void incrementTransition(Transducer.TransitionIterator ti, double count) {
 					MEMM.State source = (MEMM.State) ti.getSourceState();
 					if (count != 0) {
@@ -308,6 +313,7 @@ public class MEMMTrainer extends TransducerTrainer
 		}
 
 		// log probability of the training sequence labels, and fill in expectations[]
+		@Override
 		protected double getExpectationValue ()
 		{
 			return gatherExpectationsOrConstraints (false);

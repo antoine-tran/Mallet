@@ -8,8 +8,6 @@ package cc.mallet.util;
 
 
 import java.awt.*;
-import java.text.DecimalFormat;
-
 import cc.mallet.types.MatrixOps;
 
 /**

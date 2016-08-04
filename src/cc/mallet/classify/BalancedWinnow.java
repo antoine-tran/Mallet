@@ -70,7 +70,8 @@ public class BalancedWinnow extends Classifier implements Serializable
      * Another possibility is to calculate 
      * <br><tt><center>e^{dot(w_j', x} / sum_j[e^{dot(w_j, x)}]</center></tt>
      */
-    public Classification classify (Instance instance)
+    @Override
+	public Classification classify (Instance instance)
     {
         int numClasses = getLabelAlphabet().size();
         int numFeats = getAlphabet().size();

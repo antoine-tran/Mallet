@@ -20,8 +20,6 @@ import java.util.BitSet;
 import java.util.regex.Pattern;
 import java.io.*;
 
-import cc.mallet.types.*;
-
 public class FeatureSelection implements AlphabetCarrying, Serializable
 {
 	Alphabet dictionary;
@@ -68,16 +66,19 @@ public class FeatureSelection implements AlphabetCarrying, Serializable
     return new FeatureSelection (dictionary, included);
   }
 
+	@Override
 	public Object clone ()
 	{
 		return new FeatureSelection (dictionary, (BitSet)selectedFeatures.clone());
 	}
 
+	@Override
 	public Alphabet getAlphabet ()
 	{
 		return dictionary;
 	}
 	
+	@Override
 	public Alphabet[] getAlphabets () { 
 		return new Alphabet[] { dictionary }; 
 	}

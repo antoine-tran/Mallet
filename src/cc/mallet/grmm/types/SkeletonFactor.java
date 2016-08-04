@@ -13,50 +13,60 @@ package cc.mallet.grmm.types;
  */
 public class SkeletonFactor extends AbstractFactor {
 
-  protected Factor extractMaxInternal (VarSet varSet)
+  @Override
+protected Factor extractMaxInternal (VarSet varSet)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected double lookupValueInternal (int i)
+  @Override
+protected double lookupValueInternal (int i)
   {
     throw new UnsupportedOperationException ();
   }
 
-  protected Factor marginalizeInternal (VarSet varsToKeep)
+  @Override
+protected Factor marginalizeInternal (VarSet varsToKeep)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public boolean almostEquals (Factor p, double epsilon)
+  @Override
+public boolean almostEquals (Factor p, double epsilon)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public boolean isNaN () { return false; }
+  @Override
+public boolean isNaN () { return false; }
 
 
-  public Factor normalize ()
+  @Override
+public Factor normalize ()
   {
     throw new UnsupportedOperationException ();
   }
 
-  public Assignment sample (cc.mallet.util.Randoms r)
+  @Override
+public Assignment sample (cc.mallet.util.Randoms r)
   {
     throw new UnsupportedOperationException ();
   }
 
-  public Factor duplicate ()
+  @Override
+public Factor duplicate ()
   {
     throw new UnsupportedOperationException ();
   }
 
-  public String dumpToString ()
+  @Override
+public String dumpToString ()
   {
     return toString ();
   }
 
-  public Factor slice (Assignment assn)
+  @Override
+public Factor slice (Assignment assn)
   {
     throw new UnsupportedOperationException ();
   }

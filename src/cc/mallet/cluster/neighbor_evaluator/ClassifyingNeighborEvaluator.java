@@ -48,10 +48,12 @@ public class ClassifyingNeighborEvaluator implements NeighborEvaluator, Serializ
 	 */
 	public Classifier getClassifier () { return classifier; }
 
+	@Override
 	public double evaluate (Neighbor neighbor) {
 		return classifier.classify(neighbor).getLabelVector().value(scoringLabel);		
 	}
 
+	@Override
 	public double[] evaluate (Neighbor[] neighbors) {
 		double[] scores = new double[neighbors.length];
 		for (int i = 0; i < neighbors.length; i++)
@@ -59,9 +61,11 @@ public class ClassifyingNeighborEvaluator implements NeighborEvaluator, Serializ
 		return scores;
 	}
 
+	@Override
 	public void reset () {
 	}
 
+	@Override
 	public String toString () {
 		return "class=" + this.getClass().getName() +
 			" classifier=" + classifier.getClass().getName() +

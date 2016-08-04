@@ -25,6 +25,7 @@ public class FeatureVectorSequence2FeatureVectors extends Pipe
 			dataSubiterator = ((FeatureVectorSequence)superInstance.getData()).iterator();
 			targetSubiterator = ((LabelSequence)superInstance.getTarget()).iterator();
 		}
+		@Override
 		public Instance next () {
 			if (!dataSubiterator.hasNext()) {
 				assert (superIterator.hasNext());
@@ -38,14 +39,17 @@ public class FeatureVectorSequence2FeatureVectors extends Pipe
 			return new Instance (dataSubiterator.next(), targetSubiterator.next(), 
 					superInstance.getSource()+" tokensequence:"+count++,	null);
 		}
+		@Override
 		public boolean hasNext () {
 			return dataSubiterator.hasNext() || superIterator.hasNext();
 		}
+		@Override
 		public void remove () { }
 	}
 
 	public FeatureVectorSequence2FeatureVectors() {}
 
+	@Override
 	public Iterator<Instance> newIteratorFrom (Iterator<Instance> inputIterator) {
 		return new FeatureVectorIterator (inputIterator);
 	}

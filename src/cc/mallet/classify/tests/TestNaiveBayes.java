@@ -15,7 +15,6 @@
 package cc.mallet.classify.tests;
 
 import junit.framework.*;
-import java.net.URI;
 import java.io.File;
 
 import cc.mallet.classify.*;
@@ -181,7 +180,7 @@ public class TestNaiveBayes extends TestCase
 		System.out.println("data alphabet size " + instList2.getDataAlphabet().size());
 		System.out.println("target alphabet size " + instList2.getTargetAlphabet().size());
 
-		NaiveBayes classifier2 = (NaiveBayes) trainer.trainIncremental(instList2);
+		NaiveBayes classifier2 = trainer.trainIncremental(instList2);
 	}
 
 	public void testIncrementallyTrained()
@@ -215,7 +214,7 @@ public class TestNaiveBayes extends TestCase
 
 		System.out.println("Training 1");
 		NaiveBayesTrainer trainer = new NaiveBayesTrainer();
-		NaiveBayes classifier = (NaiveBayes) trainer.trainIncremental(instList);
+		NaiveBayes classifier = trainer.trainIncremental(instList);
 
 		Classification initialClassification = classifier.classify("Hello Everybody");
 		Classification initial2Classification = classifier.classify("Goodbye now");
@@ -242,7 +241,7 @@ public class TestNaiveBayes extends TestCase
 		System.out.println("data alphabet size " + instList2.getDataAlphabet().size());
 		System.out.println("target alphabet size " + instList2.getTargetAlphabet().size());
 
-		NaiveBayes classifier2 = (NaiveBayes) trainer.trainIncremental(instList2);
+		NaiveBayes classifier2 = trainer.trainIncremental(instList2);
 
 
 	}
@@ -278,7 +277,7 @@ public class TestNaiveBayes extends TestCase
 
 		System.out.println("Training 1");
 		NaiveBayesTrainer trainer = new NaiveBayesTrainer();
-		NaiveBayes classifier = (NaiveBayes) trainer.trainIncremental(instList);
+		NaiveBayes classifier = trainer.trainIncremental(instList);
 
 		Classification initialClassification = classifier.classify("Hello Everybody");
 		Classification initial2Classification = classifier.classify("Goodbye now");
@@ -305,7 +304,7 @@ public class TestNaiveBayes extends TestCase
 		System.out.println("data alphabet size " + instList2.getDataAlphabet().size());
 		System.out.println("target alphabet size " + instList2.getTargetAlphabet().size());
 
-		NaiveBayes classifier2 = (NaiveBayes) trainer.trainIncremental(instList2);
+		NaiveBayes classifier2 = trainer.trainIncremental(instList2);
 		Classification secondClassification = classifier.classify("Goodbye now");
 		secondClassification.print();
 
@@ -324,6 +323,7 @@ public class TestNaiveBayes extends TestCase
 		// return suite;
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

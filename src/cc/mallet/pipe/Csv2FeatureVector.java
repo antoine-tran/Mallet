@@ -9,13 +9,10 @@ package cc.mallet.pipe;
 
 
 import java.util.logging.*;
-import java.util.*;
-
 import cc.mallet.pipe.Pipe;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.FeatureVector;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Labeling;
 import cc.mallet.util.MalletLogger;
 
 
@@ -44,7 +41,8 @@ public class Csv2FeatureVector extends Pipe {
      * Convert the data in the given <tt>Instance</tt> from a <tt>CharSequence</tt> 
      * of sparse feature-value pairs to a <tt>FeatureVector</tt>
      */
-    public Instance pipe(Instance carrier) {
+    @Override
+	public Instance pipe(Instance carrier) {
 
         CharSequence c = (CharSequence) carrier.getData();
         String[] pairs = c.toString().trim().split("\\s+");

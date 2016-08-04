@@ -15,7 +15,6 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.regex.*;
 
-import cc.mallet.pipe.Pipe;
 import cc.mallet.types.*;
 
 /** Iterate over groups of lines of text, separated by lines that
@@ -84,6 +83,7 @@ public class LineGroupIterator implements Iterator<Instance>
 	}
 	
 
+	@Override
 	public Instance next ()
 	{
 		assert (nextLineGroup != null);
@@ -93,8 +93,10 @@ public class LineGroupIterator implements Iterator<Instance>
 		return carrier;
 	}
 
+	@Override
 	public boolean hasNext ()	{	return nextLineGroup != null;	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}

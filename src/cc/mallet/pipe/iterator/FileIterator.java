@@ -16,14 +16,10 @@ package cc.mallet.pipe.iterator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.net.URI;
 import java.util.regex.*;
 import java.io.*;
 
-import cc.mallet.pipe.Pipe;
-import cc.mallet.types.Alphabet;
 import cc.mallet.types.Instance;
-import cc.mallet.types.Label;
 import cc.mallet.util.Strings;
 
 /**
@@ -239,6 +235,7 @@ public class FileIterator implements Iterator<Instance>
 	}
 
 	// The PipeInputIterator interface
+	@Override
 	public Instance next ()
 	{
 		File nextFile = subIterator.next();
@@ -261,6 +258,7 @@ public class FileIterator implements Iterator<Instance>
 		return new Instance (nextFile, targetName, nextFile.toURI(), null);
 	}
 	
+	@Override
 	public void remove () {
 		throw new IllegalStateException ("This Iterator<Instance> does not support remove().");
 	}
@@ -271,6 +269,7 @@ public class FileIterator implements Iterator<Instance>
 		return subIterator.next();		
 	}
 
+	@Override
 	public boolean hasNext ()	{	return subIterator.hasNext();	}
 	
 }

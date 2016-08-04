@@ -47,7 +47,8 @@ public abstract class MaxEntFLPRConstraints implements MaxEntPRConstraint {
 
   public abstract void addConstraint(int fi, double[] ex, double weight);
   
-  public void incrementExpectations(FeatureVector input, double[] dist, double weight) {
+  @Override
+public void incrementExpectations(FeatureVector input, double[] dist, double weight) {
     preProcess(input);
     for (int li = 0; li < numLabels; li++) {
       double p = weight * dist[li];
@@ -62,13 +63,15 @@ public abstract class MaxEntFLPRConstraints implements MaxEntPRConstraint {
     }
   }
 
-  public void zeroExpectations() {
+  @Override
+public void zeroExpectations() {
     for (int fi : constraints.keys()) {
       constraints.get(fi).expectation = new double[numLabels];
     }
   }
 
-  public BitSet preProcess(InstanceList data) {
+  @Override
+public BitSet preProcess(InstanceList data) {
     // count
     int ii = 0;
     int fi;
@@ -99,7 +102,8 @@ public abstract class MaxEntFLPRConstraints implements MaxEntPRConstraint {
     return bitSet;
   }
 
-  public void preProcess(FeatureVector input) {
+  @Override
+public void preProcess(FeatureVector input) {
     indexCache.resetQuick();
     if (useValues) valueCache.resetQuick();
     int fi;

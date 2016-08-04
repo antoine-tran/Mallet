@@ -46,7 +46,8 @@ public class TargetRememberLastLabel extends Pipe {
 		this.offset = offset;
   }
 
-  public Instance pipe(Instance carrier)
+  @Override
+public Instance pipe(Instance carrier)
   {
     LabelSequence lblseq = (LabelSequence) carrier.getTarget ();
     Labels[] lbls = new Labels [lblseq.size()];

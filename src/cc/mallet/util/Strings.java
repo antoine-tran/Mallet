@@ -7,8 +7,6 @@
 
 package cc.mallet.util;
 
-import java.util.Arrays;
-
 /**
  *  Static utility methods for Strings
  */

@@ -126,11 +126,13 @@ public class InstanceList extends ArrayList<Instance> implements Serializable, I
 	}
 
 	private static class NotYetSetPipe extends Pipe	{
+		@Override
 		public Instance pipe (Instance carrier)	{
 			throw new UnsupportedOperationException (
 					"The InstanceList has yet to have its pipe set; "+
 			"this could happen by calling InstanceList.add(InstanceList)");
 		}
+		@Override
 		public Object readResolve () throws ObjectStreamException	{
 			return notYetSetPipe;
 		}
@@ -226,12 +228,14 @@ public class InstanceList extends ArrayList<Instance> implements Serializable, I
 		return ret;
 	}
 	
+	@Override
 	public Object clone ()
 	{
 		return shallowClone();
 	}
 	
 	
+	@Override
 	public InstanceList subList (int start, int end)
 	{
 		InstanceList other = this.cloneEmpty();
@@ -314,6 +318,7 @@ public class InstanceList extends ArrayList<Instance> implements Serializable, I
 	 * The alphabets of this Instance must match the alphabets of this InstanceList.
 	 * @return <code>true</code>
 	 */
+	@Override
 	public boolean add (Instance instance)
 	{
 		if (dataAlphabet == null)
@@ -376,16 +381,19 @@ public class InstanceList extends ArrayList<Instance> implements Serializable, I
 			instWeights.remove(instance);
 	}
   
+	@Override
 	public Instance set (int index, Instance instance) {
 		prepareToRemove(get(index));
 		return super.set (index, instance);
   }
 	
-  public void add (int index, Instance element) {
+  @Override
+public void add (int index, Instance element) {
   	throw new IllegalStateException ("Not yet implemented.");
   }
   
-  public Instance remove (int index) {
+  @Override
+public Instance remove (int index) {
   	prepareToRemove (get(index));
   	return super.remove(index);
   }
@@ -395,17 +403,20 @@ public class InstanceList extends ArrayList<Instance> implements Serializable, I
   	return super.remove(instance);
   }
   
-  public boolean addAll (Collection<? extends Instance> instances) {
+  @Override
+public boolean addAll (Collection<? extends Instance> instances) {
   	for (Instance instance : instances)
   		this.add (instance);
   	return true;
   }
   
-  public boolean addAll(int index, Collection <? extends Instance> c) {
+  @Override
+public boolean addAll(int index, Collection <? extends Instance> c) {
   	throw new IllegalStateException ("addAll(int,Collection) not supported by InstanceList.n");
   }
   
-  public void clear() {
+  @Override
+public void clear() {
   	super.clear();
   	instWeights.clear();
   	// But retain all other instance variables.
@@ -883,6 +894,7 @@ public InstanceList[] splitInOrder (double[] proportions) {
 			this (_nfolds, 1);
 		}
 
+		@Override
 		public boolean hasNext () { return index < nfolds; }
 
 		/**
@@ -930,7 +942,9 @@ public InstanceList[] splitInOrder (double[] proportions) {
 			return ret;
 		}
 
+		@Override
 		public InstanceList[] next () { return nextSplit(); }		
+		@Override
 		public void remove () { throw new UnsupportedOperationException(); }
 	}
 
@@ -976,10 +990,12 @@ public InstanceList[] splitInOrder (double[] proportions) {
 		return targetAlphabet;
 	}
 	
+	@Override
 	public Alphabet getAlphabet () {
 		return getDataAlphabet();
 	}
 	
+	@Override
 	public Alphabet[] getAlphabets () {
 		return new Alphabet[] {getDataAlphabet(), getTargetAlphabet() };
 	}

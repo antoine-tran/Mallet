@@ -8,7 +8,6 @@
 package cc.mallet.topics;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.util.Iterator;
@@ -290,7 +289,7 @@ public class ParallelTopicModel implements Serializable {
 
 		for (TopicAssignment document: data) {
 			FeatureSequence tokens = (FeatureSequence) document.instance.getData();
-			FeatureSequence topicSequence =  (FeatureSequence) document.topicSequence;
+			FeatureSequence topicSequence =  document.topicSequence;
 
 			int[] topics = topicSequence.getFeatures();
 			for (int position = 0; position < tokens.size(); position++) {
@@ -347,7 +346,7 @@ public class ParallelTopicModel implements Serializable {
 		for (TopicAssignment document : data) {
 
 			FeatureSequence tokens = (FeatureSequence) document.instance.getData();
-			FeatureSequence topicSequence =  (FeatureSequence) document.topicSequence;
+			FeatureSequence topicSequence =  document.topicSequence;
 
 			int[] topics = topicSequence.getFeatures();
 			for (int position = 0; position < tokens.size(); position++) {
@@ -955,7 +954,7 @@ public class ParallelTopicModel implements Serializable {
 				FeatureSequence tokenSequence =
 					(FeatureSequence) data.get(doc).instance.getData();
 				LabelSequence topicSequence =
-					(LabelSequence) data.get(doc).topicSequence;
+					data.get(doc).topicSequence;
 				
 				int[] oneDocTopics = topicSequence.getFeatures();
 
@@ -1497,7 +1496,7 @@ public class ParallelTopicModel implements Serializable {
 		int docLen;
 		int[] topicCounts = new int[numTopics];
 		for (int doc = 0; doc < data.size(); doc++) {
-			LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence = data.get(doc).topicSequence;
 			int[] currentDocTopics = topicSequence.getFeatures();
 
 			StringBuilder builder = new StringBuilder();
@@ -1554,7 +1553,7 @@ public class ParallelTopicModel implements Serializable {
 		}
 
 		for (int doc = 0; doc < data.size(); doc++) {
-			LabelSequence topicSequence = (LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence = data.get(doc).topicSequence;
 			int[] currentDocTopics = topicSequence.getFeatures();
 
 			StringBuilder builder = new StringBuilder();
@@ -1800,7 +1799,7 @@ public class ParallelTopicModel implements Serializable {
 
 		for (int doc = 0; doc < data.size(); doc++) {
 			FeatureSequence tokenSequence =	(FeatureSequence) data.get(doc).instance.getData();
-			LabelSequence topicSequence =	(LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence =	data.get(doc).topicSequence;
 
 			String source = "NA";
 			if (data.get(doc).instance.getSource() != null) {
@@ -1857,7 +1856,7 @@ public class ParallelTopicModel implements Serializable {
 		}
 	
 		for (int doc=0; doc < data.size(); doc++) {
-			LabelSequence topicSequence =	(LabelSequence) data.get(doc).topicSequence;
+			LabelSequence topicSequence =	data.get(doc).topicSequence;
 
 			docTopics = topicSequence.getFeatures();
 

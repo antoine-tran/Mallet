@@ -183,7 +183,8 @@ public class CRFTrainerByPR extends TransducerTrainer implements TransducerTrain
   	return qValue;
   }
 
-  public Optimizer getOptimizer() {
+  @Override
+public Optimizer getOptimizer() {
     return bfgs;
   }
 }

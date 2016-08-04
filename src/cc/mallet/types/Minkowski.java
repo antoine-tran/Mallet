@@ -43,7 +43,8 @@ public class Minkowski implements Metric {
      *
      *  distance(x,y) := \left( \Sum_i=0^d-1 \left| x_i - y_i \right|^q \right)^\frac{1}{q}
      */
-    public double distance( SparseVector a, SparseVector b) {
+    @Override
+	public double distance( SparseVector a, SparseVector b) {
 		double dist = 0;
 		double diff;
 		

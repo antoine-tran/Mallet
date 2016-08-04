@@ -25,6 +25,7 @@ public class ProgressMessageLogFormatter extends SimpleFormatter
 		super();
 	}
 
+	@Override
 	public String format (LogRecord record) {
 		int length = record.getMessage().length();
 		if (record instanceof ProgressMessageLogRecord){

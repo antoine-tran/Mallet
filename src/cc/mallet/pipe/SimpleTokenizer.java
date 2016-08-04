@@ -85,6 +85,7 @@ public class SimpleTokenizer extends Pipe {
 		stoplist.add(word);
 	}
 
+	@Override
 	public Instance pipe(Instance instance) {
 			
 		int underscoreCodePoint = Character.codePointAt("_", 0);

@@ -46,7 +46,9 @@ public class GradientAscent implements Optimizer
 		lineMaximizer = new BackTrackLineSearch(function);
 	}
 
+	@Override
 	public Optimizable getOptimizable () { return this.optimizable; }
+	@Override
 	public boolean isConverged () { return converged; }
 
 	
@@ -93,11 +95,13 @@ public class GradientAscent implements Optimizer
     this.stpmax = stpmax;
   }
 
+	@Override
 	public boolean optimize ()
 	{
 		return optimize (maxIterations);
 	}
 
+	@Override
 	public boolean optimize (int numIterations)
 	{
 		int iterations;

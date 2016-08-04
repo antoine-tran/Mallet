@@ -15,12 +15,8 @@
 package cc.mallet.pipe.tests;
 
 import junit.framework.*;
-import java.util.ArrayList;
-import java.util.regex.*;
-
 import cc.mallet.pipe.*;
 import cc.mallet.pipe.iterator.*;
-import cc.mallet.pipe.tsf.*;
 import cc.mallet.types.*;
 
 public class TestSGML2TokenSequence extends TestCase
@@ -52,6 +48,7 @@ public class TestSGML2TokenSequence extends TestCase
 
 	public static class Array2ArrayIterator extends Pipe
 	{
+		@Override
 		public Instance pipe (Instance carrier) {
 			carrier.setData(new ArrayIterator ((Object[])carrier.getData()));
 			return carrier;
@@ -84,6 +81,7 @@ public class TestSGML2TokenSequence extends TestCase
 		return new TestSuite (TestSGML2TokenSequence.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

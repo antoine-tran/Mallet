@@ -14,7 +14,6 @@ package cc.mallet.fst.confidence;
 import java.util.*;
 
 import cc.mallet.fst.*;
-import cc.mallet.types.*;
 
 /** Randomly assigns values between 0-1 to the confidence of a {@link
  * Segment}. Used as baseline to compare with other methods.
@@ -35,6 +34,7 @@ public class RandomConfidenceEstimator extends TransducerConfidenceEstimator
 	/**
 		 Randomly generate the confidence in the tagging of a {@link Segment}.
 	 */
+	@Override
 	public double estimateConfidenceFor (Segment segment, SumLatticeDefault cachedLattice) {
 		return generator.nextDouble();
 	}

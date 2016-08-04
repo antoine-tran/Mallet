@@ -95,6 +95,7 @@ public class TrieLexiconMembership extends Pipe implements Serializable {
 		this(lexiconFile.getName(), lexiconFile, true);
 	}
 
+	@Override
 	public Instance pipe(Instance carrier) {
 		TokenSequence ts = (TokenSequence) carrier.getData();
 		lexicon.addFeatures(ts);

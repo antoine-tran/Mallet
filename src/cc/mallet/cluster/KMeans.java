@@ -131,7 +131,7 @@ public class KMeans extends Clusterer {
     int instClust;
     double instClustDist, instDist;
     double deltaMeans = Double.MAX_VALUE;
-    double deltaPoints = (double) instances.size();
+    double deltaPoints = instances.size();
     int iterations = 0;
     SparseVector clusterMean;
 

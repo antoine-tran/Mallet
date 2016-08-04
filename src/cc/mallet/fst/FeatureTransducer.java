@@ -85,11 +85,14 @@ public class FeatureTransducer extends Transducer
 									 weights, destinationNames);
 	}
 
+	@Override
 	public int numStates () { return states.size(); }
 
+	@Override
 	public Transducer.State getState (int index) {
 		return states.get(index); }
 	
+	@Override
 	public Iterator<State> initialStateIterator () { return initialStates.iterator (); }
 
 	public boolean isTrainable () { return trainable; }
@@ -171,10 +174,15 @@ public class FeatureTransducer extends Transducer
 			}
 		}
 		
+		@Override
 		public Transducer getTransducer () { return transducer; } 
+		@Override
 		public double getInitialWeight () { return initialWeight; }
+		@Override
 		public double getFinalWeight () { return finalWeight; }
+		@Override
 		public void setInitialWeight (double v) { initialWeight = v; }
+		@Override
 		public void setFinalWeight (double v) { finalWeight = v; }
 
 		private void setTrainable (boolean f)
@@ -197,8 +205,10 @@ public class FeatureTransducer extends Transducer
 				transitionCounts.reset();
 		}
 
+		@Override
 		public int getIndex () { return index; }
 
+		@Override
 		public Transducer.TransitionIterator transitionIterator (Sequence input,
 																														 int inputPosition,
 																														 Sequence output,
@@ -211,6 +221,7 @@ public class FeatureTransducer extends Transducer
       return transitionIterator (input, inputPosition);
 		}
 
+		@Override
 		public Transducer.TransitionIterator transitionIterator (Sequence inputSequence,
 																														 int inputPosition)
 		{
@@ -233,11 +244,13 @@ public class FeatureTransducer extends Transducer
 			return new TransitionIterator (this, input);
 		}
 		
+		@Override
 		public Transducer.TransitionIterator transitionIterator ()
 		{
 			return new TransitionIterator (this);
 		}
 
+		@Override
 		public String getName ()
 		{
 			return name;
@@ -301,6 +314,7 @@ public class FeatureTransducer extends Transducer
 			this.transition = (Transition) source.input2transitions.get (input);
 		}
 
+		@Override
 		public boolean hasNext ()
 		{
 			if (index >= -1) {
@@ -310,6 +324,7 @@ public class FeatureTransducer extends Transducer
       return (index == -2 ? transition != null : transition.nextWithSameInput != null);
 		};
 
+		@Override
 		public Transducer.State nextState ()
 		{
 			if (index >= -1)
@@ -321,11 +336,17 @@ public class FeatureTransducer extends Transducer
 			return transition.getDestinationState();
 		}
 
+		@Override
 		public int getIndex () { return index; }
+		@Override
 		public Object getInput () { return inputAlphabet.lookupObject(transition.input); }
+		@Override
 		public Object getOutput () { return outputAlphabet.lookupObject(transition.output); }
+		@Override
 		public double getWeight () { return transition.weight; }
+		@Override
 		public Transducer.State getSourceState () { return source; }
+		@Override
 		public Transducer.State getDestinationState () {
 			return transition.getDestinationState ();	}
 

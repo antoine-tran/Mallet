@@ -1,8 +1,6 @@
 package cc.mallet.share.upenn.ner;
 
 
-import java.util.*;
-
 import cc.mallet.pipe.*;
 import cc.mallet.types.*;
 import cc.mallet.util.*;
@@ -20,7 +18,8 @@ public class FeatureWindow extends Pipe implements java.io.Serializable {
         this.right = right;
     }
 
-    public Instance pipe (Instance carrier) {
+    @Override
+	public Instance pipe (Instance carrier) {
         TokenSequence seq = (TokenSequence)carrier.getData();
         TObjectDoubleHashMap[] original = new TObjectDoubleHashMap[seq.size()];
         for (int i=0; i<seq.size(); i++) {

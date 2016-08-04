@@ -15,9 +15,6 @@ import java.util.logging.*;
 import java.io.*;
 
 import cc.mallet.classify.*;
-import cc.mallet.pipe.*;
-import cc.mallet.pipe.iterator.*;
-import cc.mallet.types.*;
 import cc.mallet.util.*;
 /**
  * Diagnostic facilities for a classifier.

@@ -19,7 +19,6 @@ import junit.framework.*;
 import java.io.IOException;
 import java.util.Arrays;
 
-import cc.mallet.types.DenseVector;
 import cc.mallet.types.IndexedSparseVector;
 import cc.mallet.types.SparseVector;
 
@@ -214,7 +213,8 @@ public class TestIndexedSparseVector extends TestCase
     return new TestSuite (TestIndexedSparseVector.class);
   }
 
-  protected void setUp ()
+  @Override
+protected void setUp ()
   {
   }
 

@@ -19,7 +19,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import cc.mallet.pipe.Pipe;
-import cc.mallet.pipe.iterator.PipeInputIterator;
 import cc.mallet.types.Alphabet;
 import cc.mallet.types.LabelAlphabet;
 import cc.mallet.types.Instance;

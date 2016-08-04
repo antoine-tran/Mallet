@@ -13,11 +13,8 @@ package cc.mallet.pipe;
 
 import java.io.*;
 import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 import java.net.URI;
 import java.util.Iterator;
-import java.util.ArrayList;
-
 import cc.mallet.pipe.iterator.*;
 import cc.mallet.types.Instance;
 import cc.mallet.util.RegexFileFilter;
@@ -56,6 +53,7 @@ public class Directory2FileIterator extends Pipe
 		// Leave fileFilter == null
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		File directory = (File) carrier.getData();

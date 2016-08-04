@@ -51,6 +51,7 @@ public class TestFeatureSequence extends TestCase
 		return new TestSuite (TestFeatureSequence.class);
 	}
 
+	@Override
 	protected void setUp ()
 	{
 	}

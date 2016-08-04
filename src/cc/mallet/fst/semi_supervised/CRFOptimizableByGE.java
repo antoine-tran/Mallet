@@ -138,24 +138,29 @@ public class CRFOptimizableByGE implements Optimizable.ByGradientValue {
     }
   }
   
-  public int getNumParameters() {
+  @Override
+public int getNumParameters() {
     return crf.getNumParameters();
   }
 
-  public void getParameters(double[] buffer) {
+  @Override
+public void getParameters(double[] buffer) {
     crf.getParameters().getParameters(buffer);
   }
 
-  public double getParameter(int index) {
+  @Override
+public double getParameter(int index) {
     return crf.getParameters().getParameter(index);
   }
 
-  public void setParameters(double[] params) {
+  @Override
+public void setParameters(double[] params) {
     crf.getParameters().setParameters(params);
     crf.weightsValueChanged();
   }
 
-  public void setParameter(int index, double value) {
+  @Override
+public void setParameter(int index, double value) {
     crf.getParameters().setParameter(index, value);
     crf.weightsValueChanged();
   }
@@ -299,7 +304,8 @@ public class CRFOptimizableByGE implements Optimizable.ByGradientValue {
     this.gpv = variance;
   }
   
-  public void getValueGradient(double[] buffer) {
+  @Override
+public void getValueGradient(double[] buffer) {
     if (crf.getWeightsValueChangeStamp() != cache) {
       cacheValueAndGradient();
       cache = crf.getWeightsValueChangeStamp();
@@ -311,7 +317,8 @@ public class CRFOptimizableByGE implements Optimizable.ByGradientValue {
     }
   }
 
-  public double getValue() {
+  @Override
+public double getValue() {
     if (crf.getWeightsValueChangeStamp() != cache) {
       cacheValueAndGradient();
       cache = crf.getWeightsValueChangeStamp();
@@ -358,7 +365,8 @@ class SumLatticeTask implements Callable<Void> {
     return this.lattices;
   }
 
-  public Void call() throws Exception {
+  @Override
+public Void call() throws Exception {
     for (int ii = start; ii < end; ii++) {
       if (instancesWithConstraints.get(ii)) {
         Instance instance = data.get(ii);
@@ -420,7 +428,8 @@ class GELatticeTask implements Callable<Void> {
     return this.gradient;
   }
 
-  public Void call() throws Exception {
+  @Override
+public Void call() throws Exception {
     for (int ii = start; ii < end; ii++) {
       if (instancesWithConstraints.get(ii)) {
         SumLattice lattice = lattices.get(ii);

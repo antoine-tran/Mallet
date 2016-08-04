@@ -26,6 +26,7 @@ public class CharSequenceRemoveUUEncodedBlocks extends Pipe {
 	{
 	}
 
+	@Override
 	public Instance pipe (Instance carrier)
 	{
 		String string = ((CharSequence)carrier.getData()).toString();

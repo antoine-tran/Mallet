@@ -2,8 +2,6 @@ package cc.mallet.classify;
 
 import java.util.logging.Logger;
 
-import cc.mallet.fst.TransducerEvaluator;
-import cc.mallet.fst.TransducerTrainer;
 import cc.mallet.optimize.Optimizable;
 import cc.mallet.types.InstanceList;
 import cc.mallet.util.MalletLogger;

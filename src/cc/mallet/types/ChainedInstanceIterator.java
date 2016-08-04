@@ -16,8 +16,11 @@ public abstract class ChainedInstanceIterator implements Iterator<Instance> {
 		this.source = source;
 	}
 
+	@Override
 	public abstract Instance next ();
+	@Override
 	public abstract boolean hasNext ();
+	@Override
 	public void remove () { throw new IllegalStateException ("This Iterator<Instance> does not support remove()."); }
 
 

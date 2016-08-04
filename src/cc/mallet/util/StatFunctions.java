@@ -32,8 +32,6 @@ import java.util.logging.*;
   * * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   * * GNU General Public License for more details at http://www.gnu.org * * */
 
-import java.io.*;
-
 import cc.mallet.util.MalletLogger;
 
 public final class StatFunctions {

@@ -29,6 +29,7 @@ public class NormalizedDotProductMetric implements CachedMetric {
 		this.hash = new HashMap ();
 	}
 	
+	@Override
 	public double distance (SparseVector a, SparseVector b) {
 	    //		double ret = a.dotProduct (b) /
 	    //								 Math.sqrt (a.dotProduct (a) * b.dotProduct (b));
@@ -37,6 +38,7 @@ public class NormalizedDotProductMetric implements CachedMetric {
 	    return 1.0 - ret;
 	}
 
+	@Override
 	public double distance( SparseVector a, int hashCodeA,
 													SparseVector b, int hashCodeB) {		
 		Double cachedA = (Double) hash.get (new Integer (hashCodeA)); 

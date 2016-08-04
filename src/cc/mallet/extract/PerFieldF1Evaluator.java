@@ -9,7 +9,6 @@ package cc.mallet.extract;
 
 import java.io.PrintStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 
@@ -49,7 +48,8 @@ public class PerFieldF1Evaluator implements ExtractionEvaluator {
   }
 
 
-  public void evaluate (Extraction extraction)
+  @Override
+public void evaluate (Extraction extraction)
   {
     evaluate ("", extraction, System.out);
   }
