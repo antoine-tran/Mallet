@@ -103,6 +103,7 @@ public class FeatureVector extends SparseVector implements Serializable, Alphabe
 		this (dict, getObjectIndices(keys, dict, true), values);
 	}
 
+	@SuppressWarnings("unused")
 	private static int[] sortedFeatureIndexSequence (FeatureSequence fs)
 	{
 		int[] feats = fs.toFeatureIndexSequence ();
