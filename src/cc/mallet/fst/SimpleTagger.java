@@ -198,10 +198,10 @@ public class SimpleTagger {
 				for (int index = 0; index < featureIndices.size(); index++) {
 					int tmp = featureIndices.get(index);
 					featureIndicesArr[index] = tmp;
-					if (nonBinaryValues.containsKey(tmp)) {
+					if (nonBinaryValues.size() > 0 && nonBinaryValues.containsKey(tmp)) {
 						featureValArr[index] = nonBinaryValues.get(tmp);
 					}
-					else {
+					else if (nonBinaryValues.size() > 0) {
 						featureValArr[index] = 1.0d;
 					}
 				}
