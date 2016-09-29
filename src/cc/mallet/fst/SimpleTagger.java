@@ -208,6 +208,7 @@ public class SimpleTagger {
 				fvs[l] = featureInductionOption.value ? new AugmentableFeatureVector(features, featureIndicesArr, featureValArr, featureIndicesArr.length) : 
 					new FeatureVector(features, featureIndicesArr, featureValArr);
 			}
+						
 			carrier.setData(new FeatureVectorSequence(fvs));
 			if (isTargetProcessing()) {
 				carrier.setTarget(target);
